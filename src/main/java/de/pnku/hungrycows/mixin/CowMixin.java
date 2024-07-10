@@ -1,10 +1,7 @@
-package de.pnku.hungrycows.mixin;
+package com.pnku.hungrycows.mixin;
 
-import de.pnku.hungrycows.config.HungryCowsConfig;
-import de.pnku.hungrycows.item.PinkFoodComponents;
-import de.pnku.hungrycows.util.ICowEntity;
-import de.pnku.hungrycows.HungryCows;
-import net.minecraft.core.component.DataComponents;
+import com.pnku.hungrycows.config.HungryCowsConfig;
+import com.pnku.hungrycows.util.ICowEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,6 +25,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import static com.pnku.hungrycows.HungryCows.IS_MILKED;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
@@ -56,9 +55,9 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
 
         super.aiStep();
     }
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(HungryCows.IS_MILKED, (byte)0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_MILKED, (byte)0);
     }
 
     public void handleEntityEvent(byte status) {
@@ -78,12 +77,6 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
         } else {
             return this.eatGrassTimer < 4 ? ((float)this.eatGrassTimer - delta) / 4.0F : -((float)(this.eatGrassTimer - 40) - delta) / 4.0F;
         }
-    }
-
-    // Cows should not be sheared.
-    @Override
-    public boolean readyForShearing() {
-        return false;
     }
 
     @Unique
@@ -110,13 +103,13 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     }
     @Unique
     public boolean isMilked() {
-        return ((Byte)this.entityData.get(HungryCows.IS_MILKED)) != 0;
+        return ((Byte)this.entityData.get(IS_MILKED)) != 0;
     }
     @Unique
     public void setMilked(boolean isMilked) {
         byte isMilkedByte = isMilked ? (byte) 1 : (byte) 0;
 
-        this.entityData.set(HungryCows.IS_MILKED, isMilkedByte);
+        this.entityData.set(IS_MILKED, isMilkedByte);
     }
 
     public void ate() {
@@ -128,13 +121,12 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     }
 
     static {
-        HungryCows.IS_MILKED = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.BYTE);
+        IS_MILKED = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.BYTE);
     }
 
     @Unique
     public ItemStack getEdibleMilk(){
         ItemStack edibleMilk = new ItemStack(Items.MILK_BUCKET);
-        edibleMilk.set(DataComponents.FOOD, PinkFoodComponents.MILK_BUCKET);
 
         return edibleMilk;
     }
