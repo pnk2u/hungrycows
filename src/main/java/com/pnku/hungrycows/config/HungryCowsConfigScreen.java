@@ -15,7 +15,6 @@ public class HungryCowsConfigScreen implements ModMenuApi {
                 .setSavingRunnable(() -> HungryCowsConfigJsonHelper.writeToConfig());
 
         ConfigCategory cow = configBuilder.getOrCreateCategory(Component.translatable("config.category.hungrycows.cow"));
-        ConfigCategory milk = configBuilder.getOrCreateCategory(Component.translatable("config.category.hungrycows.milk"));
 
         cow.addEntry(configBuilder.entryBuilder()
                 .startFloatField(Component.translatable("config.cow_option.hungrycows.grasseat_probability"), HungryCowsConfig.getInstance().getGrassEatProbability())
@@ -25,24 +24,6 @@ public class HungryCowsConfigScreen implements ModMenuApi {
                 .setSaveConsumer(grassEatProbabilityFloat -> {
                     HungryCowsConfig.getInstance().setGrassEatProbability(grassEatProbabilityFloat);})
                 .setTooltip(Component.translatable("config.cow_option.hungrycows.grasseat_probability"))
-                .build());
-        milk.addEntry(configBuilder.entryBuilder()
-                .startIntField(Component.translatable("config.milk_option.hungrycows.milk_nutrition"), HungryCowsConfig.getInstance().getMilkNutritionValue())
-                .setDefaultValue(6)
-                .setMin(0)
-                .setMax(20)
-                .setSaveConsumer(milkNutritionValueInt -> {
-                    HungryCowsConfig.getInstance().setMilkNutritionValue(milkNutritionValueInt);})
-                .setTooltip(Component.translatable("config.milk_option.hungrycows.milk_nutrition.tooltip"))
-                .build());
-        milk.addEntry(configBuilder.entryBuilder()
-                .startFloatField(Component.translatable("config.milk_option.hungrycows.milk_saturation"), HungryCowsConfig.getInstance().getMilkSaturationModifier())
-                .setDefaultValue(1.2f)
-                .setMin(0.0f)
-                .setMax(2.0f)
-                .setSaveConsumer(milkSaturationModifierFloat -> {
-                    HungryCowsConfig.getInstance().setMilkSaturationModifier(milkSaturationModifierFloat);})
-                .setTooltip(Component.translatable("config.milk_option.hungrycows.milk_saturation.tooltip"))
                 .build());
         return configBuilder;
 

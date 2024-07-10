@@ -1,9 +1,7 @@
 package com.pnku.hungrycows.mixin;
 
 import com.pnku.hungrycows.config.HungryCowsConfig;
-import com.pnku.hungrycows.item.PinkFoodComponents;
 import com.pnku.hungrycows.util.ICowEntity;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -57,9 +55,9 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
 
         super.aiStep();
     }
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(IS_MILKED, (byte)0);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_MILKED, (byte)0);
     }
 
     public void handleEntityEvent(byte status) {
@@ -129,7 +127,6 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Unique
     public ItemStack getEdibleMilk(){
         ItemStack edibleMilk = new ItemStack(Items.MILK_BUCKET);
-        edibleMilk.set(DataComponents.FOOD, PinkFoodComponents.MILK_BUCKET);
 
         return edibleMilk;
     }
