@@ -1,7 +1,7 @@
-package com.pnku.hungrycows.mixin;
+package de.pnku.hungrycows.mixin;
 
-import com.pnku.hungrycows.config.HungryCowsConfig;
-import com.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.config.HungryCowsConfig;
+import de.pnku.hungrycows.util.ICowEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static com.pnku.hungrycows.HungryCows.IS_MILKED;
+import static de.pnku.hungrycows.HungryCows.IS_MILKED;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
