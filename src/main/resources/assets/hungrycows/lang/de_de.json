@@ -1,0 +1,14 @@
+{
+  "hungrycows.milkable.0": "Hat gegessen und kann gemolken werden.",
+  "hungrycows.milkable.1": "Hungrig und kann noch nicht gemolken werden",
+  "title.hungrycows.config": "Einstellungen - Hungry Cows",
+  "config.category.hungrycows.cow": "Kuh",
+  "config.category.hungrycows.milk": "Milch",
+  "config.cow_option.hungrycows.grasseat_probability": "Wahrscheinlichkeit",
+  "config.cow_option.hungrycows.grasseat_probability.tooltip": "Die Wahrscheinlichkeit, dass eine Kuh Grass frisst, um ihre milchgebenden Fähigkeiten zu regenerieren. Werte von 0 (sehr unwahrscheinlich) bis 3 (Höchstwert) sind einsetzbar, der voreingestellte Wert ist 1.0, was dafür sorgt, dass eine Kuh circa ein bis zweimal pro Tag frisst.",
+  "config.milk_option.hungrycows.milk_nutrition": "Nahrung",
+  "config.milk_option.hungrycows.milk_nutrition.tooltip": "Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (2 Punkte pro \"Fleischkeule\". Die Werte von regulärem Essen gehen von 1 (wie Rote Bete oder Getrockneter Seetang) bis 8 (wie Steak oder Kürbiskuchen).",
+  "config.milk_option.hungrycows.milk_saturation": "Sättigung",
+  "config.milk_option.hungrycows.milk_saturation.tooltip": "Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert. Die Werte von regulärem Essen gehen von 0.1 (wie Roher Fisch, Kekse oder Beeren) bis 1.2 (wie sowohl Goldene Äpfel und Goldene Karotten).",
+  "config.jade.plugin_hungrycows.milkable": "MELKBAR"
+}
