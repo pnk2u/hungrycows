@@ -8,10 +8,13 @@
 		"pnku"
 	],
 	"contact": {
-		"sources": "https://github.com/pnk2u/hungrycows"
+		"email": "contact@pnku.de",
+		"homepage": "https://pnku.de",
+		"sources": "https://github.com/pnk2u/hungrycows",
+		"issues": "https://github.com/pnk2u/hungrycows/issues"
 	},
 	"license": "MIT",
-	"icon": "assets/hungrycows/icon.png",
+	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
