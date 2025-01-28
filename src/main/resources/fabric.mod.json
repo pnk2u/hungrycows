@@ -3,7 +3,7 @@
 	"id": "hungrycows",
 	"version": "${version}",
 	"name": "Hungry Cows",
-	"description": "Making cows eat grass to regenerate their milk giving abilities and making that milk fills the player's stomach. ",
+	"description": "Making cows eat grass to regenerate their milk giving abilities and letting milk reduce the player's hunger. ",
 	"authors": [
 		"pnku"
 	],
@@ -25,9 +25,6 @@
 		],
 		"jade": [
 			"de.pnku.hungrycows.jade.HungryCowsPlugin"
-		],
-		"modmenu": [
-			"de.pnku.hungrycows.config.HungryCowsConfigScreen"
 		]
 	},
 	"accessWidener": "hungrycows.accesswidener",

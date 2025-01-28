@@ -1,24 +1,217 @@
 {
   "hungrycows.milkable.0": "Has eaten and can be milked.",
   "hungrycows.milkable.1": "Hungry and can't be milked yet.",
-  "title.hungrycows.config": "Configuration of Hungry Cows",
-  "config.category.hungrycows.cow": "Cow settings",
-  "config.category.hungrycows.milk": "Milk settings",
-  "config.cow_option.hungrycows.grasseat_probability": "Probability (Eating)",
-  "config.cow_option.hungrycows.grasseat_probability.tooltip": "The probability that a cow eats grass to regenerate its milk giving ability. Ranges from 0 (very unlikely) to 3 (the maximum), the default value is 1.0 which makes the cow eat about once to twice a day.",
-  "config.cow_option.hungrycows.grasseat_growth": "",
-  "config.cow_option.hungrycows.grasseat_growth.tooltip": "",
-  "config.cow_option.hungrycows.grasseat_heal_cow": "",
-  "config.cow_option.hungrycows.grasseat_heal_cow.tooltip": "",
-  "config.cow_option.hungrycows.grasseat_heal_sheep": "",
-  "config.cow_option.hungrycows.grasseat_heal_sheep.tooltip": "",
-  "config.cow_option.cowfood_eat_milkability_regain": "",
-  "config.cow_option.cowfood_eat_milkability_regain.tooltip": "",
-  "config.cow_option.hungrycows.hide_milkable_model": "",
-  "config.cow_option.hungrycows.hide_milkable_model.tooltip": "",
-  "config.milk_option.hungrycows.milk_nutrition": "Hunger",
-  "config.milk_option.hungrycows.milk_nutrition.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points. The values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
-  "config.milk_option.hungrycows.milk_saturation": "Saturation",
-  "config.milk_option.hungrycows.milk_saturation.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting. The values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like both Golden Apples and the Golden Carrot).",
+  "text.config.hungrycows.title": [
+    {
+      "text": "Hungry Cows",
+      "color": "#FF0066"
+    }
+  ],
+  "text.config.hungrycows.section.CowSettings": [
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    {
+      "text": "/",
+      "color": "#A12345"
+    },
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    {
+      "text": " Settings",
+      "color": "#A12345"
+    }
+  ],
+  "text.config.hungrycows.section.MilkSettings": [
+    {
+      "text": "Milk Settings",
+      "color": "#FFFFFF"
+    }
+  ],
+  "text.config.hungrycows.category.blockEatSettings": [
+    "Block (",
+    {
+      "text": "Grass",
+      "color": "#43663A"
+    },
+    "/",
+    {
+      "text": "Mycelium",
+      "color": "#706366"
+    },
+  ") Eating"
+  ],
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability": "Probability of Eating Blocks",
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
+    "The probability that a ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " eats a block of ",
+    {
+      "text": "Grass",
+      "color": "#43663A"
+    },
+    "/",
+    {
+      "text": "Mycelium",
+      "color": "#706366"
+    },
+    " to regenerate its milk giving ability.\nRanges from 0 (very unlikely) to 3 (the maximum), the default value is 1.0 which makes the ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " eat about once to twice a day."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount": "Baby Growth Amount from Eating Blocks",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
+    "How many seconds faster a baby ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " grows up after having eaten a block of ",
+    {
+      "text": "Grass",
+      "color": "#43663A"
+    },
+    "/",
+    {
+      "text": "Mycelium",
+      "color": "#706366"
+    },
+    ".\nBy default (the same value Sheep use), this is 60 seconds or 5% of the total time (20 minutes) it takes it to grow up."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount": "Healing from Eating Blocks",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
+    "How many health points a ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " regains by eating a block of ",
+    {
+      "text": "Grass",
+      "color": "#43663A"
+    },
+    "/",
+    {
+      "text": "Mycelium",
+      "color": "#706366"
+    },
+    ".\nBy default this value is 1 health point (half a heart) which is 10% of the total amount of health (10) a ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " has."
+  ],
+  "text.config.hungrycows.category.milkabilitySettings": "Milkability",
+  "text.config.hungrycows.category.milkabilitySettings.tooltip": [
+    "These settings apply to both ",
+    {
+      "text": "Cows",
+      "color": "#6F373B"
+    },
+    " and ",
+    {
+      "text": "Mooshrooms",
+      "color": "#A8212E"
+    },
+    " whereas the latter are milkable both for Milk with a Bucket and for Mushroom Stew with a Bowl.\nBoth share the same Stat so each time a Mooshroom eats, you can either milk her for Milk or for Mushroom Stew, not both."
+  ],
+  "text.config.hungrycows.option.milkabilitySettings.averageFoodForMilkabilityRegainAmount": "Fed Items Required for Milkability Regain",
+  "text.config.hungrycows.option.milkabilitySettings.averageFoodForMilkabilityRegainAmount.tooltip": [
+    "This amount is an average.\nIf the value is 1.0 it will always take one Item of the vanilla \"cow_food\" Tag (by default, this is just Wheat) to let ",
+    {
+      "text": "Cows",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshrooms",
+      "color": "#A8212E"
+    },
+    " be milked again.\nIf the value is higher it will take this amount of Items on average."
+  ],
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Show Custom Milkable Model/Texture",
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
+    "This feature allows you to visually distinguish milkable ",
+    {
+      "text": "Cows",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshrooms",
+      "color": "#A8212E"
+    },
+    " from those that can't be milked yet without the use of \"Jade\".\nWhen the ",
+    {
+      "text": "Cow",
+      "color": "#6F373B"
+    },
+    "/",
+    {
+      "text": "Mooshroom",
+      "color": "#A8212E"
+    },
+    " is milkable the model increases the size and details of the udder,\nthe texture changes the ",
+    {
+      "text": "color of an udder",
+      "color": "#f7afaf"
+    },
+    " to this ",
+    {
+      "text": "color of a milkable Udder",
+      "color": "#e58f8f"
+    },
+    "."
+  ],
+  "text.config.hungrycows.enum.mCDO.hide_none": "Show Model & Texture",
+  "text.config.hungrycows.enum.mCDO.hide_model": "Show Only Texture",
+  "text.config.hungrycows.enum.mCDO.hide_texture_and_model": "Show Neither",
+  "text.config.hungrycows.category.sheepSettings": "Sheep (Parity)",
+  "text.config.hungrycows.category.sheepSettings.tooltip": "These settings exist for parity as they refer to features that aren't adapted from Sheep themselves.\nIf set to \"Enabled\" Sheep use the feature with the same values set above for Cows.",
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Healing from Eating Blocks (Sheep)",
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health as Cows by eating a block of Grass.\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Healing from Being Fed Food (Sheep)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health as Cows by being fed an item of the vanilla \"sheep_food\" Tag (by default, this is just Wheat).\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Regrowing Wool from Being Fed Food (Sheep)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": "If \"Enabled\" Sheep can also regrow their wool for the same average amount of items of the vanilla \"sheep_food\" Tag (by default, this is just Wheat) as Cows need to regain Milkability.\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regrowing Wool by being fed at all.",
+  "text.config.hungrycows.option.milkNutritionValue": "Fill Hunger",
+  "text.config.hungrycows.option.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
+  "text.config.hungrycows.option.milkSaturationModifier": "Restore Saturation",
+  "text.config.hungrycows.option.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
   "config.jade.plugin_hungrycows.milkable": "MILKABLE"
 }

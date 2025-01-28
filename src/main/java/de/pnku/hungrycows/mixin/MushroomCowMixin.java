@@ -1,7 +1,6 @@
 package de.pnku.hungrycows.mixin;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.config.HungryCowsConfig;
 import de.pnku.hungrycows.entity.ai.EatMyceliumBlockGoal;
 import de.pnku.hungrycows.util.ICowEntity;
 import net.minecraft.core.component.DataComponents;
@@ -27,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static de.pnku.hungrycows.HungryCows.IS_MILKED_MOOSHROOM;
+import static de.pnku.hungrycows.HungryCows.blockEatSettings;
 
 @Mixin(MushroomCow.class)
 public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType> {
@@ -61,7 +60,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.mushroomCowEatMyceliumGoal = new EatMyceliumBlockGoal(this);
-        this.goalSelector.addGoal(HungryCowsConfig.getInstance().getGrassEatPriority(), this.mushroomCowEatMyceliumGoal);
+        this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.mushroomCowEatMyceliumGoal);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package de.pnku.hungrycows.mixin;
 
-import de.pnku.hungrycows.config.HungryCowsConfig;
 import de.pnku.hungrycows.item.PinkFoodComponents;
 import de.pnku.hungrycows.util.ICowEntity;
 import de.pnku.hungrycows.HungryCows;
@@ -32,6 +31,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
+import static de.pnku.hungrycows.HungryCows.blockEatSettings;
+import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
+
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Unique
@@ -40,8 +42,6 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     private int eatGrassTimer;
     @Unique
     Cow thisCow = (Cow) (Object) this;
-    @Unique
-    private HungryCowsConfig config = HungryCowsConfig.getInstance();
 
     public CowMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
@@ -49,7 +49,7 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Inject(method = "registerGoals", at = @At("HEAD"))
     protected void injectedRegisterGoals(CallbackInfo info) {
         this.cowEatGrassGoal = new EatBlockGoal(this);
-        this.goalSelector.addGoal(config.getGrassEatPriority(), this.cowEatGrassGoal);
+        this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.cowEatGrassGoal);
     }
 
     protected void customServerAiStep() {
@@ -132,10 +132,10 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
         super.ate();
         this.hungrycows$setMilked(false);
         if (this.isBaby()) {
-            this.ageUp(config.getCowBlockEatGrowthAmount());
+            this.ageUp(blockEatSettings.cowBlockEatGrowthAmount());
         }
         if (this.getHealth() < this.getMaxHealth()){
-            this.heal(config.getCowBlockEatHealAmount());
+            this.heal(blockEatSettings.cowBlockEatHealAmount());
         }
     }
 
@@ -155,7 +155,7 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.is(ItemTags.COW_FOOD) && this.hungrycows$isMilked() && !this.getType().equals(EntityType.MOOSHROOM)) {
-            Random rand = new Random(); int n = rand.nextInt((int)(config.getAverageFoodForMilkabilityRegainAmount() * 10F)) + 1;
+            Random rand = new Random(); int n = rand.nextInt((int)(milkabilitySettings.averageFoodForMilkabilityRegainAmount() * 10F)) + 1;
             if (n <= 10) {
                 ((ICowEntity) this).hungrycows$setMilked(false);
             }
