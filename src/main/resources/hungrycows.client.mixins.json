@@ -1,10 +1,11 @@
 {
-  "required": true,
-  "package": "com.pnku.hungrycows.mixin.client" ,
-  "compatibilityLevel": "JAVA_17",
+  "required": true ,
+  "package": "de.pnku.hungrycows.mixin.client" ,
+  "compatibilityLevel": "JAVA_17" ,
   "client": [
-    "CowModelMixin"
-  ],
+    "renderer.CowRendererMixin",
+    "renderer.MushroomCowRendererMixin"
+  ] ,
   "injectors": {
     "defaultRequire": 1
   }

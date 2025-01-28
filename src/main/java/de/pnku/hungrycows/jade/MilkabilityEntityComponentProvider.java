@@ -18,7 +18,7 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
             ITooltip tooltip,
             EntityAccessor accessor,
             IPluginConfig config) {
-        int milkability = accessor.getEntity().getEntityData().get(HungryCows.IS_MILKED);
+        int milkability = accessor.getEntity().getEntityData().get(HungryCows.IS_MILKED) + accessor.getEntity().getEntityData().get(HungryCows.IS_MILKED_MOOSHROOM);
         tooltip.add(Component.translatable("hungrycows.milkable." + milkability));
     }
     @Override

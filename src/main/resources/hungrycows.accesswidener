@@ -1,0 +1,5 @@
+accessWidener v1 named
+
+accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
+accessible field net/minecraft/world/entity/animal/MushroomCow stewEffects Lnet/minecraft/world/item/component/SuspiciousStewEffects;
+accessible method net/minecraft/world/entity/animal/MushroomCow getOffspringType (Lnet/minecraft/world/entity/animal/MushroomCow;)Lnet/minecraft/world/entity/animal/MushroomCow$MushroomType;

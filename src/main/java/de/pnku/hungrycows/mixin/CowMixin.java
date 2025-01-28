@@ -1,11 +1,12 @@
 package de.pnku.hungrycows.mixin;
 
-import de.pnku.hungrycows.config.HungryCowsConfig;
+import de.pnku.hungrycows.config.HungryCowsOwoConfig;
 import de.pnku.hungrycows.util.ICowEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,7 +27,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.IS_MILKED;
+import java.util.Random;
+
+import static de.pnku.hungrycows.HungryCows.*;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
@@ -34,6 +37,8 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     private EatBlockGoal cowEatGrassGoal;
     @Unique
     private int eatGrassTimer;
+    @Unique
+    Cow thisCow = (Cow) (Object) this;
 
     public CowMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
@@ -41,15 +46,17 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Inject(method = "registerGoals", at = @At("HEAD"))
     protected void injectedRegisterGoals(CallbackInfo info) {
         this.cowEatGrassGoal = new EatBlockGoal(this);
-        this.goalSelector.addGoal(HungryCowsConfig.getInstance().getGrassEatPriority(), this.cowEatGrassGoal);
+        this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.cowEatGrassGoal);
     }
 
     protected void customServerAiStep() {
-        this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
+        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
+            this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
+        }
         super.customServerAiStep();
     }
     public void aiStep() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide && !thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
         }
 
@@ -90,23 +97,23 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     }
 
     @Unique
-    public boolean isMilkable() { return this.isAlive() && !this.isMilked() && !this.isBaby();
+    public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putBoolean("Milked", this.isMilked());
+        nbt.putBoolean("Milked", this.hungrycows$isMilked());
     }
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.setMilked(nbt.getBoolean("Milked"));
+        this.hungrycows$setMilked(nbt.getBoolean("Milked"));
     }
     @Unique
-    public boolean isMilked() {
+    public boolean hungrycows$isMilked() {
         return ((Byte)this.entityData.get(IS_MILKED)) != 0;
     }
     @Unique
-    public void setMilked(boolean isMilked) {
+    public void hungrycows$setMilked(boolean isMilked) {
         byte isMilkedByte = isMilked ? (byte) 1 : (byte) 0;
 
         this.entityData.set(IS_MILKED, isMilkedByte);
@@ -114,9 +121,12 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
 
     public void ate() {
         super.ate();
-        this.setMilked(false);
+        this.hungrycows$setMilked(false);
         if (this.isBaby()) {
-            this.ageUp(60);
+            this.ageUp(blockEatSettings.cowBlockEatGrowthAmount());
+        }
+        if (this.getHealth() < this.getMaxHealth()){
+            this.heal(blockEatSettings.cowBlockEatHealAmount());
         }
     }
 
@@ -134,10 +144,21 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
+        if (itemStack.is(ItemTags.COW_FOOD) && this.hungrycows$isMilked() && !this.getType().equals(EntityType.MOOSHROOM)) {
+            Random rand = new Random(); int n = rand.nextInt((int)(milkabilitySettings.averageFoodForMilkabilityRegainAmount() * 10F)) + 1;
+            if (n <= 10) {
+                ((ICowEntity) this).hungrycows$setMilked(false);
+            }
+            itemStack.consume(1, player);
+            if (this.getHealth() < this.getMaxHealth()) {
+                this.heal(2.0F);
+            }
+            this.playSound(SoundEvents.MOOSHROOM_EAT, 1.15F, 0.85F);
+        }
         if (itemStack.is(Items.BUCKET)){
-            if (!this.isBaby() && this.isMilkable()) {
-                this.setMilked(true);
-                player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.317F, 3.17F);
+            if (!this.isBaby() && this.hungrycows$isMilkable()) {
+                this.hungrycows$setMilked(true);
+                player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
                 player.playSound(SoundEvents.COW_MILK, 1.317F, 1.237F);
                 ItemStack itemStackMilk = ItemUtils.createFilledResult(itemStack, player, getEdibleMilk());
                 player.setItemInHand(hand, itemStackMilk);
