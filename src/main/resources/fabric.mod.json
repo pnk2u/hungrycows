@@ -30,10 +30,15 @@
 			"de.pnku.hungrycows.config.HungryCowsConfigScreen"
 		]
 	},
+	"accessWidener": "hungrycows.accesswidener",
 	"mixins": [
 		"hungrycows.mixins.json",
 		{
-			"config": "hungrycows.client.mixins.json",
+			"config": "hungrycows.client.mixins.json" ,
+			"environment": "client"
+		},
+		{
+			"config": "hungrycows.client.model.mixins.json" ,
 			"environment": "client"
 		}
 	],
