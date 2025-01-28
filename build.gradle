@@ -1,9 +1,9 @@
 plugins {
-	id 'fabric-loom' version '1.8-SNAPSHOT'
+	id 'fabric-loom' version '1.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
-version = project.mod_version += "-" + project.minecraft_version
+version = project.mod_version
 group = project.maven_group
 
 base {
@@ -21,7 +21,7 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
-	maven { url "https://maven.shedaniel.me/" }
+	maven { url "https://maven.wispforest.io"}
 	maven {
 		name = "Terraformers"
 		url = "https://maven.terraformersmc.com/"
@@ -35,6 +35,7 @@ loom {
 		"hungrycows" {
 		}
 	}
+	accessWidenerPath = file("src/main/resources/hungrycows.accesswidener")
 
 }
 
@@ -49,15 +50,16 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	// Jade
-	modCompileOnly "curse.maven:jade-324717:${jade_id}"
-	// Cloth Config
-	modApi ("me.shedaniel.cloth:cloth-config-fabric:${project.clothconfig_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
+	modApi "curse.maven:jade-324717:${jade_id}"
+	// owo
+	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
 	// Mod Menu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 	
 }
+
+sourceSets.main.java.srcDirs += [ 'src/main/generatedJava' ]
+compileJava.options.generatedSourceOutputDirectory = file("${projectDir}/src/main/generatedJava/de/pnku/hungrycows/config")
 
 processResources {
 	inputs.property "version", project.version
@@ -72,11 +74,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
-
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 }
@@ -91,7 +88,7 @@ jar {
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
+			artifactId = project.archives_base_name + "+" + project.minecraft_version
 			from components.java
 		}
 	}

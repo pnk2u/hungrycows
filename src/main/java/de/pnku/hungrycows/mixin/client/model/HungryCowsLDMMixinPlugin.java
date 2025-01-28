@@ -1,4 +1,4 @@
-package de.pnku.hungrycows.mixin.client;
+package de.pnku.hungrycows.mixin.client.model;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class HungryCowsMixinPlugin implements IMixinConfigPlugin {
+public class HungryCowsLDMMixinPlugin implements IMixinConfigPlugin {
     public static final Logger LOGGER = LoggerFactory.getLogger("hungrycowsmixinplugin");
     public static Boolean isLDMLoaded = false;
 
