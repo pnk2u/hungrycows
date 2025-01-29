@@ -1,0 +1,12 @@
+{
+  "plugin": "de.pnku.hungrycows.mixin.client.model.HungryCowsLDMMixinPlugin" ,
+  "required": false ,
+  "package": "de.pnku.hungrycows.mixin.client.model" ,
+  "compatibilityLevel": "JAVA_21" ,
+  "client": [
+    "CowModelMixin"
+  ] ,
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

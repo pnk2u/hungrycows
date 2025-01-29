@@ -1,8 +1,9 @@
 package de.pnku.hungrycows.item;
 
-import de.pnku.hungrycows.config.HungryCowsConfig;
 import net.minecraft.world.food.FoodProperties;
 
+import static de.pnku.hungrycows.HungryCows.CONFIG;
+
 public class PinkFoodComponents {
-    public static final FoodProperties MILK_BUCKET = new FoodProperties.Builder().nutrition(HungryCowsConfig.getInstance().getMilkNutritionValue()).saturationModifier(HungryCowsConfig.getInstance().getMilkSaturationModifier()).alwaysEdible().build();
+    public static final FoodProperties MILK_BUCKET = new FoodProperties.Builder().nutrition(CONFIG.milkNutritionValue()).saturationModifier(CONFIG.milkSaturationModifier()).alwaysEdible().build();
 }

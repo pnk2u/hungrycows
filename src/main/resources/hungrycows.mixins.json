@@ -3,9 +3,11 @@
 	"package": "de.pnku.hungrycows.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"CowMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+      "CowMixin",
+      "MushroomCowMixin" ,
+      "SheepMixin"
+    ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }
