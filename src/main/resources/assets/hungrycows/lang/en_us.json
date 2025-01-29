@@ -29,6 +29,11 @@
     {
       "text": "Milk Settings",
       "color": "#FFFFFF"
+    },
+    " ",
+    {
+      "text": "(!)",
+      "color": "#FF0000"
     }
   ],
   "text.config.hungrycows.category.blockEatSettings": [
@@ -209,9 +214,11 @@
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health as Cows by being fed an item of the vanilla \"sheep_food\" Tag (by default, this is just Wheat).\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Regrowing Wool from Being Fed Food (Sheep)",
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": "If \"Enabled\" Sheep can also regrow their wool for the same average amount of items of the vanilla \"sheep_food\" Tag (by default, this is just Wheat) as Cows need to regain Milkability.\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regrowing Wool by being fed at all.",
-  "text.config.hungrycows.option.milkNutritionValue": "Fill Hunger",
-  "text.config.hungrycows.option.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
-  "text.config.hungrycows.option.milkSaturationModifier": "Restore Saturation",
-  "text.config.hungrycows.option.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
+  "text.config.hungrycows.category.milkSettings": "(!)",
+  "text.config.hungrycows.category.milkSettings.tooltip": "There would be settings here if 1.20.1 had Food Components,\nbut since it doesn't, I recommend installing Serilum's \"Nutritious Milk\" mod to achieve the same functionality.\nAll other features and settings are unaffected.",
+  "text.config.hungrycows.option.milkSettings.milkNutritionValue": "Fill Hunger (!)",
+  "text.config.hungrycows.option.milkSettings.milkNutritionValue.tooltip": "In this version (1.20.1), this setting doesn't do anything.\nAmount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
+  "text.config.hungrycows.option.milkSettings.milkSaturationModifier": "Restore Saturation (!)",
+  "text.config.hungrycows.option.milkSettings.milkSaturationModifier.tooltip": "In this version (1.20.1), this setting doesn't do anything.\nThis refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
   "config.jade.plugin_hungrycows.milkable": "MILKABLE"
 }

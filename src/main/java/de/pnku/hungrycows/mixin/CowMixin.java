@@ -1,12 +1,13 @@
 package de.pnku.hungrycows.mixin;
 
-import de.pnku.hungrycows.config.HungryCowsOwoConfig;
 import de.pnku.hungrycows.util.ICowEntity;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemUtils;
@@ -30,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Random;
 
 import static de.pnku.hungrycows.HungryCows.*;
+import static net.minecraft.resources.ResourceLocation.DEFAULT_NAMESPACE;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
@@ -39,6 +42,10 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     private int eatGrassTimer;
     @Unique
     Cow thisCow = (Cow) (Object) this;
+    @Unique
+    public final TagKey<Item> hungrycows$COW_FOOD() {
+        return TagKey.create(Registries.ITEM, new ResourceLocation(DEFAULT_NAMESPACE, "cow_food"));
+    }
 
     public CowMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
@@ -144,12 +151,12 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.COW_FOOD) && this.hungrycows$isMilked() && !this.getType().equals(EntityType.MOOSHROOM)) {
+        if (itemStack.is(hungrycows$COW_FOOD()) && this.hungrycows$isMilked() && !this.getType().equals(EntityType.MOOSHROOM)) {
             Random rand = new Random(); int n = rand.nextInt((int)(milkabilitySettings.averageFoodForMilkabilityRegainAmount() * 10F)) + 1;
             if (n <= 10) {
                 ((ICowEntity) this).hungrycows$setMilked(false);
             }
-            itemStack.consume(1, player);
+            itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
             if (this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
             }

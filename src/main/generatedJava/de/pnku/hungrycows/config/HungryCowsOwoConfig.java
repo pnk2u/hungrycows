@@ -21,8 +21,8 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
     private final Option<java.lang.Boolean> sheepSettings_isSheepBlockEatToHeal = this.optionForKey(this.keys.sheepSettings_isSheepBlockEatToHeal);
     private final Option<java.lang.Boolean> sheepSettings_isSheepFeedToHeal = this.optionForKey(this.keys.sheepSettings_isSheepFeedToHeal);
     private final Option<java.lang.Boolean> sheepSettings_isSheepFeedToRegrowWool = this.optionForKey(this.keys.sheepSettings_isSheepFeedToRegrowWool);
-    private final Option<java.lang.Integer> milkNutritionValue = this.optionForKey(this.keys.milkNutritionValue);
-    private final Option<java.lang.Float> milkSaturationModifier = this.optionForKey(this.keys.milkSaturationModifier);
+    private final Option<java.lang.Integer> milkSettings_milkNutritionValue = this.optionForKey(this.keys.milkSettings_milkNutritionValue);
+    private final Option<java.lang.Float> milkSettings_milkSaturationModifier = this.optionForKey(this.keys.milkSettings_milkSaturationModifier);
 
     private HungryCowsOwoConfig() {
         super(de.pnku.hungrycows.config.HungryCowsConfigModel.class);
@@ -117,22 +117,25 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         }
 
     }
-    public int milkNutritionValue() {
-        return milkNutritionValue.value();
-    }
+    public final MilkSettings_ milkSettings = new MilkSettings_();
+    public class MilkSettings_ implements MilkSettings {
+        public int milkNutritionValue() {
+            return milkSettings_milkNutritionValue.value();
+        }
 
-    public void milkNutritionValue(int value) {
-        milkNutritionValue.set(value);
-    }
+        public void milkNutritionValue(int value) {
+            milkSettings_milkNutritionValue.set(value);
+        }
 
-    public float milkSaturationModifier() {
-        return milkSaturationModifier.value();
-    }
+        public float milkSaturationModifier() {
+            return milkSettings_milkSaturationModifier.value();
+        }
 
-    public void milkSaturationModifier(float value) {
-        milkSaturationModifier.set(value);
-    }
+        public void milkSaturationModifier(float value) {
+            milkSettings_milkSaturationModifier.set(value);
+        }
 
+    }
     public interface BlockEatSettings {
         float grassEatProbability();
         void grassEatProbability(float value);
@@ -155,6 +158,12 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         boolean isSheepFeedToRegrowWool();
         void isSheepFeedToRegrowWool(boolean value);
     }
+    public interface MilkSettings {
+        int milkNutritionValue();
+        void milkNutritionValue(int value);
+        float milkSaturationModifier();
+        void milkSaturationModifier(float value);
+    }
     public static class Keys {
         public final Option.Key blockEatSettings_grassEatProbability = new Option.Key("blockEatSettings.grassEatProbability");
         public final Option.Key blockEatSettings_cowBlockEatGrowthAmount = new Option.Key("blockEatSettings.cowBlockEatGrowthAmount");
@@ -164,8 +173,8 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         public final Option.Key sheepSettings_isSheepBlockEatToHeal = new Option.Key("sheepSettings.isSheepBlockEatToHeal");
         public final Option.Key sheepSettings_isSheepFeedToHeal = new Option.Key("sheepSettings.isSheepFeedToHeal");
         public final Option.Key sheepSettings_isSheepFeedToRegrowWool = new Option.Key("sheepSettings.isSheepFeedToRegrowWool");
-        public final Option.Key milkNutritionValue = new Option.Key("milkNutritionValue");
-        public final Option.Key milkSaturationModifier = new Option.Key("milkSaturationModifier");
+        public final Option.Key milkSettings_milkNutritionValue = new Option.Key("milkSettings.milkNutritionValue");
+        public final Option.Key milkSettings_milkSaturationModifier = new Option.Key("milkSettings.milkSaturationModifier");
     }
 }
 

@@ -27,7 +27,7 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
 
     @Override
     public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","milkable");
+        return new ResourceLocation("hungrycows","milkable");
     }
 
 }

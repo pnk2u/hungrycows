@@ -51,10 +51,14 @@ public class HungryCowsConfigModel {
 
     @SectionHeader("MilkSettings")
 
-    @RangeConstraint(min = 0, max = 20)
-    public int milkNutritionValue = 6;
+    @Nest
+    public MilkSettings milkSettings = new MilkSettings();
+    public static class MilkSettings {
+        @RangeConstraint(min = -1, max = 0)
+        public int milkNutritionValue = 0;
 
-    @RangeConstraint(min = 0.0,  max = 2.0, decimalPlaces = 1)
-    public float milkSaturationModifier = 1.2F;
+        @RangeConstraint(min = -1.0, max = 0.0, decimalPlaces = 1)
+        public float milkSaturationModifier = 0.0F;
+    }
 
 }
