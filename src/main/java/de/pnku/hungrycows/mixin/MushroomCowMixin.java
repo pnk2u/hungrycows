@@ -14,10 +14,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Shearable;
-import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
@@ -37,7 +34,7 @@ import static de.pnku.hungrycows.HungryCows.IS_MILKED_MOOSHROOM;
 import static de.pnku.hungrycows.HungryCows.blockEatSettings;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType> {
+public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.Variant> {
     public MushroomCowMixin(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
     }
@@ -64,9 +61,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     }
 
     @Override
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel level) {
         this.eatMyceliumTimer = this.mushroomCowEatMyceliumGoal.getEatAnimationTick();
-        super.customServerAiStep();
+        super.customServerAiStep(level);
     }
 
     @Override
@@ -111,7 +108,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (((itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.stewEffects == null) || itemStack.is(ItemTags.COW_FOOD)) && this.hungrycows$isMilked()) {
+        if (((itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.Variant.BROWN) && mushroomCow.stewEffects == null) || itemStack.is(ItemTags.COW_FOOD)) && this.hungrycows$isMilked()) {
             ((ICowEntity) mushroomCow).hungrycows$setMilked(false);
             if (itemStack.is(ItemTags.COW_FOOD)) {
                 itemStack.consume(1, player);
@@ -147,7 +144,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
                 }
 
                 this.playSound(soundEvent, 1.0F, 1.0F);
-                cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+                cir.setReturnValue(InteractionResult.SUCCESS);
             } else {
                 cir.setReturnValue(InteractionResult.PASS);
             }
@@ -183,9 +180,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
     @Override
     public MushroomCow getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        MushroomCow mushroomCow = (MushroomCow)EntityType.MOOSHROOM.create(level);
+        MushroomCow mushroomCow = (MushroomCow)EntityType.MOOSHROOM.create(level, EntitySpawnReason.BREEDING);
         if (mushroomCow != null) {
-            mushroomCow.setVariant(mushroomCow.getOffspringType((MushroomCow)otherParent));
+            mushroomCow.setVariant(mushroomCow.getOffspringVariant((MushroomCow)otherParent));
         }
 
         return mushroomCow;

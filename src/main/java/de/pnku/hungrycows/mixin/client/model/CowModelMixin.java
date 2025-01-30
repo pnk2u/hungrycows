@@ -1,11 +1,15 @@
 package de.pnku.hungrycows.mixin.client.model;
 
+import de.pnku.hungrycows.renderer.HungryCowRenderState;
 import de.pnku.hungrycows.util.ICowEntity;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.MushroomCowRenderState;
+import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,9 +20,9 @@ import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
 import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_NONE;
 
 @Mixin(CowModel.class)
-public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.animal.Cow> extends QuadrupedModel<Cow> {
-    public CowModelMixin(ModelPart root, boolean headScaled, float childHeadYOffset, float childHeadZOffset, float invertedChildHeadScale, float invertedChildBodyScale, int childBodyYOffset) {
-        super(root, headScaled, childHeadYOffset, childHeadZOffset, invertedChildHeadScale, invertedChildBodyScale, childBodyYOffset);
+public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.animal.Cow> extends QuadrupedModel<LivingEntityRenderState> {
+    public CowModelMixin(ModelPart root) {
+        super(root);
     }
 
     @Inject(method = "createBodyLayer", at = @At("HEAD"), cancellable = true)
@@ -60,19 +64,23 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
         }
     }
 
-    @Unique
-    private float headAngle;
-
     @Override
-    public void prepareMobModel(Cow cowEntity, float limbAngle, float limbDistance, float tickDelta) {
-        super.prepareMobModel(cowEntity, limbAngle, limbDistance, tickDelta);
-        this.head.y = 6.0F + ((ICowEntity) cowEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
-        this.headAngle = ((ICowEntity) cowEntity).hungrycows$getHeadAngle(tickDelta);
-    }
-
-    @Override
-    public void setupAnim(Cow cowEntity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        super.setupAnim(cowEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-        this.head.xRot = this.headAngle;
+    public void setupAnim(LivingEntityRenderState livingEntityRenderState) {
+        if (!(livingEntityRenderState instanceof MushroomCowRenderState)) {
+            HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) livingEntityRenderState;
+            super.setupAnim(hungryCowRenderState);
+            this.head.y = this.head.y + hungryCowRenderState.neckAngle * 9.0F * hungryCowRenderState.ageScale;
+            this.head.xRot = hungryCowRenderState.headAngle;
+        } else {
+            super.setupAnim(livingEntityRenderState);
+            this.head.xRot = livingEntityRenderState.xRot * ((float)Math.PI / 180F);
+            this.head.yRot = livingEntityRenderState.yRot * ((float)Math.PI / 180F);
+            float f = livingEntityRenderState.walkAnimationPos;
+            float g = livingEntityRenderState.walkAnimationSpeed;
+            this.rightHindLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
+            this.leftHindLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
+            this.rightFrontLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
+            this.leftFrontLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
+        }
     }
 }

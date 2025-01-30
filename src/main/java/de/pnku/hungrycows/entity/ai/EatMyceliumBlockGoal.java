@@ -1,6 +1,7 @@
 package de.pnku.hungrycows.entity.ai;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -61,7 +62,7 @@ public class EatMyceliumBlockGoal extends Goal {
             BlockPos blockPos = this.mob.blockPosition();
             BlockPos blockPos2 = blockPos.below();
             if (this.level.getBlockState(blockPos2).is(Blocks.MYCELIUM)) {
-                if (this.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
+                if (((ServerLevel)this.level).getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
                     this.level.levelEvent(2001, blockPos2, Block.getId(Blocks.MYCELIUM.defaultBlockState()));
                     this.level.setBlock(blockPos2, Blocks.DIRT.defaultBlockState(), 2);
                 }

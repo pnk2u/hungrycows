@@ -2,6 +2,7 @@ package de.pnku.hungrycows.config;
 
 import blue.endless.jankson.Jankson;
 import io.wispforest.owo.config.ConfigWrapper;
+import io.wispforest.owo.config.ConfigWrapper.BuilderConsumer;
 import io.wispforest.owo.config.Option;
 import io.wispforest.owo.util.Observable;
 
@@ -28,8 +29,8 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         super(de.pnku.hungrycows.config.HungryCowsConfigModel.class);
     }
 
-    private HungryCowsOwoConfig(Consumer<Jankson.Builder> janksonBuilder) {
-        super(de.pnku.hungrycows.config.HungryCowsConfigModel.class, janksonBuilder);
+    private HungryCowsOwoConfig(BuilderConsumer consumer) {
+        super(de.pnku.hungrycows.config.HungryCowsConfigModel.class, consumer);
     }
 
     public static HungryCowsOwoConfig createAndLoad() {
@@ -38,8 +39,8 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         return wrapper;
     }
 
-    public static HungryCowsOwoConfig createAndLoad(Consumer<Jankson.Builder> janksonBuilder) {
-        var wrapper = new HungryCowsOwoConfig(janksonBuilder);
+    public static HungryCowsOwoConfig createAndLoad(BuilderConsumer consumer) {
+        var wrapper = new HungryCowsOwoConfig(consumer);
         wrapper.load();
         return wrapper;
     }

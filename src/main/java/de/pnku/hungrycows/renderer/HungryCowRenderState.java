@@ -8,4 +8,5 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 public class HungryCowRenderState extends LivingEntityRenderState {
     public float headAngle;
     public float neckAngle;
+    public boolean isMilkable;
 }

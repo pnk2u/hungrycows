@@ -7,6 +7,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -52,11 +53,11 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
         this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.cowEatGrassGoal);
     }
 
-    protected void customServerAiStep(ServerLevel serverLevel) {
+    protected void customServerAiStep(ServerLevel level) {
         if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
         }
-        super.customServerAiStep(serverLevel);
+        super.customServerAiStep(level);
     }
     public void aiStep() {
         if (this.level().isClientSide && !thisCow.getType().equals(EntityType.MOOSHROOM)) {
