@@ -29,11 +29,8 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
         boolean isMooshroom = entity.getType().equals(EntityType.MOOSHROOM);
         boolean isSheep = entity.getType().equals(EntityType.SHEEP);
         if ((isCow || isMooshroom || (isSheep && HungryCows.sheepSettings.isSheepFeedToRegrowWool())) && HungryCows.milkabilitySettings.averageFoodForMilkabilityRegainAmount() > 0) {
-            boolean isCowMilked = entity.getEntityData().get(HungryCows.IS_MILKED) > 0;
-            boolean isMooshroomMilked = entity.getEntityData().get(HungryCows.IS_MILKED_MOOSHROOM) > 0;
-            boolean isSheepSheared = ((Byte)entity.getEntityData().get(Sheep.DATA_WOOL_ID) & 16) != 0;
             hasBeenFedManuallyTimer = !entity.getType().equals(EntityType.SHEEP) ? ((ICowEntity) entity).hungrycows$getCowHasBeenFedManuallyTimer() : ((ICowEntity) entity).hungrycows$getSheepHasBeenFedManuallyTimer();
-            boolean canBeHungry = (isCow ? isCowMilked : (isMooshroom ? isMooshroomMilked : isSheepSheared));
+            boolean canBeHungry = (isCow ? entity.getEntityData().get(HungryCows.IS_MILKED) > 0 : (isMooshroom ? entity.getEntityData().get(HungryCows.IS_MILKED_MOOSHROOM) > 0 : ((Byte)entity.getEntityData().get(Sheep.DATA_WOOL_ID) & 16) != 0));
             if (hasBeenFedManuallyTimer > 0 && canBeHungry) {
                 boolean canBeFed = (hasBeenFedManuallyTimer == 1);
                 tooltip.add(Component.translatable("hungrycows.feedable." + canBeFed + (canBeFed ? (isCow ? ".cow" : (isMooshroom ? ".mooshroom" : ".sheep")) : ""), IThemeHelper.get().seconds(hasBeenFedManuallyTimer, accessor.tickRate())));
