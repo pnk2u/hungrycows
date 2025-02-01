@@ -33,11 +33,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.IS_MILKED_MOOSHROOM;
-import static de.pnku.hungrycows.HungryCows.blockEatSettings;
+import static de.pnku.hungrycows.HungryCows.*;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType> {
+public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType>, ICowEntity {
     public MushroomCowMixin(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
     }
@@ -48,6 +47,13 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     private int eatMyceliumTimer;
     @Unique
     MushroomCow mushroomCow = (MushroomCow) (Object) this;
+    @Unique
+    protected int hasBeenFedManuallyTimer;
+
+    @Unique
+    public boolean hungrycows$isMooshroom(){
+        return true;
+    }
 
     @Override
     protected void registerGoals() {
@@ -66,14 +72,14 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Override
     protected void customServerAiStep() {
         this.eatMyceliumTimer = this.mushroomCowEatMyceliumGoal.getEatAnimationTick();
+        this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
         super.customServerAiStep();
     }
 
     @Override
     public void aiStep() {
-        if (this.level().isClientSide) {
-            this.eatMyceliumTimer = Math.max(0, this.eatMyceliumTimer - 1);
-        }
+        this.eatMyceliumTimer = Math.max(0, this.eatMyceliumTimer - 1);
+        this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
 
         super.aiStep();
     }
@@ -111,15 +117,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (((itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.stewEffects == null) || itemStack.is(ItemTags.COW_FOOD)) && this.hungrycows$isMilked()) {
+        if (itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.stewEffects == null) {
             ((ICowEntity) mushroomCow).hungrycows$setMilked(false);
-            if (itemStack.is(ItemTags.COW_FOOD)) {
-                itemStack.consume(1, player);
-                if (this.getHealth() < this.getMaxHealth()) {
-                    this.heal(2.0F);
-                }
-                this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
-            }
+            this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
         }
         if (itemStack.is(Items.BOWL)) {
             if (((ICowEntity) mushroomCow).hungrycows$isMilkable()) {
@@ -158,6 +158,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void injectedDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
             builder.define(IS_MILKED_MOOSHROOM, (byte)0);
+            builder.define(UNMILK_MOOSHROOM_FLAG, false);
     }
 
     @Unique
@@ -169,6 +170,10 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         byte isMilkedByte = isMilked ? (byte) 1 : (byte) 0;
 
         this.entityData.set(HungryCows.IS_MILKED_MOOSHROOM, isMilkedByte);
+    }
+
+    @Unique
+    public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
@@ -193,6 +198,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
     static {
         IS_MILKED_MOOSHROOM = SynchedEntityData.defineId(MushroomCowMixin.class, EntityDataSerializers.BYTE);
+        UNMILK_MOOSHROOM_FLAG = SynchedEntityData.defineId(MushroomCowMixin.class, EntityDataSerializers.BOOLEAN);
     }
 
 }
