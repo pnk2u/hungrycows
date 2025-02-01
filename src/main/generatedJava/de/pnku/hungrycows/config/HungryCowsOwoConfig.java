@@ -18,6 +18,7 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
     private final Option<java.lang.Integer> blockEatSettings_cowBlockEatGrowthAmount = this.optionForKey(this.keys.blockEatSettings_cowBlockEatGrowthAmount);
     private final Option<java.lang.Integer> blockEatSettings_cowBlockEatHealAmount = this.optionForKey(this.keys.blockEatSettings_cowBlockEatHealAmount);
     private final Option<java.lang.Float> milkabilitySettings_averageFoodForMilkabilityRegainAmount = this.optionForKey(this.keys.milkabilitySettings_averageFoodForMilkabilityRegainAmount);
+    private final Option<java.lang.Integer> milkabilitySettings_secondsUntilFeedabilityRegain = this.optionForKey(this.keys.milkabilitySettings_secondsUntilFeedabilityRegain);
     private final Option<de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO> milkabilitySettings_milkableCowDisplayType = this.optionForKey(this.keys.milkabilitySettings_milkableCowDisplayType);
     private final Option<java.lang.Boolean> sheepSettings_isSheepBlockEatToHeal = this.optionForKey(this.keys.sheepSettings_isSheepBlockEatToHeal);
     private final Option<java.lang.Boolean> sheepSettings_isSheepFeedToHeal = this.optionForKey(this.keys.sheepSettings_isSheepFeedToHeal);
@@ -80,6 +81,14 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
 
         public void averageFoodForMilkabilityRegainAmount(float value) {
             milkabilitySettings_averageFoodForMilkabilityRegainAmount.set(value);
+        }
+
+        public int secondsUntilFeedabilityRegain() {
+            return milkabilitySettings_secondsUntilFeedabilityRegain.value();
+        }
+
+        public void secondsUntilFeedabilityRegain(int value) {
+            milkabilitySettings_secondsUntilFeedabilityRegain.set(value);
         }
 
         public de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO milkableCowDisplayType() {
@@ -145,6 +154,8 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
     public interface MilkabilitySettings {
         float averageFoodForMilkabilityRegainAmount();
         void averageFoodForMilkabilityRegainAmount(float value);
+        int secondsUntilFeedabilityRegain();
+        void secondsUntilFeedabilityRegain(int value);
         de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO milkableCowDisplayType();
         void milkableCowDisplayType(de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO value);
     }
@@ -161,6 +172,7 @@ public class HungryCowsOwoConfig extends ConfigWrapper<de.pnku.hungrycows.config
         public final Option.Key blockEatSettings_cowBlockEatGrowthAmount = new Option.Key("blockEatSettings.cowBlockEatGrowthAmount");
         public final Option.Key blockEatSettings_cowBlockEatHealAmount = new Option.Key("blockEatSettings.cowBlockEatHealAmount");
         public final Option.Key milkabilitySettings_averageFoodForMilkabilityRegainAmount = new Option.Key("milkabilitySettings.averageFoodForMilkabilityRegainAmount");
+        public final Option.Key milkabilitySettings_secondsUntilFeedabilityRegain = new Option.Key("milkabilitySettings.secondsUntilFeedabilityRegain");
         public final Option.Key milkabilitySettings_milkableCowDisplayType = new Option.Key("milkabilitySettings.milkableCowDisplayType");
         public final Option.Key sheepSettings_isSheepBlockEatToHeal = new Option.Key("sheepSettings.isSheepBlockEatToHeal");
         public final Option.Key sheepSettings_isSheepFeedToHeal = new Option.Key("sheepSettings.isSheepFeedToHeal");

@@ -2,4 +2,5 @@ accessWidener v1 named
 
 accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
 accessible field net/minecraft/world/entity/animal/MushroomCow stewEffects Lnet/minecraft/world/item/component/SuspiciousStewEffects;
+accessible field net/minecraft/world/entity/animal/Sheep DATA_WOOL_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible method net/minecraft/world/entity/animal/MushroomCow getOffspringVariant (Lnet/minecraft/world/entity/animal/MushroomCow;)Lnet/minecraft/world/entity/animal/MushroomCow$Variant;

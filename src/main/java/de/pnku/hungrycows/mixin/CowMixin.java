@@ -5,6 +5,7 @@ import de.pnku.hungrycows.util.ICowEntity;
 import de.pnku.hungrycows.HungryCows;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -32,8 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
-import static de.pnku.hungrycows.HungryCows.blockEatSettings;
-import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
+import static de.pnku.hungrycows.HungryCows.*;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
@@ -43,10 +43,18 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     private int eatGrassTimer;
     @Unique
     Cow thisCow = (Cow) (Object) this;
+    @Unique
+    protected int hasBeenFedManuallyTimer;
 
     public CowMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Unique
+    public boolean hungrycows$isMooshroom(){
+     return false;
+    }
+
     @Inject(method = "registerGoals", at = @At("HEAD"))
     protected void injectedRegisterGoals(CallbackInfo info) {
         this.cowEatGrassGoal = new EatBlockGoal(this);
@@ -56,12 +64,15 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     protected void customServerAiStep(ServerLevel level) {
         if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
+            this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
+
         }
         super.customServerAiStep(level);
     }
     public void aiStep() {
-        if (this.level().isClientSide && !thisCow.getType().equals(EntityType.MOOSHROOM)) {
+        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
+            this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
         }
 
         super.aiStep();
@@ -69,6 +80,8 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HungryCows.IS_MILKED, (byte)0);
+        builder.define(HungryCows.FED_TIMER, 0);
+        builder.define(UNMILK_FLAG, false);
     }
 
     public void handleEntityEvent(byte status) {
@@ -113,11 +126,26 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Milked", this.hungrycows$isMilked());
+        nbt.putInt("HasBeenFed", this.hungrycows$getCowHasBeenFedManuallyTimer());
     }
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.hungrycows$setMilked(nbt.getBoolean("Milked"));
+        this.hungrycows$setCowHasBeenFedManuallyTimer(nbt.getInt("HasBeenFed"));
     }
+
+    @Unique
+    public int hungrycows$getCowHasBeenFedManuallyTimer() {
+        this.hasBeenFedManuallyTimer = this.getEntityData().get(HungryCows.FED_TIMER);
+        return !this.isBaby() ? this.hasBeenFedManuallyTimer : 0;
+    }
+
+    @Unique
+    public void hungrycows$setCowHasBeenFedManuallyTimer(int time) {
+        this.hasBeenFedManuallyTimer = time;
+        this.getEntityData().set(HungryCows.FED_TIMER, time);
+    }
+
     @Unique
     public boolean hungrycows$isMilked() {
         return ((Byte)this.entityData.get(HungryCows.IS_MILKED)) != 0;
@@ -142,12 +170,15 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
 
     static {
         HungryCows.IS_MILKED = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.BYTE);
+        HungryCows.UNMILK_FLAG = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.BOOLEAN);
+        HungryCows.FED_TIMER = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.INT);
     }
 
     @Unique
     public ItemStack getEdibleMilk(){
         ItemStack edibleMilk = new ItemStack(Items.MILK_BUCKET);
         edibleMilk.set(DataComponents.FOOD, PinkFoodComponents.MILK_BUCKET);
+        edibleMilk.set(DataComponents.MAX_STACK_SIZE, 16);
 
         return edibleMilk;
     }
@@ -155,16 +186,43 @@ public abstract class CowMixin extends Animal implements Shearable, ICowEntity {
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.COW_FOOD) && this.hungrycows$isMilked() && !this.getType().equals(EntityType.MOOSHROOM)) {
-            Random rand = new Random(); int n = rand.nextInt((int)(milkabilitySettings.averageFoodForMilkabilityRegainAmount() * 10F)) + 1;
-            if (n <= 10) {
-                ((ICowEntity) this).hungrycows$setMilked(false);
+        if (itemStack.is(ItemTags.COW_FOOD)) {
+            boolean ate = false;
+            float f = milkabilitySettings.averageFoodForMilkabilityRegainAmount();
+            Random rand = new Random(); int n = (f < 1) ?
+                                                        (
+                                                                (f == 0) ? 11 : rand.nextInt(10) + 1
+                                                        ) : (
+                                                                rand.nextInt((int)(f * 10F)) + 1
+                                                        );
+            boolean isMooshroom = hungrycows$isMooshroom();
+            int s = hungrycows$getCowHasBeenFedManuallyTimer();
+            EntityDataAccessor<Boolean> unmilkFlagAccessor = isMooshroom ? UNMILK_MOOSHROOM_FLAG : UNMILK_FLAG;
+            boolean unmilkFlag = getEntityData().get(unmilkFlagAccessor);
+            boolean isMilked = hungrycows$isMilked();
+            boolean isClientSide = this.level().isClientSide;
+            boolean isServerLevel = this.level() instanceof ServerLevel;
+            int feedabilityRegainTime = milkabilitySettings.secondsUntilFeedabilityRegain() * 20;
+
+            if ((n <= 10 && isMilked && s <= 1 && isClientSide) || (unmilkFlag && isServerLevel)) {
+                hungrycows$setMilked(false);
+                hungrycows$setCowHasBeenFedManuallyTimer(feedabilityRegainTime);
+                if (!unmilkFlag) {
+                    ate = true;
+                    getEntityData().set(unmilkFlagAccessor, true);
+                } else {
+                    getEntityData().set(unmilkFlagAccessor, false);
+                }
             }
-            itemStack.consume(1, player);
+
             if (this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
+                ate = true;
             }
-            this.playSound(SoundEvents.MOOSHROOM_EAT, 1.15F, 0.85F);
+            if (ate && !(this.isFood(itemStack) && !this.level().isClientSide && this.getAge() == 0 && this.canFallInLove())) { // Checks for if the stack was used AND if it won't later be used to setInLove()
+                itemStack.consume(1, player);
+                this.playSound(SoundEvents.MOOSHROOM_EAT, 1.15F, 0.85F);
+            }
         }
         if (itemStack.is(Items.BUCKET)){
             if (!this.isBaby() && this.hungrycows$isMilkable()) {

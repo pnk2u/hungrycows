@@ -27,8 +27,7 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
         Entity entity = accessor.getEntity();
         boolean m = entity.getType().equals(EntityType.COW) && !entity.getType().equals(EntityType.MOOSHROOM) && ((ICowEntity) entity).hungrycows$isMilkable();
         boolean mm = !entity.getType().equals(EntityType.COW) && entity.getType().equals(EntityType.MOOSHROOM) && ((ICowEntity) entity).hungrycows$isMilkable();
-        int milkability = m || mm ? 0 : 1;
-        tooltip.add(Component.translatable("hungrycows.milkable." + milkability));
+        int milkability = m || mm ? 0 : 1;        tooltip.add(Component.translatable("hungrycows.milkable." + milkability));
     }
     @Override
     public void appendServerData(CompoundTag nbtCompound, EntityAccessor entityAccessor) {

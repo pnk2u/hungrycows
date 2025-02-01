@@ -31,6 +31,9 @@ public class HungryCowsConfigModel {
         @RangeConstraint(min = 0.0, max = 64.0, decimalPlaces = 1)
         public float averageFoodForMilkabilityRegainAmount = 1.0F;
 
+        @RangeConstraint(min = 0, max = 1200)
+        public int secondsUntilFeedabilityRegain = 300;
+
         public mCDO milkableCowDisplayType = mCDO.HIDE_NONE;
 
         public enum mCDO {

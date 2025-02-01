@@ -1,6 +1,4 @@
 {
-  "hungrycows.milkable.0": "Has eaten and can be milked.",
-  "hungrycows.milkable.1": "Hungry and can't be milked yet.",
   "text.config.hungrycows.title": [
     {
       "text": "Hungry Cows",
@@ -152,7 +150,7 @@
   ],
   "text.config.hungrycows.option.milkabilitySettings.averageFoodForMilkabilityRegainAmount": "Fed Items Required for Milkability Regain",
   "text.config.hungrycows.option.milkabilitySettings.averageFoodForMilkabilityRegainAmount.tooltip": [
-    "This amount is an average.\nIf the value is 1.0 it will always take one Item of the vanilla \"cow_food\" Tag (by default, this is just Wheat) to let ",
+    "If this value is 1.0 or lower¹, it will always take one Item of the vanilla \"cow_food\" Tag (by default, this is just Wheat) to let ",
     {
       "text": "Cows",
       "color": "#6F373B"
@@ -162,7 +160,7 @@
       "text": "Mooshrooms",
       "color": "#A8212E"
     },
-    " be milked again.\nIf the value is higher it will take this amount of Items on average."
+    " be milked again.\n¹Exception: If the value is exactly 0.0 the feature is disabled.\nIf the value is higher than 1.0 it will take this amount of Items on average."
   ],
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Show Custom Milkable Model/Texture",
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
@@ -206,12 +204,19 @@
   "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Healing from Eating Blocks (Sheep)",
   "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health as Cows by eating a block of Grass.\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Healing from Being Fed Food (Sheep)",
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health as Cows by being fed an item of the vanilla \"sheep_food\" Tag (by default, this is just Wheat).\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": "If \"Enabled\" Sheep regain the same amount of health (2) as Cows by being fed an item of the vanilla \"sheep_food\" Tag (by default, this is just Wheat).\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regaining health at all.",
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Regrowing Wool from Being Fed Food (Sheep)",
   "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": "If \"Enabled\" Sheep can also regrow their wool for the same average amount of items of the vanilla \"sheep_food\" Tag (by default, this is just Wheat) as Cows need to regain Milkability.\nIf \"Disabled\" Sheep revert to the vanilla behavior of not regrowing Wool by being fed at all.",
   "text.config.hungrycows.option.milkNutritionValue": "Fill Hunger",
   "text.config.hungrycows.option.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
   "text.config.hungrycows.option.milkSaturationModifier": "Restore Saturation",
   "text.config.hungrycows.option.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
-  "config.jade.plugin_hungrycows.milkable": "MILKABLE"
+  "config.jade.plugin_hungrycows.milkable": "MILKABLE",
+  "config.jade.plugin_hungrycows.feedable": "FEEDABLE",
+  "hungrycows.milkable.0": "Has eaten and can be milked.",
+  "hungrycows.milkable.1": "Hungry and can't be milked yet.",
+  "hungrycows.feedable.false": "Has been fed recently and can be fed again in %s.",
+  "hungrycows.feedable.true.cow": "Can be fed to allow the Cow to be milked again.",
+  "hungrycows.feedable.true.mooshroom": "Can be fed to allow the Mooshroom to be milked again.",
+  "hungrycows.feedable.true.sheep": "Can be fed to allow the Sheep to be sheared again."
 }
