@@ -1,6 +1,8 @@
 package de.pnku.hungrycows.util;
 
-public interface ICowEntity {
+import net.minecraft.world.item.ItemStack;
+
+public interface HungryCowsEntityInterface {
 
 float hungrycows$getNeckAngle(float delta);
 float hungrycows$getHeadAngle(float delta);
@@ -12,4 +14,7 @@ int hungrycows$getCowHasBeenFedManuallyTimer();
 void hungrycows$setCowHasBeenFedManuallyTimer(int time);
 int hungrycows$getSheepHasBeenFedManuallyTimer();
 void hungrycows$setSheepHasBeenFedManuallyTimer(int time);
+int hungrycows$getGoatHasBeenFedManuallyTimer();
+void hungrycows$setGoatHasBeenFedManuallyTimer(int time);
+ItemStack hungrycows$getEdibleMilk();
 }

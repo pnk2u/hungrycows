@@ -1,6 +1,6 @@
 package de.pnku.hungrycows.mixin.client.model;
 
-import de.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.QuadrupedModel;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
+import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.milkabilitySettings;
 import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_NONE;
 
 @Mixin(CowModel.class)
@@ -66,8 +66,8 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
     @Override
     public void prepareMobModel(Cow cowEntity, float limbAngle, float limbDistance, float tickDelta) {
         super.prepareMobModel(cowEntity, limbAngle, limbDistance, tickDelta);
-        this.head.y = 6.0F + ((ICowEntity) cowEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
-        this.headAngle = ((ICowEntity) cowEntity).hungrycows$getHeadAngle(tickDelta);
+        this.head.y = 6.0F + ((HungryCowsEntityInterface) cowEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
+        this.headAngle = ((HungryCowsEntityInterface) cowEntity).hungrycows$getHeadAngle(tickDelta);
     }
 
     @Override
