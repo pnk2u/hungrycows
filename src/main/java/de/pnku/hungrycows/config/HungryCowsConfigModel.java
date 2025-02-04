@@ -1,6 +1,10 @@
 package de.pnku.hungrycows.config;
 
 import io.wispforest.owo.config.annotation.*;
+import net.minecraft.resources.ResourceLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Modmenu(modId = "hungrycows")
 @Config(name = "hungrycows", wrapperName = "HungryCowsOwoConfig")
@@ -28,8 +32,34 @@ public class HungryCowsConfigModel {
     public MilkabilitySettings milkabilitySettings = new MilkabilitySettings();
     public static class MilkabilitySettings {
 
-        @RangeConstraint(min = 0.0, max = 64.0, decimalPlaces = 1)
-        public float averageFoodForMilkabilityRegainAmount = 1.0F;
+        @RangeConstraint(min = 0, max = 1200)
+        public int secondsUntilFeedabilityRegain = 300;
+
+        @Nest
+        public FeedSettings feedSettings = new FeedSettings();
+        public static class FeedSettings {
+            @PredicateConstraint("validateItemId")
+            public List<String> cowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+
+            @PredicateConstraint("validateItemId")
+            public List<String> mushroomCowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+
+            @PredicateConstraint("validateItemId")
+            public List<String> goatFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+
+            @PredicateConstraint("validateItemId")
+            public List<String> sheepFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+
+
+            public static boolean validateItemId(List<String> feedableItems) {
+                for (String itemId : feedableItems) {
+                    String itemNamespace = itemId.split(":")[0];
+                    String itemPath = itemId.split(":")[1];
+                    if (!ResourceLocation.isValidNamespace(itemNamespace) || !ResourceLocation.isValidPath(itemPath)) {return false;}
+                }
+                return true;
+            }
+        }
 
         public mCDO milkableCowDisplayType = mCDO.HIDE_NONE;
 
@@ -52,13 +82,33 @@ public class HungryCowsConfigModel {
     @SectionHeader("MilkSettings")
 
     @Nest
-    public MilkSettings milkSettings = new MilkSettings();
-    public static class MilkSettings {
-        @RangeConstraint(min = -1, max = 0)
-        public int milkNutritionValue = 0;
+    @Expanded
+    public CowMilkSettings cowMilkSettings = new CowMilkSettings();
+    public static class CowMilkSettings {
+        @RangeConstraint(min = 0, max = 20)
+        public int milkNutritionValue = 6;
 
-        @RangeConstraint(min = -1.0, max = 0.0, decimalPlaces = 1)
-        public float milkSaturationModifier = 0.0F;
+        @RangeConstraint(min = 0.0, max = 2.0, decimalPlaces = 1)
+        public float milkSaturationModifier = 1.2F;
     }
 
+    @Nest
+    public MushroomCowMilkSettings mushroomCowMilkSettings = new MushroomCowMilkSettings();
+    public static class MushroomCowMilkSettings {
+        @RangeConstraint(min = 0, max = 20)
+        public int milkNutritionValue = 4;
+
+        @RangeConstraint(min = 0.0, max = 2.0, decimalPlaces = 1)
+        public float milkSaturationModifier = 1.3F;
+    }
+
+    @Nest
+    public GoatMilkSettings goatMilkSettings = new GoatMilkSettings();
+    public static class GoatMilkSettings {
+        @RangeConstraint(min = 0, max = 20)
+        public int milkNutritionValue = 2;
+
+        @RangeConstraint(min = 0.0, max = 2.0, decimalPlaces = 1)
+        public float milkSaturationModifier = 1.4F;
+    }
 }

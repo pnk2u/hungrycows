@@ -3,9 +3,12 @@
   "package": "de.pnku.hungrycows.mixin" ,
   "compatibilityLevel": "JAVA_17" ,
   "mixins": [
-    "CowMixin" ,
-    "MushroomCowMixin" ,
-    "SheepMixin"
+    "entity.CowMixin" ,
+    "entity.GoatMixin" ,
+    "entity.MushroomCowMixin" ,
+    "entity.SheepMixin" ,
+    "entity.ai.GoatAiMixin" ,
+    "item.MilkBucketItemMixin"
   ] ,
   "injectors": {
     "defaultRequire": 1

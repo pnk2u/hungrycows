@@ -1,23 +1,20 @@
-package de.pnku.hungrycows.mixin;
+package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.entity.ai.EatMyceliumBlockGoal;
-import de.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Shearable;
-import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
@@ -36,11 +33,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.IS_MILKED_MOOSHROOM;
-import static de.pnku.hungrycows.HungryCows.blockEatSettings;
+import static de.pnku.hungrycows.HungryCows.*;
+import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType>, ICowEntity {
+public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType>, HungryCowsEntityInterface {
     public MushroomCowMixin(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
     }
@@ -51,13 +48,20 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     private int eatMyceliumTimer;
     @Unique
     MushroomCow mushroomCow = (MushroomCow) (Object) this;
+    @Unique
+    protected int hasBeenFedManuallyTimer;
+
+    @Unique
+    public boolean hungrycows$isMooshroom(){
+        return true;
+    }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, Ingredient.of(hungrycows$COW_FOOD()), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, itemStack -> checkFeedability(itemStack, this), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -69,14 +73,14 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Override
     protected void customServerAiStep() {
         this.eatMyceliumTimer = this.mushroomCowEatMyceliumGoal.getEatAnimationTick();
+        this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
         super.customServerAiStep();
     }
 
     @Override
     public void aiStep() {
-        if (this.level().isClientSide) {
-            this.eatMyceliumTimer = Math.max(0, this.eatMyceliumTimer - 1);
-        }
+        this.eatMyceliumTimer = Math.max(0, this.eatMyceliumTimer - 1);
+        this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
 
         super.aiStep();
     }
@@ -111,21 +115,22 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         }
     }
 
+    @Unique
+    public ItemStack hungrycows$getEdibleMilk(){
+        ItemStack edibleMilk = new ItemStack(Items.MILK_BUCKET);
+
+        return edibleMilk;
+    }
+
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (((itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.effect == null) || itemStack.is(hungrycows$COW_FOOD())) && this.hungrycows$isMilked()) {
-            ((ICowEntity) mushroomCow).hungrycows$setMilked(false);
-            if (itemStack.is(hungrycows$COW_FOOD())) {
-                itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
-                if (this.getHealth() < this.getMaxHealth()) {
-                    this.heal(2.0F);
-                }
-                this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
-            }
+        if (itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.stewEffects == null) {
+            ((HungryCowsEntityInterface) mushroomCow).hungrycows$setMilked(false);
+            this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
         }
         if (itemStack.is(Items.BOWL)) {
-            if (((ICowEntity) mushroomCow).hungrycows$isMilkable()) {
+            if (((HungryCowsEntityInterface) mushroomCow).hungrycows$isMilkable()) {
                 boolean bl = false;
                 ItemStack itemStack2;
                 if (mushroomCow.effect != null) {
@@ -140,14 +145,13 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
                 ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                 player.setItemInHand(hand, itemStack3);
-                SoundEvent soundEvent;
-                if (bl) {
-                    soundEvent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
-                } else {
-                    soundEvent = SoundEvents.MOOSHROOM_MILK;
-                }
 
-                this.playSound(soundEvent, 1.0F, 1.0F);
+                ((HungryCowsEntityInterface) mushroomCow).hungrycows$setMilked(true);
+
+                SoundEvent soundEvent = bl ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
+
+                player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
+                level().playSound(player, this, soundEvent, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
             } else {
                 cir.setReturnValue(InteractionResult.PASS);
@@ -172,14 +176,18 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         this.entityData.set(HungryCows.IS_MILKED_MOOSHROOM, isMilkedByte);
     }
 
+    @Unique
+    public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
+    }
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putBoolean("Milked",((ICowEntity) this).hungrycows$isMilked());
+        nbt.putBoolean("Milked",((HungryCowsEntityInterface) this).hungrycows$isMilked());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        ((ICowEntity) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
+        ((HungryCowsEntityInterface) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
     }
 
     @Override
