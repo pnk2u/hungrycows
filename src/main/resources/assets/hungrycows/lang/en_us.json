@@ -143,6 +143,5 @@
   "hungrycows.feedable.true.sheep.item": "Can be fed with this    %s to allow the Sheep to be §sheared§r again.",
   "item.hungrycows.milk_bucket.cow": "§lCow§r Milk Bucket",
   "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§r Milk Bucket",
-  "item.hungrycows.milk_bucket.goat": "§lGoat§r Milk Bucket",
-  "hungrycows.modmenu.nutritiousmilk": "§f§l§nNutritious Milk§r (Recommended)"
+  "item.hungrycows.milk_bucket.goat": "§lGoat§r Milk Bucket"
 }
