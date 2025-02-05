@@ -2,6 +2,7 @@ package de.pnku.hungrycows.jade;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,7 @@ import snownee.jade.impl.ui.ElementHelper;
 
 import java.awt.*;
 
+import static de.pnku.hungrycows.HungryCows.LOGGER;
 import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
 
 public enum FeedabilityEntityComponentProvider implements IEntityComponentProvider, IServerDataProvider<EntityAccessor> {
@@ -50,7 +52,13 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
                 if (canBeFed) {
                     Component feedableTrueComponent = Component.translatable("hungrycows.feedable.true" + (isCow ? ".cow" : (isMooshroom ? ".mooshroom" : (isSheep ? ".sheep" : ".goat"))) + (!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item" : ""), Component.translatable(handStack.getDescriptionId()));
                     if (!handStack.isEmpty() && checkFeedability(handStack, entity)) {
-                        IElement icon = IElementHelper.get().item(new ItemStack(handStack.getItem()), 0.5f).size(new Vec2(10, 10)).translate(new Vec2(102, -2));
+                        int horizantalIconShift = Minecraft.getInstance().getLanguageManager().getSelected().equals("de_de") ?
+                                isCow ? 164
+                              : isMooshroom ? 200
+                              : isSheep ? 179
+                              : 172 // if Goat
+                              : 102; // if !de_de
+                        IElement icon = IElementHelper.get().item(new ItemStack(handStack.getItem()), 0.5f).size(new Vec2(10, 10)).translate(new Vec2(horizantalIconShift, -2));
                         tooltip.add(icon);
                         IElement moveToLeftSpace = IElementHelper.get().spacer(-10, 0);
                         tooltip.append(moveToLeftSpace);

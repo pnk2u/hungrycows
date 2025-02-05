@@ -1,7 +1,9 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
+import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
@@ -47,6 +49,16 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
     protected void injectedDefineSynchedData(CallbackInfo ci) {
         this.entityData.define(HungryCows.IS_MILKED_GOAT, (byte)0);
         this.entityData.define(HungryCows.FED_TIMER_GOAT, 0);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+        nbt.putBoolean("Milked",((HungryCowsEntityInterface) this).hungrycows$isMilked());
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+        ((HungryCowsEntityInterface) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
     }
 
     // Goats should not be sheared... yet.
