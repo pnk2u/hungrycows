@@ -3,10 +3,17 @@
 	"id": "hungrycows",
 	"version": "${version}",
 	"name": "Hungry Cows",
-	"description": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like feeding Cows for Milk or Dispensers being able to milk Cows and lots of customizability.",
+	"description": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food§f¹§r.\n Also adding several other related features like feeding Cows for Milk or Dispensers being able to milk Cows and lots of customizability.\n\n\n §f¹§r) This feature is unavailable in the 1.20.1 version of this mod.\nPlease additionally download Serilum's §f§lNutritious Milk§r—link below!",
 	"authors": [
 		"pnku"
 	],
+	"custom": {
+		"modmenu": {
+			"links": {
+				"hungrycows.modmenu.nutritiousmilk": "https://modrinth.com/mod/nutritious-milk"
+			}
+		}
+	},
 	"contact": {
 		"email": "contact@pnku.de",
 		"homepage": "https://pnku.de",
