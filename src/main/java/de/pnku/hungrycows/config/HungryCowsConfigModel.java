@@ -39,23 +39,21 @@ public class HungryCowsConfigModel {
         public FeedSettings feedSettings = new FeedSettings();
         public static class FeedSettings {
             @PredicateConstraint("validateItemId")
-            public List<String> cowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+            public List<String> cowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:grass"));
 
             @PredicateConstraint("validateItemId")
-            public List<String> mushroomCowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+            public List<String> mushroomCowFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:grass"));
 
             @PredicateConstraint("validateItemId")
-            public List<String> goatFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+            public List<String> goatFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:grass"));
 
             @PredicateConstraint("validateItemId")
-            public List<String> sheepFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:short_grass"));
+            public List<String> sheepFeedableItems = new ArrayList<>(List.of("minecraft:wheat", "minecraft:grass"));
 
 
             public static boolean validateItemId(List<String> feedableItems) {
                 for (String itemId : feedableItems) {
-                    String itemNamespace = itemId.split(":")[0];
-                    String itemPath = itemId.split(":")[1];
-                    if (!ResourceLocation.isValidNamespace(itemNamespace) || !ResourceLocation.isValidPath(itemPath)) {return false;}
+                    if (!ResourceLocation.isValidResourceLocation(itemId)) {return false;}
                 }
                 return true;
             }
@@ -82,7 +80,6 @@ public class HungryCowsConfigModel {
     @SectionHeader("MilkSettings")
 
     @Nest
-    @Expanded
     public CowMilkSettings cowMilkSettings = new CowMilkSettings();
     public static class CowMilkSettings {
         @RangeConstraint(min = 0, max = 20)

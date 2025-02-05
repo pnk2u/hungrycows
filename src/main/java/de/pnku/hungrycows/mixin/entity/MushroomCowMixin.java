@@ -61,7 +61,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, itemStack -> checkFeedability(itemStack, this), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, Ingredient.of(getFeedableItemsFromConfig(EntityType.MOOSHROOM)), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -125,7 +125,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.stewEffects == null) {
+        if (itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.effect == null) {
             ((HungryCowsEntityInterface) mushroomCow).hungrycows$setMilked(false);
             this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
         }

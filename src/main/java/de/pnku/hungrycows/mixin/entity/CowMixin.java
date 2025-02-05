@@ -1,15 +1,11 @@
 package de.pnku.hungrycows.mixin.entity;
 
-import de.pnku.hungrycows.util.ICowEntity;
-import net.minecraft.core.registries.Registries;
 import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import de.pnku.hungrycows.HungryCows;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -21,10 +17,10 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -59,7 +55,7 @@ public abstract class CowMixin extends Animal implements Shearable, HungryCowsEn
     @Inject(method = "registerGoals", at = @At("TAIL"))
     protected void injectedRegisterGoals(CallbackInfo info) {
         this.goalSelector.removeAllGoals(goal -> goal instanceof TemptGoal);
-        TemptGoal cowFeedTemptGoal = new TemptGoal(this, 1.25F, itemStack -> checkFeedability(itemStack, this), false);
+        TemptGoal cowFeedTemptGoal = new TemptGoal(this, 1.25F, Ingredient.of(getFeedableItemsFromConfig(EntityType.COW)), false);
         this.cowEatGrassGoal = new EatBlockGoal(this);
         this.goalSelector.addGoal(3, cowFeedTemptGoal);
         this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.cowEatGrassGoal);

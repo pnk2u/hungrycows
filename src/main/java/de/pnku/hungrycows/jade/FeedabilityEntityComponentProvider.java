@@ -59,7 +59,7 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
                         tooltip.add(feedableTrueComponent);
                     }
                 } else {
-                    tooltip.add(Component.translatable("hungrycows.feedable.false", IThemeHelper.get().seconds(hasBeenFedManuallyTimer, accessor.tickRate())));
+                    tooltip.add(Component.translatable("hungrycows.feedable.false", IThemeHelper.get().seconds(hasBeenFedManuallyTimer)));
                 }
             }
         }
@@ -70,6 +70,6 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
 
     @Override
     public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","feedable");
+        return HungryCows.withModId("feedable");
     }
 }

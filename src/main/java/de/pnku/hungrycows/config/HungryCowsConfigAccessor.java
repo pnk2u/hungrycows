@@ -2,14 +2,19 @@ package de.pnku.hungrycows.config;
 
 import de.pnku.hungrycows.config.HungryCowsOwoConfig;
 import de.pnku.hungrycows.config.HungryCowsOwoConfig.*;
+import de.pnku.hungrycows.item.HungryCowsItemTags;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static de.pnku.hungrycows.item.HungryCowsItemTags.*;
 
@@ -64,6 +69,27 @@ public class HungryCowsConfigAccessor {
         return false;
     }
 
+    public static ItemLike[] getFeedableItemsFromConfig(EntityType<?> type) {
+        List<String> configItems = type == EntityType.COW ? feedSettings.cowFeedableItems()
+                : type == EntityType.MOOSHROOM ? feedSettings.mushroomCowFeedableItems()
+                : type == EntityType.SHEEP ? feedSettings.sheepFeedableItems()
+                : type == EntityType.GOAT ? feedSettings.goatFeedableItems()
+                : null;
 
+        if (configItems == null) return new ItemLike[0];
+
+        ItemLike[] itemsFromConfig = configItems.stream()
+                .map(feedableItem -> BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(feedableItem)))
+                .filter(item -> item != Items.AIR) // Filter out invalid items
+                .toArray(ItemLike[]::new);
+
+        TagKey<Item> tagKey = HungryCowsItemTags.getFeedableTag(type);
+        ItemLike[] itemsFromTag = BuiltInRegistries.ITEM.stream()
+                .filter(item -> item.builtInRegistryHolder().is(tagKey))
+                .toArray(ItemLike[]::new);
+
+        return Stream.concat(Arrays.stream(itemsFromConfig), Arrays.stream(itemsFromTag))
+                .toArray(ItemLike[]::new);
+    }
 
 }

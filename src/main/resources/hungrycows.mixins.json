@@ -7,8 +7,7 @@
     "entity.GoatMixin" ,
     "entity.MushroomCowMixin" ,
     "entity.SheepMixin" ,
-    "entity.ai.GoatAiMixin" ,
-    "item.MilkBucketItemMixin"
+    "entity.ai.GoatAiMixin"
   ] ,
   "injectors": {
     "defaultRequire": 1

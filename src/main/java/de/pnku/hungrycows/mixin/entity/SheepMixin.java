@@ -17,6 +17,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,13 +51,13 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
     @Inject(method = "registerGoals", at = @At("TAIL"))
     public void injectedRegisterGoals(CallbackInfo ci){
         this.goalSelector.removeAllGoals(goal -> goal instanceof TemptGoal);
-        TemptGoal sheepFeedTemptGoal = new TemptGoal(this, 1.1F, itemStack -> checkFeedability(itemStack, this), false);
+        TemptGoal sheepFeedTemptGoal = new TemptGoal(this, 1.1F, Ingredient.of(getFeedableItemsFromConfig(EntityType.SHEEP)), false);
         this.goalSelector.addGoal(3, sheepFeedTemptGoal);
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    protected void injectedSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(FED_TIMER_SHEEP, 0);
+    protected void injectedSynchedData(CallbackInfo ci) {
+        this.entityData.define(FED_TIMER_SHEEP, 0);
     }
 
     @Inject(method = "aiStep", at = @At("TAIL"))
@@ -104,12 +105,12 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
                 SynchedEntityData data = thisSheep.getEntityData();
                 data.set(Sheep.DATA_WOOL_ID, (byte) (data.get(Sheep.DATA_WOOL_ID) & -17));
                 ((HungryCowsEntityInterface) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
-                itemStack.consume(1, player);
+                itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
             if ((thisSheep.getHealth() < thisSheep.getMaxHealth()) && sheepSettings.isSheepFeedToHeal()) {
                 thisSheep.heal(2.0F);
-                itemStack.consume(1, player);
+                itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
         }

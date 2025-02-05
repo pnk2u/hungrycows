@@ -2,10 +2,6 @@ package de.pnku.hungrycows.jade;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.HungryCowsEntityInterface;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -36,9 +32,11 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
         if (type.equals(EntityType.COW) || type.equals(EntityType.MOOSHROOM) || type.equals(EntityType.GOAT)) {
             if (!((Animal) entity).isBaby()) {
                 boolean isMilkable = ((HungryCowsEntityInterface) entity).hungrycows$isMilkable();
-                IElement emptyBucketIcon = IElementHelper.get().item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -2));
-                IElement heartBucketIcon = IElementHelper.get().sprite(HungryCows.withModId("heart_milk"), 8, 8).translate(new Vec2(-1, -1));
-                IElement grassIcon = IElementHelper.get().item(new ItemStack(Items.SHORT_GRASS), 0.5f).size(new Vec2(4, 8)).translate(new Vec2(1, -2));
+                IElementHelper elements = tooltip.getElementHelper();
+                IElement emptyBucketIcon = elements.item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -2));
+                IElement heartBucketIcon = elements.item(new ItemStack(MilkabilityUIItems.HEART_MILK_UI_ITEM), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-1, -1));
+                        // elements.sprite(HungryCows.withModId("heart_milk"), 8, 8).translate(new Vec2(-1, -1));
+                IElement grassIcon = elements.item(new ItemStack(Items.GRASS), 0.5f).size(new Vec2(4, 8)).translate(new Vec2(1, -2));
                 tooltip.add(isMilkable ? heartBucketIcon : grassIcon);
                 if (!isMilkable) {tooltip.append(emptyBucketIcon);}
                 tooltip.append(Component.translatable("hungrycows.milkable." + isMilkable));
@@ -53,5 +51,4 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
     public ResourceLocation getUid(){
         return new ResourceLocation("hungrycows","milkable");
     }
-
 }

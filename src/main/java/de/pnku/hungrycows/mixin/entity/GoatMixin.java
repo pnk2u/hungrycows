@@ -1,10 +1,7 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.HungryCowsEntityInterface;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
@@ -47,9 +44,9 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    protected void injectedDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(HungryCows.IS_MILKED_GOAT, (byte)0);
-        builder.define(HungryCows.FED_TIMER_GOAT, 0);
+    protected void injectedDefineSynchedData(CallbackInfo ci) {
+        this.entityData.define(HungryCows.IS_MILKED_GOAT, (byte)0);
+        this.entityData.define(HungryCows.FED_TIMER_GOAT, 0);
     }
 
     // Goats should not be sheared... yet.
@@ -87,9 +84,6 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
     @Unique
     public ItemStack hungrycows$getEdibleMilk(){
         ItemStack edibleMilk = new ItemStack(Items.MILK_BUCKET);
-        edibleMilk.set(DataComponents.FOOD, HungryCowsItemComponents.GOAT_MILK_BUCKET);
-        edibleMilk.set(DataComponents.MAX_STACK_SIZE, 16);
-        edibleMilk.set(DataComponents.ITEM_NAME, Component.translatable("item.hungrycows.milk_bucket.goat"));
 
         return edibleMilk;
     }
@@ -108,7 +102,7 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
                 hungrycows$setMilked(false);
                 hungrycows$setGoatHasBeenFedManuallyTimer(feedabilityRegainTime);
                 level().playSound(player, this, goatEatSound, SoundSource.NEUTRAL,0.95F, 1.35F);
-                itemStack.consume(1, player);
+                itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
 
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -117,7 +111,7 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
             if (this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
                 level().playSound(player, this.getOnPos(), goatEatSound, SoundSource.NEUTRAL,0.95F, 1.44F);
-                itemStack.consume(1, player);
+                itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
 
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
