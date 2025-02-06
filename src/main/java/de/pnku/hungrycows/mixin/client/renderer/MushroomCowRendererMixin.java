@@ -63,7 +63,7 @@ public abstract class MushroomCowRendererMixin extends AgeableMobRenderer<Mushro
         HungryMushroomCowRenderState hungryMushroomCowRenderState = (HungryMushroomCowRenderState) livingEntityRenderState;
         ResourceLocation variantTextureId = (ResourceLocation)TEXTURES.get(hungryMushroomCowRenderState.variant != null ? hungryMushroomCowRenderState.variant : MushroomCow.Variant.BROWN);
         if (hungryMushroomCowRenderState.isMilkable && !milkabilitySettings.milkableCowDisplayType().equals(HIDE_TEXTURE_AND_MODEL)){
-            cir.setReturnValue(variantTextureId.getPath().contains("brown") ? HungryCows.withModId("textures/cow/milkable_brown_mooshroom.png") : HungryCows.withModId("textures/cow/milkable_red_mooshroom.png"));
+            cir.setReturnValue(variantTextureId.getPath().contains("brown") ? HungryCows.withModId("textures/entity/cow/milkable_brown_mooshroom.png") : HungryCows.withModId("textures/entity/cow/milkable_red_mooshroom.png"));
         } else {
             cir.setReturnValue(variantTextureId);
         }

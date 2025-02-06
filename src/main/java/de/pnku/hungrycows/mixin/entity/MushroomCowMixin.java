@@ -154,7 +154,8 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
                 player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
                 level().playSound(player, this, soundEvent, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                cir.setReturnValue(InteractionResult.SUCCESS);
+
+                cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
             } else {
                 cir.setReturnValue(InteractionResult.PASS);
             }

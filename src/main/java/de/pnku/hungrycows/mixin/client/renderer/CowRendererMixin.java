@@ -50,7 +50,7 @@ public abstract class CowRendererMixin extends AgeableMobRenderer<Cow, HungryCow
     public void injectedGetTextureLocation(LivingEntityRenderState livingEntityRenderState, CallbackInfoReturnable<ResourceLocation> cir) {
         HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) livingEntityRenderState;
         if (hungryCowRenderState.isMilkable && !milkabilitySettings.milkableCowDisplayType().equals(HIDE_TEXTURE_AND_MODEL)){
-            cir.setReturnValue(HungryCows.withModId("textures/cow/milkable_cow.png"));
+            cir.setReturnValue(HungryCows.withModId("textures/entity/cow/milkable_cow.png"));
         } else {
             cir.setReturnValue(COW_LOCATION);
         }

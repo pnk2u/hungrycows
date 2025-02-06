@@ -146,7 +146,7 @@ public abstract class GoatMixin extends Animal implements Shearable, HungryCowsE
                 ItemStack itemStackMilk = ItemUtils.createFilledResult(itemStack, player, hungrycows$getEdibleMilk());
                 player.setItemInHand(hand, itemStackMilk);
 
-                cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
+                cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
             }
             else cir.setReturnValue(InteractionResult.PASS);
         }

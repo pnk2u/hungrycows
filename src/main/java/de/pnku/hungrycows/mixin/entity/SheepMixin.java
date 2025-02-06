@@ -94,7 +94,7 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
     }
 
 
-    @Inject(method = "mobInteract", at = @At("HEAD"))
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     public void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if ((checkFeedability(itemStack, thisSheep) && this.isSheared() && sheepSettings.isSheepFeedToRegrowWool()) || sheepSettings.isSheepFeedToHeal()) {

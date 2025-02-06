@@ -50,7 +50,7 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
             if (hasBeenFedManuallyTimer > 0 && canBeHungry) {
                 boolean canBeFed = (hasBeenFedManuallyTimer == 1);
                 if (canBeFed) {
-                    Component feedableTrueComponent = Component.translatable("hungrycows.feedable.true" + (isCow ? ".cow" : (isMooshroom ? ".mooshroom" : (isSheep ? ".sheep" : ".goat"))) + (!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item" : ""), Component.translatable(handStack.getDescriptionId()));
+                    Component feedableTrueComponent = Component.translatable("hungrycows.feedable.true" + (isCow ? ".cow" : (isMooshroom ? ".mooshroom" : (isSheep ? ".sheep" : ".goat"))) + (!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item" : ""), Component.translatable(handStack.getItem().getDescriptionId()));
                     if (!handStack.isEmpty() && checkFeedability(handStack, entity)) {
                         int horizantalIconShift = Minecraft.getInstance().getLanguageManager().getSelected().equals("de_de") ?
                                 isCow ? 164
