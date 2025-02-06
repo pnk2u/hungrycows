@@ -1,12 +1,14 @@
 {
-	"required": true,
-	"package": "de.pnku.hungrycows.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-      "CowMixin",
-      "MushroomCowMixin" ,
-      "SheepMixin"
-    ],
+  "required": true ,
+  "package": "de.pnku.hungrycows.mixin" ,
+  "compatibilityLevel": "JAVA_21" ,
+  "mixins": [
+    "entity.CowMixin" ,
+    "entity.GoatMixin" ,
+    "entity.MushroomCowMixin" ,
+    "entity.SheepMixin" ,
+    "entity.ai.GoatAiMixin"
+  ] ,
   "injectors": {
     "defaultRequire": 1
   }

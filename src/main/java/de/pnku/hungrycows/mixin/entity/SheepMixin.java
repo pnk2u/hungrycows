@@ -1,22 +1,22 @@
-package de.pnku.hungrycows.mixin;
+package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,16 +26,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Random;
-
 import static de.pnku.hungrycows.HungryCows.*;
+import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
 
 @Mixin(Sheep.class)
-public abstract class SheepMixin extends Animal implements Shearable,ICowEntity {
+public abstract class SheepMixin extends Animal implements Shearable, HungryCowsEntityInterface {
 
     @Shadow public abstract void setSheared(boolean sheared);
 
     @Shadow public abstract boolean isSheared();
+
+    @Shadow protected abstract void registerGoals();
 
     @Unique
     Sheep thisSheep = (Sheep) (Object) this;
@@ -46,10 +47,16 @@ public abstract class SheepMixin extends Animal implements Shearable,ICowEntity 
         super(entityType, level);
     }
 
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    public void injectedRegisterGoals(CallbackInfo ci){
+        this.goalSelector.removeAllGoals(goal -> goal instanceof TemptGoal);
+        TemptGoal sheepFeedTemptGoal = new TemptGoal(this, 1.1F, itemStack -> checkFeedability(itemStack, this), false);
+        this.goalSelector.addGoal(3, sheepFeedTemptGoal);
+    }
+
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     protected void injectedSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(FED_TIMER_SHEEP, 0);
-        builder.define(UNSHEAR_FLAG, false);
     }
 
     @Inject(method = "aiStep", at = @At("TAIL"))
@@ -86,59 +93,29 @@ public abstract class SheepMixin extends Animal implements Shearable,ICowEntity 
         thisSheep.getEntityData().set(HungryCows.FED_TIMER_SHEEP, time);
     }
 
-    @Unique
-    public void setThisSheepSheared(boolean sheared) {
-        this.setSheared(false);
-    }
-
 
     @Inject(method = "mobInteract", at = @At("HEAD"))
     public void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.SHEEP_FOOD) && this.isSheared() && (sheepSettings.isSheepFeedToRegrowWool() || sheepSettings.isSheepFeedToHeal())) {
-            boolean ate = false;
-            float f = milkabilitySettings.averageFoodForMilkabilityRegainAmount();
-            Random rand = new Random();
-            int n = (f < 1) ?
-                    (
-                            (f == 0) ? 11 : rand.nextInt(10) + 1
-                    ) : (
-                    rand.nextInt((int) (f * 10F)) + 1
-            );
-
-            int s = ((ICowEntity) thisSheep).hungrycows$getSheepHasBeenFedManuallyTimer();
-            boolean unshearFlag = this.getEntityData().get(UNSHEAR_FLAG);
-            LOGGER.info("Pre-FeedToRegrowAttempt; " + (this.level().isClientSide ? "Client" : "Server") + ":-: Ready?: " + readyForShearing() + "/f; Alive?: " + this.isAlive() + "/t; Sheared?: " + this.isSheared() + "/t; Baby? " + this.isBaby() + "/f;-> " + s + "s");
-            if ((n <= 10 && sheepSettings.isSheepFeedToRegrowWool() && thisSheep.isSheared() && s <= 1 && !unshearFlag) || (unshearFlag && this.level() instanceof ServerLevel)) {
-                LOGGER.info((this.level().isClientSide ? "Client" : "Server") + ":-: In the if because n<=10(" + (n <= 10) + "), opt.feedWool(" + sheepSettings.isSheepFeedToRegrowWool() + "), either s<=1/server(" + (s <= 1) + "/" + (this.level() instanceof ServerLevel) + ")");
+        if ((checkFeedability(itemStack, thisSheep) && this.isSheared() && sheepSettings.isSheepFeedToRegrowWool()) || sheepSettings.isSheepFeedToHeal()) {
+            int s = ((HungryCowsEntityInterface) thisSheep).hungrycows$getSheepHasBeenFedManuallyTimer();
+            if ((sheepSettings.isSheepFeedToRegrowWool() && thisSheep.isSheared() && s <= 1)) {
                 thisSheep.setSheared(false);
                 SynchedEntityData data = thisSheep.getEntityData();
                 data.set(Sheep.DATA_WOOL_ID, (byte) (data.get(Sheep.DATA_WOOL_ID) & -17));
-                ((ICowEntity) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
-                if (!unshearFlag) {
-                    ate = true;
-                    data.set(UNSHEAR_FLAG, true);
-                } else {
-                    data.set(UNSHEAR_FLAG, false);
-                }
-            } else { LOGGER.info((this.level().isClientSide ? "Client" : "Server") + ":-: NOT In the if because n<=10(" + (n <= 10) + "), opt.feedWool(" + sheepSettings.isSheepFeedToRegrowWool() + "), either s<=1/server(" + (s <= 1) + "/" + (this.level() instanceof ServerLevel) + ")");}
-                LOGGER.info("Post-FeedToRegrowAttempt (" + ate + "); " + (this.level().isClientSide ? "Client" : "Server") + ":-: Ready?: " + readyForShearing() + "/f; Alive?: " + this.isAlive() + "/t; Sheared?: " + this.isSheared() + "/t; Baby? " + this.isBaby() + "/f; ->" + s + "s");
-                if ((thisSheep.getHealth() < thisSheep.getMaxHealth()) && sheepSettings.isSheepFeedToHeal()) {
-                    thisSheep.heal(2.0F);
-                    ate = true;
-                }
-                if (ate && !(this.isFood(itemStack) && !this.level().isClientSide && this.getAge() == 0 && this.canFallInLove()) && this.level().isClientSide) { // Checks for if the stack was used AND if it won't later be used to setInLove()
-                    itemStack.consume(1, player);
-                    this.playSound(SoundEvents.MOOSHROOM_EAT, 0.86F, 1.75F);
-                }
+                ((HungryCowsEntityInterface) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
+                itemStack.consume(1, player);
+                level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
-            if (itemStack.is(Items.SHEARS)) {
-                LOGGER.info((this.level().isClientSide ? "Client" : "Server") + ":-: Ready?: " + readyForShearing() + "/t; Alive?: " + this.isAlive() + "/t; Sheared?: " + this.isSheared() + "/f; Baby? " + this.isBaby() + "/f;");
+            if ((thisSheep.getHealth() < thisSheep.getMaxHealth()) && sheepSettings.isSheepFeedToHeal()) {
+                thisSheep.heal(2.0F);
+                itemStack.consume(1, player);
+                level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
         }
+    }
 
     static {
         HungryCows.FED_TIMER_SHEEP = SynchedEntityData.defineId(SheepMixin.class, EntityDataSerializers.INT);
-        HungryCows.UNSHEAR_FLAG = SynchedEntityData.defineId(SheepMixin.class, EntityDataSerializers.BOOLEAN);
     }
 }

@@ -3,7 +3,7 @@ package de.pnku.hungrycows.mixin.client.renderer;
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.renderer.HungryCowRenderState;
 import de.pnku.hungrycows.renderer.HungryMushroomCowRenderState;
-import de.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
-import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
+import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.milkabilitySettings;
 import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_TEXTURE_AND_MODEL;
 
 @Mixin(MushroomCowRenderer.class)
@@ -52,10 +52,10 @@ public abstract class MushroomCowRendererMixin extends AgeableMobRenderer<Mushro
     public void injectedExtractRenderState(MushroomCow mushroomCow, MushroomCowRenderState mushroomCowRenderState, float f, CallbackInfo ci) {
         HungryMushroomCowRenderState hungryMushroomCowRenderState = (HungryMushroomCowRenderState) mushroomCowRenderState;
         super.extractRenderState((MushroomCow) mushroomCow, hungryMushroomCowRenderState, f);
-        hungryMushroomCowRenderState.headAngle = ((ICowEntity) mushroomCow).hungrycows$getHeadAngle(f);
-        hungryMushroomCowRenderState.neckAngle = ((ICowEntity) mushroomCow).hungrycows$getNeckAngle(f);
+        hungryMushroomCowRenderState.headAngle = ((HungryCowsEntityInterface) mushroomCow).hungrycows$getHeadAngle(f);
+        hungryMushroomCowRenderState.neckAngle = ((HungryCowsEntityInterface) mushroomCow).hungrycows$getNeckAngle(f);
         hungryMushroomCowRenderState.variant = ((MushroomCow) mushroomCow).getVariant();
-        hungryMushroomCowRenderState.isMilkable = ((ICowEntity) mushroomCow).hungrycows$isMilkable();
+        hungryMushroomCowRenderState.isMilkable = ((HungryCowsEntityInterface) mushroomCow).hungrycows$isMilkable();
     }
 
     @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)Lnet/minecraft/resources/ResourceLocation;", at = @At("HEAD"), cancellable = true)

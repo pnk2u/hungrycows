@@ -2,7 +2,7 @@ package de.pnku.hungrycows.mixin.client.renderer;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.renderer.HungryCowRenderState;
-import de.pnku.hungrycows.util.ICowEntity;
+import de.pnku.hungrycows.util.HungryCowsEntityInterface;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.milkabilitySettings;
+import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.milkabilitySettings;
 import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_TEXTURE_AND_MODEL;
 
 @Mixin(CowRenderer.class)
@@ -41,9 +41,9 @@ public abstract class CowRendererMixin extends AgeableMobRenderer<Cow, HungryCow
     public void injectedExtractRenderState(Cow cow, LivingEntityRenderState livingEntityRenderState, float f, CallbackInfo ci) {
         HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) livingEntityRenderState;
         super.extractRenderState(cow, hungryCowRenderState, f);
-        hungryCowRenderState.headAngle = ((ICowEntity) cow).hungrycows$getHeadAngle(f);
-        hungryCowRenderState.neckAngle = ((ICowEntity) cow).hungrycows$getNeckAngle(f);
-        hungryCowRenderState.isMilkable = ((ICowEntity) cow).hungrycows$isMilkable();
+        hungryCowRenderState.headAngle = ((HungryCowsEntityInterface) cow).hungrycows$getHeadAngle(f);
+        hungryCowRenderState.neckAngle = ((HungryCowsEntityInterface) cow).hungrycows$getNeckAngle(f);
+        hungryCowRenderState.isMilkable = ((HungryCowsEntityInterface) cow).hungrycows$isMilkable();
     }
 
     @Inject(method = "getTextureLocation*", at = @At("HEAD"), cancellable = true)

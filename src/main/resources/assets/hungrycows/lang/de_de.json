@@ -1,14 +1,194 @@
 {
-  "hungrycows.milkable.0": "Hat gegessen und kann gemolken werden.",
-  "hungrycows.milkable.1": "Hungrig und kann noch nicht gemolken werden",
-  "title.hungrycows.config": "Einstellungen - Hungry Cows",
-  "config.category.hungrycows.cow": "Kuh",
-  "config.category.hungrycows.milk": "Milch",
-  "config.cow_option.hungrycows.grasseat_probability": "Wahrscheinlichkeit",
-  "config.cow_option.hungrycows.grasseat_probability.tooltip": "Die Wahrscheinlichkeit, dass eine Kuh Grass frisst, um ihre milchgebenden Fähigkeiten zu regenerieren. Werte von 0 (sehr unwahrscheinlich) bis 3 (Höchstwert) sind einsetzbar, der voreingestellte Wert ist 1.0, was dafür sorgt, dass eine Kuh circa ein bis zweimal pro Tag frisst.",
-  "config.milk_option.hungrycows.milk_nutrition": "Nahrung",
-  "config.milk_option.hungrycows.milk_nutrition.tooltip": "Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (2 Punkte pro \"Fleischkeule\". Die Werte von regulärem Essen gehen von 1 (wie Rote Bete oder Getrockneter Seetang) bis 8 (wie Steak oder Kürbiskuchen).",
-  "config.milk_option.hungrycows.milk_saturation": "Sättigung",
-  "config.milk_option.hungrycows.milk_saturation.tooltip": "Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert. Die Werte von regulärem Essen gehen von 0.1 (wie Roher Fisch, Kekse oder Beeren) bis 1.2 (wie sowohl Goldene Äpfel und Goldene Karotten).",
-  "config.jade.plugin_hungrycows.milkable": "MELKBAR"
+  "text.config.hungrycows.title": [
+    {"text": "§l§nHungry Cows§r (Einstellungen)", "color": "#FF0066"}
+  ],
+  "text.config.hungrycows.section.CowSettings": [
+    {"text": "Kuh", "color": "#6F373B"},
+    {"text": "/", "color": "#A12345"},
+    {"text": "Mooshroom", "color": "#A8212E"},
+    {"text": " Einstellungen", "color": "#A12345"}
+  ],
+  "text.config.hungrycows.section.MilkSettings": [
+    {"text": "Milcheinstellungen", "color": "#FFFFFF"}
+  ],
+  "text.config.hungrycows.category.blockEatSettings": [
+    "Grasen (",
+
+    {"text": "§lGrasblock", "color": "#43663A"}, "/", {"text": "§lMyzel", "color": "#706366"},
+
+    ")"
+  ],
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability": "Wahrscheinlichkeit zu Grasen",
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
+    "Die Wahrscheinlichkeit, dass eine ",
+
+    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " einen ",
+
+    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+
+    ") frisst, um ihre milchgebenden Fähigkeiten zu regenerieren.\nWerte von 0 (sehr unwahrscheinlich) bis 3 (Höchstwert) sind einsetzbar.\nDer voreingestellte Wert ist 1.0, was dafür sorgt, dass eine ",
+
+    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " circa ein bis zweimal pro Tag grast."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount": "Jungtierwachstum durch Grasen",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
+    "Die Anzahl der Sekunden, die ein ",
+
+    {"text": "§lKuh-", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    "jungtier schneller aufwächst, wenn es einen ",
+
+    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+
+    ") frisst.\nDer voreingestellte Wert sind 60 Sekunden oder 5% der Gesamtdauer (20 Minuten), die das Aufwachsen benötigt. Schafe im Hauptspiel benutzen den gleichen Wert (60s)."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount": "Heilung durch Grasen",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
+    "Die Menge an Gesundheitspunkten, die eine ",
+
+    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " wiederherstellt, wenn sie einen ",
+
+    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+
+    ") frisst.\nDer voreingestellte Wert ist 1 Gesundheitspunkt (ein halbes Herz), was 10% der gesamten Gesundheitspunkte (10) einer ",
+
+    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"}, " sind."
+  ],
+  "text.config.hungrycows.category.milkabilitySettings": "Melkbarkeit",
+  "text.config.hungrycows.category.milkabilitySettings.tooltip": [
+    "Diese Einstellungen betreffen ",
+
+    {"text": "§lKühe", "color": "#6F373B"}, ", ", {"text": "§lMooshrooms", "color": "#A8212E"},
+
+    " and §lZiegen§r.\nAuch das Benutzen einer Schüssel auf einen ",{"text": "§lMooshroom", "color": "#A8212E"},", um Pilzsuppe zu erhalten, zählt als \"§oMelken§r\".\nVoreingestellt ist, dass Schafe auch diese Einstellungen nutzen, siehe §l§Schafeinstellungen§r."
+  ],
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain": "Pause nach Fütterung",
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": "Die Anzahl an Sekunden, die du warten musst, bis ein Tier wieder fütterbar wird.\nDas bezieht sich speziell auf das Füttern, um die §oMelkbarkeit§r/§oScherbarkeit§r wiederherzustellen.",
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings": "Fütterbare Items",
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": "Diese Einstellungen lassen dich auswählen, welche Items je Tier zum Anlocken und Füttern verwendet werden können.\nDas bezieht sich speziell auf das Füttern, um die §oMelkbarkeit§r/§oScherbarkeit§r oder 2 Gesundheitspunkte wiederherzustellen.",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": "§lKuh§rfutter (-> Milch)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lKühen§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:cow_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:cow_food§r\" (beinhaltet: Weizen).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": "§lMooshroom§rfutter (-> Milch/Pilzsuppe)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lMooshrooms§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:mooshroom_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:cow_food§r\" (beinhaltet: Weizen).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": "§lZiege§rnfutter (-> Milch)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §Ziegen§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:goat_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:goat_food§r\" (beinhaltet: Weizen).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": "§lSchaf§rfutter (-> Wolle)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lSchafen§r verwendet werden, um ihre §oScherbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:sheep_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:sheep_food§r\" (beinhaltet: Weizen).",
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Melkbarkeits-Modell/Textur anzeigen",
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
+    "Dieses Feature ermöglicht es, melkbare ",
+
+    {"text": "§lKühe", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+
+    " von noch §nnicht§r melkbaren ",
+
+    {"text": "§lKühen", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+
+    " zu unterscheiden.\nWenn die ",
+
+    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " melkbar ist:\n a) erhöht das Modell die Größe und die Detailliertheit des Euters und\n b) ändert die Textur ",
+
+    {"text": "§odie Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "§oFarbe eines melkbaren Euters", "color": "#e58f8f"},
+
+    ".\nDiese Einstellung betrifft Ziegen nicht, da sie keine sichtbaren Euter haben."
+  ],
+  "text.config.hungrycows.enum.mCDO.hide_none": "Modell & Textur",
+  "text.config.hungrycows.enum.mCDO.hide_model": "Nur Textur anzeigen",
+  "text.config.hungrycows.enum.mCDO.hide_texture_and_model": "Nichts anzeigen",
+  "text.config.hungrycows.category.sheepSettings": "Schafeinstellungen",
+  "text.config.hungrycows.category.sheepSettings.tooltip": ["Diese Einstellungen dienen der Einheitlichkeit, da sie sich auf Features beziehen, die nicht von Schafen adaptiert wurden.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, nutzen Schafe das jeweilige Feature mit den gleichen Werten entsprechend der Einstellungen für Kühe weiter oben."],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Heilung durch Grasen (Schaf)",
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep regain the same amount of health as Cows by eating a block of Grass.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. sie stellen keine Gesundheitspunkte wieder her."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Heilung durch Fütterung (Schaf)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep regain the same amount of health (2) as Cows by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. sie stellen keine Gesundheitspunkte wieder her."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Nachwachsen der Wolle durch Fütterung (Schaf)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep can also regrow their wool by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. ihre Wolle wächst nicht vom Gefüttertwerden nach."],
+  "text.config.hungrycows.category.cowMilkSettings": "§lKuh§rmilch",
+  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue": "Nahrung",
+  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": "Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (2 Punkte pro \"Fleischkeule\".\nDie Werte von regulärem Essen gehen von 1 (wie Rote Bete oder Getrockneter Seetang) bis 8 (wie Steak oder Kürbiskuchen).",
+  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": "Sättigung",
+  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": "Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert.\nDie Werte von regulärem Essen gehen von 0.1 (wie Roher Fisch, Kekse oder Beeren) bis 1.2 (wie sowohl Goldene Äpfel und Goldene Karotten).",
+  "text.config.hungrycows.category.mushroomCowMilkSettings": "§lMooshroom§rmilch",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": "Nahrung",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": "Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (2 Punkte pro \"Fleischkeule\".\nDie Werte von regulärem Essen gehen von 1 (wie Rote Bete oder Getrockneter Seetang) bis 8 (wie Steak oder Kürbiskuchen).",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": "Sättigung",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier.tooltip": "Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert.\nDie Werte von regulärem Essen gehen von 0.1 (wie Roher Fisch, Kekse oder Beeren) bis 1.2 (wie sowohl Goldene Äpfel und Goldene Karotten).",
+  "text.config.hungrycows.category.goatMilkSettings": "§lZiege§rnmilch",
+  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue": "Nahrung",
+  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": "Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (2 Punkte pro \"Fleischkeule\".\nDie Werte von regulärem Essen gehen von 1 (wie Rote Bete oder Getrockneter Seetang) bis 8 (wie Steak oder Kürbiskuchen).",
+  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": "Sättigung",
+  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": "Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert.\nDie Werte von regulärem Essen gehen von 0.1 (wie Roher Fisch, Kekse oder Beeren) bis 1.2 (wie sowohl Goldene Äpfel und Goldene Karotten).",
+  "config.jade.plugin_hungrycows.milkable": "Melkbarkeit anzeigen",
+  "config.jade.plugin_hungrycows.milkable_desc": "Zeigt an, ob eine Kuh/Mooshroom/Ziege gemolken werden kann.",
+  "config.jade.plugin_hungrycows.feedable": "Fütterbarkeit anzeigen",
+  "config.jade.plugin_hungrycows.feedable_desc": "Zeigt an, ob eine Kuh/Mooshroom/Ziege/Schaf gefüttert werden kann, um ihre Melkbarkeit/Scherbarkeit wiederherzustellen.",
+  "hungrycows.milkable.true": "Hat gegessen und kann §fgemolken§r werden.",
+  "hungrycows.milkable.false": "Hungrig und kann noch nicht §fgemolken§r werden.",
+  "hungrycows.feedable.false": "Wurde kürzlich gefüttert und kann in %s wieder gefüttert werden.",
+  "hungrycows.feedable.true.cow": "Füttere die Kuh, um sie erneut melken zu können.",
+  "hungrycows.feedable.true.mooshroom": "Füttere die Mooshroom, um sie erneut melken zu können.",
+  "hungrycows.feedable.true.goat": "Füttere die Ziege, um sie erneut melken zu können.",
+  "hungrycows.feedable.true.sheep": "Füttere das Schaf, um es erneut scheren zu können.",
+  "hungrycows.feedable.true.cow.item": "Füttere die Kuh mit diesem Item (    %s), um sie erneut melken zu können.",
+  "hungrycows.feedable.true.mooshroom.item": "Füttere die Mooshroom mit diesem Item (    %s), um sie erneut melken zu können.",
+  "hungrycows.feedable.true.goat.item": "Füttere die Ziege mit diesem Item (    %s), um sie erneut melken zu können.",
+  "hungrycows.feedable.true.sheep.item": "Füttere das Schaf mit diesem Item (    %s), um es erneut scheren zu können.",
+  "item.hungrycows.milk_bucket.cow": "§lKuh§rmilcheimer",
+  "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§rmilcheimer",
+  "item.hungrycows.milk_bucket.goat": "§lZiege§rnmilcheimer",
+
+  "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
+
+  "text.owo.itemGroup.select_hint": {"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"},
+  "text.owo.configure_hot_reload.title": "Hot-Reload konfigurieren",
+  "text.owo.configure_hot_reload.choose_file": "Datei auswählen",
+  "text.owo.configure_hot_reload.save": "Speichern",
+  "text.owo.configure_hot_reload.model": [
+    {"text": "Modell: ", "color": "yellow"},
+    {"index": 0, "color": "gray"}
+  ],
+  "text.owo.configure_hot_reload.reload_from.unset": "Aufheben",
+  "text.owo.configure_hot_reload.reload_from": [
+    {"text": "Neuladen aus: ", "color": "yellow"},
+    {"index": 0, "color": "gray"}
+  ],
+  "text.owo.config.search": "Suche...",
+  "text.owo.config.search.matches": "%d von %d",
+  "text.owo.config.search.no_matches": "Keine Treffer",
+  "text.owo.config.must_restart": "Einige der vorgenommenen Veränderungen erfordern einen Neustart",
+  "text.owo.config.button.exit_minecraft": "Minecraft schließen",
+  "text.owo.config.button.ignore_restart": "Später neustarten",
+  "text.owo.config.button.range.edit_as_text": "Mit Textfeld einstellen",
+  "text.owo.config.button.range.edit_with_slider": "Mit Slider einstellen",
+  "text.owo.config.applies_after_restart": [
+    {"text": "⏻ ", "color": "#FAEA48"},
+    {"text": "Diese Einstellung erfordert einen Neustart, um aktiv zu werden", "color": "gray"}
+  ],
+  "text.owo.config.managed_by_server": [
+    {"text": "⚑ ", "color": "#EB1D36"},
+    {"text": "Diese Einstellung wird vom Server verwaltet\n   Trenne die Verbindung, um sie einzustellen", "color": "gray"}
+  ],
+  "text.owo.config.button.reload": "Neuladen",
+  "text.owo.config.button.done": "Fertig",
+  "text.owo.config.sections_tooltip": "Bereiche",
+  "text.owo.config.sections": {"text": "Bereiche", "underlined": true},
+  "text.owo.config.list.add_entry": "Eintrag hinzufügen",
+  "text.owo.config.boolean_toggle.enabled": [
+    "",
+    {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"},
+    " Aktiviert"
+  ],
+  "text.owo.config.boolean_toggle.disabled": [
+    "",
+    {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"},
+    " Deaktiviert"
+  ]
 }
