@@ -30,10 +30,7 @@ public abstract class MushroomCowRendererMixin {
         if (((HungryCowsEntityInterface) mushroomCow).hungrycows$isMilkable() && !milkabilitySettings.milkableCowDisplayType().equals(HIDE_TEXTURE_AND_MODEL)){
             String path = "textures/entity/cow/milkable_" + (variantTextureId.getPath().contains("brown") ? "brown" : "red" ) + "_mooshroom.png";
             cir.setReturnValue(HungryCows.withModId(path));
-        } else {
-            cir.setReturnValue(variantTextureId);
         }
-        return;
     }
 
 }
