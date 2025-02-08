@@ -37,18 +37,18 @@ public class HungryCowsLegacyConfigJsonHelper {
                         blockEatSettings.add("grassEatProbability", grassEatProbability);
                         legacyConfigContent.add("blockEatSettings", blockEatSettings);
                     }
-                    if (legacyConfigContent.has("milkNutritionValue")){
-                        JsonElement milkNutritionValue = legacyConfigContent.remove("milkNutritionValue");
-                        JsonObject cowMilkSettings = new JsonObject();
-                        cowMilkSettings.add("milkNutritionValue", milkNutritionValue);
-                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
-                    }
-                    if (legacyConfigContent.has("milkSaturationModifier")){
-                        JsonElement milkSaturationModifier = legacyConfigContent.remove("milkSaturationModifier");
-                        JsonObject cowMilkSettings = new JsonObject();
-                        cowMilkSettings.add("milkSaturationModifier", milkSaturationModifier);
-                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
-                    }
+//                    if (legacyConfigContent.has("milkNutritionValue")){
+//                        JsonElement milkNutritionValue = legacyConfigContent.remove("milkNutritionValue");
+//                        JsonObject cowMilkSettings = new JsonObject();
+//                        cowMilkSettings.add("milkNutritionValue", milkNutritionValue);
+//                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
+//                    }
+//                    if (legacyConfigContent.has("milkSaturationModifier")){
+//                        JsonElement milkSaturationModifier = legacyConfigContent.remove("milkSaturationModifier");
+//                        JsonObject cowMilkSettings = new JsonObject();
+//                        cowMilkSettings.add("milkSaturationModifier", milkSaturationModifier);
+//                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
+//                    }
                     try (Writer writer = Files.newBufferedWriter(Paths.get(newConfig.getPath()))) {
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         gson.toJson(legacyConfigContent, writer);
