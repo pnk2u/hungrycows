@@ -27,6 +27,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,12 +43,17 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         super(entityType, level);
     }
 
+    @Shadow
+    public Cow getBreedOffspring(ServerLevel level, AgeableMob otherParent){
+        return null;
+    }
+
     @Unique
     private EatMyceliumBlockGoal mushroomCowEatMyceliumGoal;
     @Unique
     private int eatMyceliumTimer;
     @Unique
-    MushroomCow mushroomCow = (MushroomCow) (Object) this;
+    MushroomCow thisMushroomCow = (MushroomCow) (Object) this;
     @Unique
     protected int hasBeenFedManuallyTimer;
 
@@ -125,20 +131,20 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.SMALL_FLOWERS) && mushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && mushroomCow.effect == null) {
-            ((HungryCowsEntityInterface) mushroomCow).hungrycows$setMilked(false);
+        if (itemStack.is(ItemTags.SMALL_FLOWERS) && thisMushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && thisMushroomCow.effect == null) {
+            ((HungryCowsEntityInterface) thisMushroomCow).hungrycows$setMilked(false);
             this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
         }
         if (itemStack.is(Items.BOWL)) {
-            if (((HungryCowsEntityInterface) mushroomCow).hungrycows$isMilkable()) {
+            if (((HungryCowsEntityInterface) thisMushroomCow).hungrycows$isMilkable()) {
                 boolean bl = false;
                 ItemStack itemStack2;
-                if (mushroomCow.effect != null) {
+                if (thisMushroomCow.effect != null) {
                     bl = true;
                     itemStack2 = new ItemStack(Items.SUSPICIOUS_STEW);
-                    SuspiciousStewItem.saveMobEffect(itemStack2, mushroomCow.effect, mushroomCow.effectDuration);
-                    mushroomCow.effect = null;
-                    mushroomCow.effectDuration = 0;
+                    SuspiciousStewItem.saveMobEffect(itemStack2, thisMushroomCow.effect, thisMushroomCow.effectDuration);
+                    thisMushroomCow.effect = null;
+                    thisMushroomCow.effectDuration = 0;
                 } else {
                     itemStack2 = new ItemStack(Items.MUSHROOM_STEW);
                 }
@@ -146,7 +152,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
                 ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                 player.setItemInHand(hand, itemStack3);
 
-                ((HungryCowsEntityInterface) mushroomCow).hungrycows$setMilked(true);
+                ((HungryCowsEntityInterface) thisMushroomCow).hungrycows$setMilked(true);
 
                 SoundEvent soundEvent = bl ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
 
@@ -188,16 +194,6 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         ((HungryCowsEntityInterface) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
-    }
-
-    @Override
-    public MushroomCow getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        MushroomCow mushroomCow = (MushroomCow)EntityType.MOOSHROOM.create(level);
-        if (mushroomCow != null) {
-            mushroomCow.setVariant(mushroomCow.getOffspringType((MushroomCow)otherParent));
-        }
-
-        return mushroomCow;
     }
 
     static {
