@@ -37,17 +37,29 @@ public class HungryCowsLegacyConfigJsonHelper {
                         blockEatSettings.add("grassEatProbability", grassEatProbability);
                         legacyConfigContent.add("blockEatSettings", blockEatSettings);
                     }
+                    if (legacyConfigContent.has("milkNutritionValue")){
+                        JsonElement milkNutritionValue = legacyConfigContent.remove("milkNutritionValue");
+                        JsonObject cowMilkSettings = new JsonObject();
+                        cowMilkSettings.add("milkNutritionValue", milkNutritionValue);
+                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
+                    }
+                    if (legacyConfigContent.has("milkSaturationModifier")){
+                        JsonElement milkSaturationModifier = legacyConfigContent.remove("milkSaturationModifier");
+                        JsonObject cowMilkSettings = new JsonObject();
+                        cowMilkSettings.add("milkSaturationModifier", milkSaturationModifier);
+                        legacyConfigContent.add("cowMilkSettings", cowMilkSettings);
+                    }
                     try (Writer writer = Files.newBufferedWriter(Paths.get(newConfig.getPath()))) {
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         gson.toJson(legacyConfigContent, writer);
                         legacyConfig.delete();
                         s = true;
                     } catch (IOException e) {
-                        LOGGER.info(e.getMessage() + " - Config file failed to be migrated to Hungry Cows v2.0.0+. Manually renaming hungrycows.json to hungrycows.json5");
+                        LOGGER.info(e.getMessage() + " - Config file failed to be migrated to Hungry Cows v2.0.0+.");
                     }
                     finally {
                         if (s) {
-                        LOGGER.info("Config file has successfully been migrated from cloth-config (HC v1.4.2 and older) to owo-lib (HC v2.0.0+).");
+                        LOGGER.info("Config file has successfully been migrated from cloth-config/json (HC v1.4.3 and older) to owo-lib/json5 (HC v2.0.0+).");
                         }
                     }
                 } catch (IOException e) {
