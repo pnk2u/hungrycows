@@ -1,41 +1,32 @@
 package de.pnku.hungrycows.mixin.item;
 
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MilkBucketItem.class)
 public abstract class MilkBucketItemMixin extends Item {
     public MilkBucketItemMixin(Item.Properties properties) {super(properties);}
 
-
-    /**
-     * @author pnku (pnk2u)
-     * @reason HoneyBottleItem's finishUsingItem() is more fitting now that milk needs to respect FoodComponents. Otherwise it is essentially the same.
-     */
-    @Overwrite
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity){
-        super.finishUsingItem(stack, level, livingEntity);
-        if (livingEntity instanceof ServerPlayer serverPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
-            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
+    @Inject(method = "finishUsingItem", at = @At("HEAD"))
+    public void injectedFinishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir){
+        if (!level.isClientSide()) {
+            super.finishUsingItem(stack, level, livingEntity);
         }
+    }
 
-        if (!level.isClientSide) {
-            livingEntity.removeAllEffects();
-        }
-
+    @Redirect(method = "finishUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemUtils;createFilledResult(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/item/ItemStack;"))
+    public ItemStack redirectedFinishUsingItemCreateFilledResult(ItemStack stack, Player player, ItemStack filledResult, boolean bl){
         if (stack.isEmpty()) {
             return new ItemStack(Items.BUCKET);
         } else {
-            if (livingEntity instanceof Player) {
-                Player player = (Player)livingEntity;
+            if (player instanceof Player) {
                 if (!player.hasInfiniteMaterials()) {
                     ItemStack itemStack = new ItemStack(Items.BUCKET);
                     if (!player.getInventory().add(itemStack)) {
