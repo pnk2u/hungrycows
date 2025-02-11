@@ -1,0 +1,143 @@
+{
+  "text.config.hungrycows.title": [
+    {"text": "§l§nVacas Famintas", "color": "#FF0066"}
+  ],
+  "text.config.hungrycows.section.CowSettings": [
+    {"text": "Vaca", "color": "#6F373B"},
+    {"text": "/", "color": "#A12345"},
+    {"text": "Mooshroom", "color": "#A8212E"},
+    {"text": " Configurações", "color": "#A12345"}
+  ],
+  "text.config.hungrycows.section.MilkSettings": [
+    {"text": "Configurações do Leite", "color": "#FFFFFF"}
+  ],
+  "text.config.hungrycows.category.blockEatSettings": [
+    "Comer Blocos (",
+
+    {"text": "§lGrama", "color": "#43663A"}, "/", {"text": "§lMicélio", "color": "#706366"},
+
+    ")"
+  ],
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability": "Probabilidade de Comer Blocos",
+  "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
+    "A probabilidade de uma ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " comer um bloco de ",
+
+    {"text": "§lGrama", "color": "#43663A"}, "/", {"text": "§lMicélio", "color": "#706366"},
+
+    " para regenerar sua capacidade de produzir leite.\nVaria de 0 (muito improvável) a 3 (máximo). O valor padrão é 1.0, o que faz com que a ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " coma cerca de uma a duas vezes por dia."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount": "Crescimento do Bebê ao Comer Blocos",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
+    "Quantos segundos um bezerro ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " crescerá mais rápido após comer um bloco de ",
+
+    {"text": "§lGrama", "color": "#43663A"}, "/", {"text": "§lMicélio", "color": "#706366"},
+
+    ".\nPor padrão (o mesmo valor usado por Ovelhas), isso é 60 segundos ou 5% do tempo total (20 minutos) necessário para crescer completamente."
+  ],
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount": "Cura ao Comer Blocos",
+  "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
+    "Quantos pontos de vida uma ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " recupera ao comer um bloco de ",
+
+    {"text": "§lGrama", "color": "#43663A"}, "/", {"text": "§lMicélio", "color": "#706366"},
+
+    ".\nPor padrão, esse valor é 1 ponto de vida (meio coração), o que equivale a 10% do total de vida (10) de uma ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"}, "."
+  ],
+  "text.config.hungrycows.category.milkabilitySettings": "Capacidade de Produzir Leite",
+  "text.config.hungrycows.category.milkabilitySettings.tooltip": [
+    "Essas configurações se aplicam a ",
+
+    {"text": "§lVacas", "color": "#6F373B"}, ", ", {"text": "§lVacas-cogumelo", "color": "#A8212E"},
+
+    " e §lCabras§r.\nUsar uma tigela em uma ",{"text": "§lMooshroom", "color": "#A8212E"}," para obter Ensopado de Cogumelo conta como \"§oordenhá-la§r\".\nPor padrão, as ovelhas também são afetadas, veja §l§oOvelhas (Paridade)§r abaixo."
+  ],
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain": "Tempo de Recarga entre Alimentações",
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": "A quantidade de segundos que você precisa esperar para que um animal possa ser alimentado novamente.\nIsso se refere à capacidade de alimentar um animal para restaurar sua §oCapacidade de Produzir Leite§r/§oCapacidade de Tosquia§r.",
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings": "Itens para Alimentação",
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": "Essas configurações permitem personalizar exatamente quais itens podem ser usados para atrair e alimentar cada animal específico.\nIsso se refere à capacidade de alimentar um animal para restaurar sua §oCapacidade de Produzir Leite§r/§oCapacidade de Tosquia§r ou curá-lo em 2 pontos de vida.",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": "Alimentando §lVacas§r (Leite)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems.tooltip": "Qualquer ID de item adicionado a esta lista pode ser usado para atrair e alimentar §lVacas§r, restaurando sua §oCapacidade de Produzir Leite§r ou um coração de vida.\nAlém dessa lista, IDs de itens também podem ser adicionados à tag de item \"§o#hungrycows:cow_feedable§r\" por datapacks ou outros mods.\nPor padrão, essa tag inclui apenas a tag de item vanilla \"§o#minecraft:cow_food§r\" (contém: Trigo).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": "Alimentando §lVacas-cogumelo§r (Leite/Ensopado de Cogumelo)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems.tooltip": "Qualquer ID de item adicionado a esta lista pode ser usado para atrair e alimentar §lVacas-cogumelo§r, restaurando sua §oCapacidade de Produzir Leite§r ou um coração de vida.\nAlém dessa lista, IDs de itens também podem ser adicionados à tag de item \"§o#hungrycows:mooshroom_feedable§r\" por datapacks ou outros mods.\nPor padrão, essa tag inclui apenas a tag de item vanilla \"§o#minecraft:cow_food§r\" (contém: Trigo).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": "Alimentando §lCabras§r (Leite)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems.tooltip": "Qualquer ID de item adicionado a esta lista pode ser usado para atrair e alimentar §lCabras§r, restaurando sua §oCapacidade de Produzir Leite§r ou um coração de vida.\nAlém dessa lista, IDs de itens também podem ser adicionados à tag de item \"§o#hungrycows:goat_feedable§r\" por datapacks ou outros mods.\nPor padrão, essa tag inclui apenas a tag de item vanilla \"§o#minecraft:goat_food§r\" (contém: Trigo).",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": "Alimentando §lOvelhas§r (Lã)",
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems.tooltip": "Qualquer ID de item adicionado a esta lista pode ser usado para atrair e alimentar §lOvelhas§r, restaurando sua §oCapacidade de Tosquia§r ou um coração de vida.\nAlém dessa lista, IDs de itens também podem ser adicionados à tag de item \"§o#hungrycows:sheep_feedable§r\" por datapacks ou outros mods.\nPor padrão, essa tag inclui apenas a tag de item vanilla \"§o#minecraft:sheep_food§r\" (contém: Trigo).",
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Mostrar Modelo/Textura de Ordenha Personalizada",
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
+    "Este recurso permite distinguir visualmente as ",
+
+    {"text": "§lVacas", "color": "#6F373B"}, "/", {"text": "§lVacas-cogumelo", "color": "#A8212E"},
+
+    " que podem ser ordenhadas daquelas que ainda não podem.\nQuando a ",
+
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+
+    " pode ser ordenhada:\n a) o modelo aumenta o tamanho e os detalhes do úbere e\n b) a textura muda a ",
+
+    {"text": "§ocor do úbere", "color": "#f7afaf"}, " para esta ", {"text": "§ocor de um úbere pronto para ordenha", "color": "#e58f8f"},
+
+    ".\nEssa configuração não se aplica às cabras, pois elas não possuem um úbere visível."
+  ],
+  "text.config.hungrycows.enum.mCDO.hide_none": "Mostrar Modelo e Textura",
+  "text.config.hungrycows.enum.mCDO.hide_model": "Mostrar Apenas a Textura",
+  "text.config.hungrycows.enum.mCDO.hide_texture_and_model": "Não Mostrar Nenhum",
+  "text.config.hungrycows.category.sheepSettings": "Ovelha (Paridade)",
+  "text.config.hungrycows.category.sheepSettings.tooltip": ["Essas configurações existem para paridade, pois se referem a recursos que não são adaptados das próprias Ovelhas.\nSe definido como \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Habilitado\", as Ovelhas usarão o recurso com os mesmos valores definidos acima para as Vacas."],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Cura ao Comer Blocos (Ovelha)",
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["Se definido como \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Habilitado\", as Ovelhas recuperarão a mesma quantidade de vida que as Vacas ao comer um bloco de Grama.\nSe definido como \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Desabilitado\", as Ovelhas voltarão ao comportamento padrão de não recuperar vida."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Cura ao Ser Alimentada (Ovelha)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["Se definido como \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Habilitado\", as Ovelhas recuperarão a mesma quantidade de vida (2) que as Vacas ao serem alimentadas com um item especificado na lista \"Itens Alimentáveis\" acima.\nSe definido como \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Desabilitado\", as Ovelhas voltarão ao comportamento padrão de não recuperar vida."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Recrescimento da Lã ao Ser Alimentada (Ovelha)",
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["Se definido como \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Habilitado\", as Ovelhas também poderão regenerar sua lã ao serem alimentadas com um item especificado na lista \"Itens Alimentáveis\" acima.\nSe definido como \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Desabilitado\", as Ovelhas voltarão ao comportamento padrão de não regenerar lã ao serem alimentadas."],
+  "text.config.hungrycows.category.cowMilkSettings": "Leite de §lVaca§r",
+  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue": "Sacia Fome",
+  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
+  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": "Restaura Saturação",
+  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": "Refere-se ao atributo oculto de saturação, que prolonga o tempo até que sua barra de fome comece a diminuir.\nOs valores dos alimentos padrão variam de 0,1 (como Peixe Cru, Cookies ou Frutas Vermelhas) a 1,2 (como Maçã Dourada/Cenoura Dourada).",
+  "text.config.hungrycows.category.mushroomCowMilkSettings": "Leite de §lMooshroom§r",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": "Sacia Fome",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": "Restaura Saturação",
+  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier.tooltip": "Refere-se ao atributo oculto de saturação, que prolonga o tempo até que sua barra de fome comece a diminuir.\nOs valores dos alimentos padrão variam de 0,1 (como Peixe Cru, Cookies ou Frutas Vermelhas) a 1,2 (como Maçã Dourada/Cenoura Dourada).",
+  "text.config.hungrycows.category.goatMilkSettings": "Leite de §lCabra§r",
+  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue": "Sacia Fome",
+  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
+  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": "Restaura Saturação",
+  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": "Refere-se ao atributo oculto de saturação, que prolonga o tempo até que sua barra de fome comece a diminuir.\nOs valores dos alimentos padrão variam de 0,1 (como Peixe Cru, Cookies ou Frutas Vermelhas) a 1,2 (como Maçã Dourada/Cenoura Dourada).",
+  "config.jade.plugin_hungrycows.milkable": "Mostrar Capacidade de Ordenhar",
+  "config.jade.plugin_hungrycows.milkable_desc": "Exibe se uma Vaca/Mooshroom/Cabra pode ser ordenhada.",
+  "config.jade.plugin_hungrycows.feedable": "Mostrar Capacidade de Alimentação",
+  "config.jade.plugin_hungrycows.feedable_desc": "Exibe se uma Vaca/Mooshroom/Cabra/Ovelha pode ser alimentada para permitir a ordenha/tosquia novamente.",
+  "hungrycows.milkable.true": "Comeu e pode ser §fordenhada§r.",
+  "hungrycows.milkable.false": "Está com fome e não pode ser §fordenhada§r ainda.",
+  "hungrycows.feedable.false": "Foi alimentada recentemente e poderá ser alimentada novamente em %s.",
+  "hungrycows.feedable.true.cow": "Pode ser alimentada para permitir que a Vaca seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.mooshroom": "Pode ser alimentada para permitir que a Mooshroom seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.goat": "Pode ser alimentada para permitir que a Cabra seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.sheep": "Pode ser alimentada para permitir que a Ovelha seja §tosquiada§r novamente.",
+  "hungrycows.feedable.true.cow.item": "Pode ser alimentada com este %s para permitir que a Vaca seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.mooshroom.item": "Pode ser alimentada com este %s para permitir que a Mooshroom seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.goat.item": "Pode ser alimentada com este %s para permitir que a Cabra seja §fordenhada§r novamente.",
+  "hungrycows.feedable.true.sheep.item": "Pode ser alimentada com este %s para permitir que a Ovelha seja §tosquiada§r novamente.",
+  "item.hungrycows.milk_bucket.cow": "§lBalde de Leite de Vaca§r",
+  "item.hungrycows.milk_bucket.mooshroom": "§lBalde de Leite de Mooshroom§r",
+  "item.hungrycows.milk_bucket.goat": "§lBalde de Leite de Cabra§r"
+}
