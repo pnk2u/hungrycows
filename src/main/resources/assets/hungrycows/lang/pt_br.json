@@ -5,7 +5,7 @@
   "text.config.hungrycows.section.CowSettings": [
     {"text": "Vaca", "color": "#6F373B"},
     {"text": "/", "color": "#A12345"},
-    {"text": "Vaca-cogumelo", "color": "#A8212E"},
+    {"text": "Mooshroom", "color": "#A8212E"},
     {"text": " Configurações", "color": "#A12345"}
   ],
   "text.config.hungrycows.section.MilkSettings": [
@@ -22,7 +22,7 @@
   "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
     "A probabilidade de uma ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"},
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
 
     " comer um bloco de ",
 
@@ -30,7 +30,7 @@
 
     " para regenerar sua capacidade de produzir leite.\nVaria de 0 (muito improvável) a 3 (máximo). O valor padrão é 1.0, o que faz com que a ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"},
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
 
     " coma cerca de uma a duas vezes por dia."
   ],
@@ -38,7 +38,7 @@
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
     "Quantos segundos um bezerro ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"},
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
 
     " crescerá mais rápido após comer um bloco de ",
 
@@ -50,7 +50,7 @@
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
     "Quantos pontos de vida uma ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"},
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
 
     " recupera ao comer um bloco de ",
 
@@ -58,7 +58,7 @@
 
     ".\nPor padrão, esse valor é 1 ponto de vida (meio coração), o que equivale a 10% do total de vida (10) de uma ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"}, "."
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"}, "."
   ],
   "text.config.hungrycows.category.milkabilitySettings": "Capacidade de Produzir Leite",
   "text.config.hungrycows.category.milkabilitySettings.tooltip": [
@@ -66,7 +66,7 @@
 
     {"text": "§lVacas", "color": "#6F373B"}, ", ", {"text": "§lVacas-cogumelo", "color": "#A8212E"},
 
-    " e §lCabras§r.\nUsar uma tigela em uma ",{"text": "§lVaca-cogumelo", "color": "#A8212E"}," para obter Ensopado de Cogumelo conta como \"§oordenhá-la§r\".\nPor padrão, as ovelhas também são afetadas, veja §l§oOvelhas (Paridade)§r abaixo."
+    " e §lCabras§r.\nUsar uma tigela em uma ",{"text": "§lMooshroom", "color": "#A8212E"}," para obter Ensopado de Cogumelo conta como \"§oordenhá-la§r\".\nPor padrão, as ovelhas também são afetadas, veja §l§oOvelhas (Paridade)§r abaixo."
   ],
   "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain": "Tempo de Recarga entre Alimentações",
   "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": "A quantidade de segundos que você precisa esperar para que um animal possa ser alimentado novamente.\nIsso se refere à capacidade de alimentar um animal para restaurar sua §oCapacidade de Produzir Leite§r/§oCapacidade de Tosquia§r.",
@@ -88,7 +88,7 @@
 
     " que podem ser ordenhadas daquelas que ainda não podem.\nQuando a ",
 
-    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lVaca-cogumelo", "color": "#A8212E"},
+    {"text": "§lVaca", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
 
     " pode ser ordenhada:\n a) o modelo aumenta o tamanho e os detalhes do úbere e\n b) a textura muda a ",
 
@@ -112,7 +112,7 @@
   "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
   "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": "Restaura Saturação",
   "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": "Refere-se ao atributo oculto de saturação, que prolonga o tempo até que sua barra de fome comece a diminuir.\nOs valores dos alimentos padrão variam de 0,1 (como Peixe Cru, Cookies ou Frutas Vermelhas) a 1,2 (como Maçã Dourada/Cenoura Dourada).",
-  "text.config.hungrycows.category.mushroomCowMilkSettings": "Leite de §lVaca-Cogumelo§r",
+  "text.config.hungrycows.category.mushroomCowMilkSettings": "Leite de §lMooshroom§r",
   "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": "Sacia Fome",
   "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
   "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": "Restaura Saturação",
@@ -122,10 +122,10 @@
   "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": "Quantidade de pontos de fome adicionados à barra de fome, sendo que uma barra totalmente cheia consiste em 20 pontos.\nOs valores dos alimentos padrão variam de 1 (como Beterraba ou Alga Seca) a 8 (como Carne de Porco Cozida ou Torta de Abóbora).",
   "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": "Restaura Saturação",
   "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": "Refere-se ao atributo oculto de saturação, que prolonga o tempo até que sua barra de fome comece a diminuir.\nOs valores dos alimentos padrão variam de 0,1 (como Peixe Cru, Cookies ou Frutas Vermelhas) a 1,2 (como Maçã Dourada/Cenoura Dourada).",
-  "config.jade.plugin_hungrycows.milkable": "Mostrar Capacidade de Ordenha",
-  "config.jade.plugin_hungrycows.milkable_desc": "Exibe se uma Vaca/Vaca-Cogumelo/Cabra pode ser ordenhada.",
+  "config.jade.plugin_hungrycows.milkable": "Mostrar Capacidade de Ordenhar",
+  "config.jade.plugin_hungrycows.milkable_desc": "Exibe se uma Vaca/Mooshroom/Cabra pode ser ordenhada.",
   "config.jade.plugin_hungrycows.feedable": "Mostrar Capacidade de Alimentação",
-  "config.jade.plugin_hungrycows.feedable_desc": "Exibe se uma Vaca/Vaca-Cogumelo/Cabra/Ovelha pode ser alimentada para permitir a ordenha/tosquia novamente.",
+  "config.jade.plugin_hungrycows.feedable_desc": "Exibe se uma Vaca/Mooshroom/Cabra/Ovelha pode ser alimentada para permitir a ordenha/tosquia novamente.",
   "hungrycows.milkable.true": "Comeu e pode ser §fordenhada§r.",
   "hungrycows.milkable.false": "Está com fome e não pode ser §fordenhada§r ainda.",
   "hungrycows.feedable.false": "Foi alimentada recentemente e poderá ser alimentada novamente em %s.",
