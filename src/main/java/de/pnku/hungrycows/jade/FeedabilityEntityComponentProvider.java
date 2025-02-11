@@ -52,12 +52,15 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
                 if (canBeFed) {
                     Component feedableTrueComponent = Component.translatable("hungrycows.feedable.true" + (isCow ? ".cow" : (isMooshroom ? ".mooshroom" : (isSheep ? ".sheep" : ".goat"))) + (!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item" : ""), Component.translatable(handStack.getDescriptionId()));
                     if (!handStack.isEmpty() && checkFeedability(handStack, entity)) {
-                        int horizantalIconShift = Minecraft.getInstance().getLanguageManager().getSelected().equals("de_de") ?
+                        int horizantalIconShift =
+                        Minecraft.getInstance().getLanguageManager().getSelected().startsWith("en") ? 102 :
+                        Minecraft.getInstance().getLanguageManager().getSelected().equals("pt_br") ? 150 :
+                        Minecraft.getInstance().getLanguageManager().getSelected().equals("de_de") ?
                                 isCow ? 164
                               : isMooshroom ? 200
                               : isSheep ? 179
                               : 172 // if Goat
-                              : 102; // if !de_de
+                              : 102;
                         IElement icon = IElementHelper.get().item(new ItemStack(handStack.getItem()), 0.5f).size(new Vec2(10, 10)).translate(new Vec2(horizantalIconShift, -2));
                         tooltip.add(icon);
                         IElement moveToLeftSpace = IElementHelper.get().spacer(-10, 0);
