@@ -145,6 +145,9 @@
   "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§rmilcheimer",
   "item.hungrycows.milk_bucket.goat": "§lZiege§rnmilcheimer",
 
+  "hungrycows.feedable.true.moobloom": "Füttere die Moobloom, um sie erneut melken zu können.",
+  "hungrycows.feedable.true.moobloom.item": "Füttere die Moobloom mit diesem Item (    %s), um sie erneut melken zu können.",
+
   "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
 
   "text.owo.itemGroup.select_hint": {"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"},

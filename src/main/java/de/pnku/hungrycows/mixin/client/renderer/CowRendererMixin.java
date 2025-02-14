@@ -1,7 +1,8 @@
 package de.pnku.hungrycows.mixin.client.renderer;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import de.pnku.hungrycows.config.HungryCowsConfigHelper;
+import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.CowRenderer;
@@ -16,9 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.milkabilitySettings;
-import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_TEXTURE_AND_MODEL;
-
 @Mixin(CowRenderer.class)
 public abstract class CowRendererMixin extends MobRenderer<Cow, CowModel<Cow>> {
     public CowRendererMixin(EntityRendererProvider.Context context) {
@@ -30,7 +28,7 @@ public abstract class CowRendererMixin extends MobRenderer<Cow, CowModel<Cow>> {
 
     @Inject(method = "getTextureLocation*", at = @At("HEAD"), cancellable = true)
     public void injectedGetTextureLocation(Cow cow, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (((HungryCowsEntityInterface) cow).hungrycows$isMilkable() && !milkabilitySettings.milkableCowDisplayType().equals(HIDE_TEXTURE_AND_MODEL)){
+        if (((IHungryCows) cow).hungrycows$isMilkable() && HungryCowsConfigHelper.showMilkableTexture()){
             cir.setReturnValue(HungryCows.withModId("textures/entity/cow/milkable_cow.png"));
         } else {
             cir.setReturnValue(COW_LOCATION);

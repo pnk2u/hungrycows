@@ -37,7 +37,8 @@
 		{
 			"config": "hungrycows.client.model.mixins.json" ,
 			"environment": "client"
-		}
+		},
+		"hungrycows.compat.bovinesandbuttercup.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",

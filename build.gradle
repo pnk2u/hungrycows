@@ -26,6 +26,10 @@ repositories {
 		name = "Terraformers"
 		url = "https://maven.terraformersmc.com/"
 	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
 
 }
 
@@ -55,7 +59,10 @@ dependencies {
 	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
 	// Mod Menu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
-	
+	// Bovines and Buttercups
+	modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.moobloom_version}"
+	modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.moobloom_version}"
+
 }
 
 sourceSets.main.java.srcDirs += [ 'src/main/generatedJava' ]

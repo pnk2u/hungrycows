@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
 @Mixin(GoatAi.class)
 public abstract class GoatAiMixin {

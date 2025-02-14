@@ -2,7 +2,7 @@ package de.pnku.hungrycows.item;
 
 import net.minecraft.world.food.FoodProperties;
 
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
 public class HungryCowsItemComponents {
     public static final FoodProperties COW_MILK_BUCKET = new FoodProperties.Builder().nutrition(cowMilkSettings.milkNutritionValue()).saturationModifier(cowMilkSettings.milkSaturationModifier()).alwaysEdible().build();
