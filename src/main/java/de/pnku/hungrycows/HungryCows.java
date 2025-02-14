@@ -9,14 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.CONFIG;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.CONFIG;
 
 public class HungryCows implements ModInitializer {
 	public static final String MOD_ID = "hungrycows";
     public static final Logger LOGGER = LoggerFactory.getLogger("hungrycows");
-	public static EntityDataAccessor<Byte> IS_MILKED;
-	public static EntityDataAccessor<Byte> IS_MILKED_MOOSHROOM;
-	public static EntityDataAccessor<Byte> IS_MILKED_GOAT;
+	public static EntityDataAccessor<Boolean> IS_MILKED;
+	public static EntityDataAccessor<Boolean> IS_MILKED_MOOSHROOM;
+	public static EntityDataAccessor<Boolean> IS_MILKED_GOAT;
 	public static EntityDataAccessor<Integer> FED_TIMER;
 	public static EntityDataAccessor<Integer> FED_TIMER_SHEEP;
 	public static EntityDataAccessor<Integer> FED_TIMER_GOAT;
