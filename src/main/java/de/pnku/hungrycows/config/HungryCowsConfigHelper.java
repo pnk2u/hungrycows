@@ -2,17 +2,23 @@ package de.pnku.hungrycows.config;
 
 import de.pnku.hungrycows.config.HungryCowsOwoConfig;
 import de.pnku.hungrycows.config.HungryCowsOwoConfig.*;
+import de.pnku.hungrycows.item.HungryCowsItemTags;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.*;
 import static de.pnku.hungrycows.item.HungryCowsItemTags.*;
@@ -70,6 +76,29 @@ public class HungryCowsConfigHelper {
             }
         }
         return false;
+    }
+
+    public static ItemLike[] getFeedableItemsFromConfig(EntityType<?> type) {
+        List<String> configItems = type == EntityType.COW ? feedSettings.cowFeedableItems()
+                : type == EntityType.MOOSHROOM ? feedSettings.mushroomCowFeedableItems()
+                : type == EntityType.SHEEP ? feedSettings.sheepFeedableItems()
+                : type == EntityType.GOAT ? feedSettings.goatFeedableItems()
+                : null;
+
+        if (configItems == null) return new ItemLike[0];
+
+        ItemLike[] itemsFromConfig = configItems.stream()
+                .map(feedableItem -> BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(feedableItem)))
+                .filter(item -> item != Items.AIR) // Filter out invalid items
+                .toArray(ItemLike[]::new);
+
+        TagKey<Item> tagKey = HungryCowsItemTags.getFeedableTag(type);
+        ItemLike[] itemsFromTag = BuiltInRegistries.ITEM.stream()
+                .filter(item -> item.builtInRegistryHolder().is(tagKey))
+                .toArray(ItemLike[]::new);
+
+        return Stream.concat(Arrays.stream(itemsFromConfig), Arrays.stream(itemsFromTag))
+                .toArray(ItemLike[]::new);
     }
 
     public static CubeListBuilder getMilkableCowBodyWithUdderCubeListBuilder(String name, CubeListBuilder cubeListBuilder) {
@@ -142,7 +171,7 @@ public class HungryCowsConfigHelper {
                 xOff = 0.15; zOff = 0.15;
                 yOff = 0.75;
             }
-            case null, default -> {
+            default -> {
                 xOff = 0; zOff = 0;
                 yOff = 0;
             }

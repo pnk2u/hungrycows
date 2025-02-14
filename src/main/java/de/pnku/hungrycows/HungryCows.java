@@ -3,6 +3,7 @@ package de.pnku.hungrycows;
 import de.pnku.hungrycows.config.HungryCowsLegacyConfigJsonHelper;
 import de.pnku.hungrycows.item.HungryCowsDispenseItemBehaviors;
 import de.pnku.hungrycows.jade.MilkabilityUIItems;
+import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +29,7 @@ public class HungryCows implements ModInitializer {
 		CONFIG.load(); // Reload after migrating legacy config to new config
 		HungryCowsDispenseItemBehaviors.registerBucketBehavior();
 		MilkabilityUIItems.initUISpriteItem();
+		HungryCowsCompatibilityHelper.init();
 	}
 
 	public static ResourceLocation withModId(String path) {

@@ -1,5 +1,6 @@
 package de.pnku.hungrycows.jade;
 
+import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.Minecraft;

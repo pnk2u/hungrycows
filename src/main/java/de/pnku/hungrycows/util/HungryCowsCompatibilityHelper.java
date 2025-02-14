@@ -1,6 +1,5 @@
 package de.pnku.hungrycows.util;
 
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.EntityType;
 
@@ -16,7 +15,6 @@ public class HungryCowsCompatibilityHelper {
     public static boolean isBnBLoaded = false;
 
     public static void init() {
-        if (isBnBLoaded) {initBnB();}
         setMilkableEntities();
         setFeedableEntities();
     }
@@ -34,11 +32,6 @@ public class HungryCowsCompatibilityHelper {
         FEEDABLE_ENTITIES.add(EntityType.SHEEP);
         FEEDABLE_ENTITIES.add(EntityType.GOAT);
         FEEDABLE_ENTITIES.addAll(CUSTOM_FEEDABLE_ENTITIES);
-    }
-
-    protected static void initBnB() {
-        CUSTOM_MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
-        CUSTOM_FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
     }
 
 }
