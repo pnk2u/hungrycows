@@ -1,13 +1,14 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import de.pnku.hungrycows.util.IHungryCows;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,10 +29,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static de.pnku.hungrycows.HungryCows.*;
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.*;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
 @Mixin(Sheep.class)
-public abstract class SheepMixin extends Animal implements Shearable, HungryCowsEntityInterface {
+public abstract class SheepMixin extends Animal implements Shearable, IHungryCows {
 
     @Shadow public abstract void setSheared(boolean sheared);
 
@@ -45,6 +47,16 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
 
     protected SheepMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Unique public boolean hungrycows$isMooshroom(){
+        return false;
+    }
+    @Unique public boolean hungrycows$isCow(){
+        return false;
+    }
+    @Unique public String hungrycows$getName(){
+        return "sheep";
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
@@ -67,7 +79,12 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
     @Inject(method = "ate", at = @At("TAIL"))
     public void injectedAte(CallbackInfo ci) {
         if (thisSheep.getHealth() < thisSheep.getMaxHealth() && sheepSettings.isSheepBlockEatToHeal()) {
-            thisSheep.heal(blockEatSettings.cowBlockEatHealAmount());
+            int i = blockEatSettings.cowBlockEatHealAmount();
+            thisSheep.heal(i);
+            if (!this.level().isClientSide()) {
+                Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
+                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.5F, 0.3F, 0.5F, 0.2F);
+            }
         }
     }
 
@@ -98,17 +115,26 @@ public abstract class SheepMixin extends Animal implements Shearable, HungryCows
     public void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if ((checkFeedability(itemStack, thisSheep) && this.isSheared() && sheepSettings.isSheepFeedToRegrowWool()) || sheepSettings.isSheepFeedToHeal()) {
-            int s = ((HungryCowsEntityInterface) thisSheep).hungrycows$getSheepHasBeenFedManuallyTimer();
+            int s = ((IHungryCows) thisSheep).hungrycows$getSheepHasBeenFedManuallyTimer();
             if ((sheepSettings.isSheepFeedToRegrowWool() && thisSheep.isSheared() && s <= 1)) {
                 thisSheep.setSheared(false);
                 SynchedEntityData data = thisSheep.getEntityData();
                 data.set(Sheep.DATA_WOOL_ID, (byte) (data.get(Sheep.DATA_WOOL_ID) & -17));
-                ((HungryCowsEntityInterface) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
+                ((IHungryCows) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
                 itemStack.consume(1, player);
+                if (!this.level().isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
+                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.25F, 0.3F, 0.25F, 0.2F);
+                }
                 level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
-            if ((thisSheep.getHealth() < thisSheep.getMaxHealth()) && sheepSettings.isSheepFeedToHeal()) {
+            int healthDiff = (int) thisSheep.getMaxHealth() - (int) thisSheep.getHealth();
+            if (healthDiff > 0 && sheepSettings.isSheepFeedToHeal()) {
                 thisSheep.heal(2.0F);
+                if (!this.level().isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
+                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.3F, 0.3F, 0.3F, 0.2F);
+                }
                 itemStack.consume(1, player);
                 level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }

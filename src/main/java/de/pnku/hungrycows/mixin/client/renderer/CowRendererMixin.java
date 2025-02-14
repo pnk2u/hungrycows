@@ -2,7 +2,8 @@ package de.pnku.hungrycows.mixin.client.renderer;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.renderer.HungryCowRenderState;
-import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import de.pnku.hungrycows.config.HungryCowsConfigHelper;
+import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
@@ -19,9 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static de.pnku.hungrycows.config.HungryCowsConfigAccessor.milkabilitySettings;
-import static de.pnku.hungrycows.config.HungryCowsConfigModel.MilkabilitySettings.mCDO.HIDE_TEXTURE_AND_MODEL;
 
 @Mixin(CowRenderer.class)
 public abstract class CowRendererMixin extends AgeableMobRenderer<Cow, HungryCowRenderState, CowModel> {
@@ -41,15 +39,15 @@ public abstract class CowRendererMixin extends AgeableMobRenderer<Cow, HungryCow
     public void injectedExtractRenderState(Cow cow, LivingEntityRenderState livingEntityRenderState, float f, CallbackInfo ci) {
         HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) livingEntityRenderState;
         super.extractRenderState(cow, hungryCowRenderState, f);
-        hungryCowRenderState.headAngle = ((HungryCowsEntityInterface) cow).hungrycows$getHeadAngle(f);
-        hungryCowRenderState.neckAngle = ((HungryCowsEntityInterface) cow).hungrycows$getNeckAngle(f);
-        hungryCowRenderState.isMilkable = ((HungryCowsEntityInterface) cow).hungrycows$isMilkable();
+        hungryCowRenderState.headAngle = ((IHungryCows) cow).hungrycows$getHeadAngle(f);
+        hungryCowRenderState.neckAngle = ((IHungryCows) cow).hungrycows$getNeckAngle(f);
+        hungryCowRenderState.isMilkable = ((IHungryCows) cow).hungrycows$isMilkable();
     }
 
     @Inject(method = "getTextureLocation*", at = @At("HEAD"), cancellable = true)
     public void injectedGetTextureLocation(LivingEntityRenderState livingEntityRenderState, CallbackInfoReturnable<ResourceLocation> cir) {
         HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) livingEntityRenderState;
-        if (hungryCowRenderState.isMilkable && !milkabilitySettings.milkableCowDisplayType().equals(HIDE_TEXTURE_AND_MODEL)){
+        if (hungryCowRenderState.isMilkable && HungryCowsConfigHelper.showMilkableTexture()){
             cir.setReturnValue(HungryCows.withModId("textures/entity/cow/milkable_cow.png"));
         } else {
             cir.setReturnValue(COW_LOCATION);

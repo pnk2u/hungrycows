@@ -1,6 +1,6 @@
 package de.pnku.hungrycows.item;
 
-import de.pnku.hungrycows.util.HungryCowsEntityInterface;
+import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BucketPickup;
@@ -51,11 +50,11 @@ public class HungryCowsDispenseItemBehaviors {
                     if (!serverLevel.isClientSide) {
                         for (LivingEntity livingEntity : serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos), EntitySelector.NO_SPECTATORS)) {
                             if (livingEntity.getType() == EntityType.COW || livingEntity.getType() == EntityType.MOOSHROOM || livingEntity.getType() == EntityType.GOAT) {
-                                if (((HungryCowsEntityInterface) livingEntity).hungrycows$isMilkable()) {
-                                    ((HungryCowsEntityInterface) livingEntity).hungrycows$setMilked(true);
+                                if (((IHungryCows) livingEntity).hungrycows$isMilkable()) {
+                                    ((IHungryCows) livingEntity).hungrycows$setMilked(true);
                                     serverLevel.playSound(livingEntity, blockPos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 0.317F, 2.37F);
                                     serverLevel.playSound(livingEntity, blockPos, SoundEvents.COW_MILK, SoundSource.BLOCKS, 0.554F, 1.108F);
-                                    ItemStack itemStackMilk = ((HungryCowsEntityInterface) livingEntity).hungrycows$getEdibleMilk();
+                                    ItemStack itemStackMilk = ((IHungryCows) livingEntity).hungrycows$getEdibleMilk();
                                     return this.consumeWithRemainder(blockSource, item, itemStackMilk);
                                 }
                             }
@@ -78,7 +77,7 @@ public class HungryCowsDispenseItemBehaviors {
                 if (!serverLevel.isClientSide) {
                     for (LivingEntity livingEntity : serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos), EntitySelector.NO_SPECTATORS)) {
                         if (livingEntity.getType() == EntityType.MOOSHROOM) {
-                            if (((HungryCowsEntityInterface) livingEntity).hungrycows$isMilkable()) {
+                            if (((IHungryCows) livingEntity).hungrycows$isMilkable()) {
                                 boolean bl = false;
                                 ItemStack itemStack2;
                                 if (((MushroomCow) livingEntity).stewEffects != null) {
@@ -90,7 +89,7 @@ public class HungryCowsDispenseItemBehaviors {
                                     itemStack2 = new ItemStack(Items.MUSHROOM_STEW);
                                 }
 
-                                ((HungryCowsEntityInterface) livingEntity).hungrycows$setMilked(true);
+                                ((IHungryCows) livingEntity).hungrycows$setMilked(true);
 
                                 SoundEvent soundEvent = bl ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
 
