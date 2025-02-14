@@ -10,8 +10,8 @@
     "client.renderer.entity.LivingEntityRendererMixin",
     "client.renderer.entity.model.CustomCowModelLayersMixin",
     "client.renderer.entity.layer.CowLayersLayerMixin",
-    "entity.MoobloomMixin",
-    "item.NectarBowlItemMixin"
+    "client.renderer.entity.state.MoobloomRenderStateMixin",
+    "entity.MoobloomMixin"
   ] ,
   "injectors": {
     "defaultRequire": 1,

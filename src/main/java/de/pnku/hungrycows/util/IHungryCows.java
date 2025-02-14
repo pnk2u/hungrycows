@@ -7,6 +7,7 @@ public interface IHungryCows {
 float hungrycows$getNeckAngle(float delta);
 float hungrycows$getHeadAngle(float delta);
 boolean hungrycows$isMilkable();
+boolean hungrycows$isMilkable = false;
 boolean hungrycows$isMilked();
 boolean hungrycows$isMooshroom();
 boolean hungrycows$isCow();

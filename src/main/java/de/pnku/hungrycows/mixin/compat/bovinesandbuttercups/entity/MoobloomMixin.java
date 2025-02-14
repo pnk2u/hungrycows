@@ -1,10 +1,12 @@
 package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.entity;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.IHungryCows;
+import house.greenhouse.bovinesandbuttercups.api.CowVariant;
+import house.greenhouse.bovinesandbuttercups.content.data.configuration.MoobloomConfiguration;
 import house.greenhouse.bovinesandbuttercups.content.entity.Moobloom;
+import house.greenhouse.bovinesandbuttercups.content.sound.BovinesSoundEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,22 +19,25 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.FED_TIMER;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.*;
 
+@Debug(export = true)
 @Mixin(Moobloom.class)
 public abstract class MoobloomMixin extends Cow implements IHungryCows {
 
@@ -44,6 +49,8 @@ public abstract class MoobloomMixin extends Cow implements IHungryCows {
     public Cow getBreedOffspring(ServerLevel level, AgeableMob otherParent){
         return null;
     }
+
+    @Shadow public Holder<CowVariant<MoobloomConfiguration>> getCowVariant() {return null;}
 
     @Unique public boolean hungrycows$isMooshroom(){
         return false;
@@ -94,15 +101,29 @@ public abstract class MoobloomMixin extends Cow implements IHungryCows {
         return edibleMilk;
     }
 
-    @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;set(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object;", shift = At.Shift.AFTER), cancellable = true)
-    public void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir, @Local(ordinal = 1) ItemStack nectarBowl) {
-        if (this.hungrycows$isMilkable()) {
-            nectarBowl.set(DataComponents.MAX_STACK_SIZE, 16);
-            nectarBowl.set(DataComponents.FOOD, HungryCowsItemComponents.COW_MILK_BUCKET);
-            this.hungrycows$setMilked(true);
-        } else {
-            cir.setReturnValue(InteractionResult.PASS);
-            return;
+    @Unique
+    public ItemStack getEdibleNectar(){
+        ItemStack edibleNectar = new ItemStack(((MoobloomConfiguration) ((CowVariant) this.getCowVariant().value()).configuration()).nectar().get().getItem());
+        edibleNectar.set(DataComponents.FOOD, HungryCowsItemComponents.COW_MILK_BUCKET);
+        edibleNectar.set(DataComponents.MAX_STACK_SIZE, 16);
+
+        return edibleNectar;
+    }
+
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
+    public void injectMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(Items.BOWL)) {
+            if (this.hungrycows$isMilkable() && ((MoobloomConfiguration) ((CowVariant) this.getCowVariant().value()).configuration()).nectar().isPresent()) {
+                this.hungrycows$setMilked(true);
+                ItemStack filledStack = this.getEdibleNectar();
+                ItemStack filledNectarBowl = ItemUtils.createFilledResult(stack, player, filledStack);
+                player.setItemInHand(hand, filledNectarBowl);
+                this.playSound(BovinesSoundEvents.MOOBLOOM_MILK, 1.0F, 1.0F);
+                cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
+            } else {
+                cir.setReturnValue(InteractionResult.PASS);
+            }
         }
     }
 
