@@ -5,9 +5,16 @@ import net.minecraft.world.item.ItemStack;
 public interface IHungryCows {
 
 float hungrycows$getNeckAngle(float delta);
+float hungrycows$getNeckAngle();
 float hungrycows$getHeadAngle(float delta);
+float hungrycows$getHeadAngle();
+float hungrycows$headAngle = 0;
+void hungrycows$setHeadAngle(float angle);
+float hungrycows$neckAngle = 0;
+void hungrycows$setNeckAngle(float angle);
 boolean hungrycows$isMilkable();
 boolean hungrycows$isMilkable = false;
+void hungrycows$setMilkable(boolean milkable);
 boolean hungrycows$isMilked();
 boolean hungrycows$isMooshroom();
 boolean hungrycows$isCow();

@@ -115,7 +115,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
 
     @Unique
     public float hungrycows$getNeckAngle(float delta) {
-        float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
+        float babyNeckMultiplier = this.isBaby() ? 0.25F : 1.0F; // 0.25F being double from 0.125F from 1.21.1 as in 1.21.4 we also use the Animal class' getAgeScale (0.5F if isBaby())
         float neckAngle;
         if (this.eatGrassTimer <= 0) {
             neckAngle = 0.0F;

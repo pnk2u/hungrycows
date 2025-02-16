@@ -1,6 +1,5 @@
 package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.entity;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.IHungryCows;
 import house.greenhouse.bovinesandbuttercups.api.CowVariant;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -35,13 +33,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.blockEatSettings;
-import static de.pnku.hungrycows.config.HungryCowsConfigHelper.checkFeedability;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.*;
 
 @Debug(export = true)
@@ -83,9 +78,9 @@ public abstract class MoobloomMixin extends Cow implements Shearable, IHungryCow
     }
 
     @Override
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel level) {
         this.moobloomEatGrassTimer = this.moobloomEatGrassGoal.getEatAnimationTick();
-        super.customServerAiStep();
+        super.customServerAiStep(level);
     }
 
     @Override

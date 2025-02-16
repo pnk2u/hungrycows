@@ -35,7 +35,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     @Inject(method = "getRenderType", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/LivingEntityRenderer;getTextureLocation(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)Lnet/minecraft/resources/ResourceLocation;", shift = At.Shift.BY, by = 3))
     public void injectedGetRenderType(S renderState, boolean isVisible, boolean renderTranslucent, boolean appearsGlowing, CallbackInfoReturnable<RenderType> cir, @Local LocalRef<ResourceLocation> modifiedResourceLocation) {
         if (renderState instanceof MoobloomRenderState moobloomRenderState && modifiedResourceLocation.get().getPath().contains("moobloom")) {
-            if (((IHungryCows) moobloomRenderState).hungrycows$isMilkable && showMilkableTexture()) {
+            if (((IHungryCows) moobloomRenderState).hungrycows$isMilkable() && showMilkableTexture()) {
                 String modifier = "";
                 if (!modifiedResourceLocation.get().getPath().contains("sombercup")) {
                     for (Pack resourcePack : ((Minecraft.getInstance())).getResourcePackRepository().getSelectedPacks()) {

@@ -2,41 +2,39 @@ package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.client.renderer.ent
 
 import de.pnku.hungrycows.util.IHungryCows;
 import house.greenhouse.bovinesandbuttercups.client.renderer.entity.model.MoobloomModel;
-import house.greenhouse.bovinesandbuttercups.content.entity.Moobloom;
-import net.minecraft.client.model.CowModel;
-import net.minecraft.client.model.HierarchicalModel;
+import house.greenhouse.bovinesandbuttercups.client.renderer.entity.model.state.MoobloomRenderState;
+import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MoobloomModel.class)
-public abstract class MoobloomModelMixin extends HierarchicalModel<Moobloom> {
-
-    @Shadow @Final private CowModel<Moobloom> cowModel;
+public abstract class MoobloomModelMixin<T extends LivingEntityRenderState> extends QuadrupedModel<T> {
 
     public MoobloomModelMixin(ModelPart root) {
+        super(root);
     }
 
-    @Unique
-    private float headAngle;
-
-    @Unique
-    private float neckAngle;
-
-    @Redirect(method = "setupAnim(Lhouse/greenhouse/bovinesandbuttercups/content/entity/Moobloom;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/CowModel;setupAnim(Lnet/minecraft/world/entity/Entity;FFFFF)V"))
-    public void redirectedSetupAnim(CowModel<Moobloom> instance, Entity moobloom, float limbSwing, float limbSwingAmount, float delta, float yRot, float xRot) {
-        this.cowModel.setupAnim((Moobloom) moobloom, limbSwing, limbSwingAmount, delta, yRot, xRot);
-        this.cowModel.getHead().xRot = this.headAngle;
-        this.cowModel.getHead().y = this.neckAngle;
+    @Inject(method = "setupAnim(Lhouse/greenhouse/bovinesandbuttercups/client/renderer/entity/model/state/MoobloomRenderState;)V", at = @At(value = "HEAD"), remap = false)
+    public void injectedSetupAnim(MoobloomRenderState moobloomRenderState, CallbackInfo ci) {
+        super.setupAnim((T) moobloomRenderState);
+        this.head.y = this.head.y + (((IHungryCows) moobloomRenderState).hungrycows$getNeckAngle()) * 9.0F * (moobloomRenderState.ageScale);
+        this.head.xRot = ((IHungryCows) moobloomRenderState).hungrycows$getHeadAngle();
+        float f = moobloomRenderState.walkAnimationPos;
+        float g = moobloomRenderState.walkAnimationSpeed;
+        this.rightHindLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
+        this.leftHindLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
+        this.rightFrontLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
+        this.leftFrontLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
     }
 
-    @Override
-    public void prepareMobModel(@NotNull Moobloom moobloomEntity, float limbAngle, float limbDistance, float tickDelta) {
-        this.cowModel.prepareMobModel(moobloomEntity, limbAngle, limbDistance, tickDelta);
-        this.neckAngle = 6.0F + ((IHungryCows) moobloomEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
-        this.headAngle = ((IHungryCows) moobloomEntity).hungrycows$getHeadAngle(tickDelta);
+    @Inject(method = "setupAnim(Lhouse/greenhouse/bovinesandbuttercups/client/renderer/entity/model/state/MoobloomRenderState;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/QuadrupedModel;setupAnim(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)V", shift = At.Shift.AFTER))
+    public void injectedSetupAnimSetupAnimAfter(MoobloomRenderState moobloomRenderState, CallbackInfo ci) {
+        this.head.y = this.head.y + (((IHungryCows) moobloomRenderState).hungrycows$getNeckAngle()) * 9.0F * (moobloomRenderState.ageScale);
+        this.head.xRot = ((IHungryCows) moobloomRenderState).hungrycows$getHeadAngle();
     }
 }
