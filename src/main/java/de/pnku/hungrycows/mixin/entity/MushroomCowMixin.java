@@ -102,13 +102,16 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
     @Unique
     public float hungrycows$getNeckAngle(float delta) {
+        float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
+        float neckAngle;
         if (this.eatMyceliumTimer <= 0) {
-            return 0.0F;
+            neckAngle = 0.0F;
         } else if (this.eatMyceliumTimer >= 4 && this.eatMyceliumTimer <= 36) {
-            return 1.0F;
+            neckAngle = 1.0F;
         } else {
-            return this.eatMyceliumTimer < 4 ? ((float)this.eatMyceliumTimer - delta) / 4.0F : -((float)(this.eatMyceliumTimer - 40) - delta) / 4.0F;
+            neckAngle = this.eatMyceliumTimer < 4 ? ((float)this.eatMyceliumTimer - delta) / 4.0F : -((float)(this.eatMyceliumTimer - 40) - delta) / 4.0F;
         }
+        return neckAngle * babyNeckMultiplier;
     }
 
     @Unique
