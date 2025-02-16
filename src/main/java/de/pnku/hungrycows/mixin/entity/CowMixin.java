@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -70,7 +72,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
 
     protected void customServerAiStep() {
-        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
+        if (thisCow.getType().equals(EntityType.COW)) {
             this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
             this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
 
@@ -78,7 +80,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         super.customServerAiStep();
     }
     public void aiStep() {
-        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
+        if (thisCow.getType().equals(EntityType.COW)) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
             this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
         }
@@ -86,7 +88,14 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         super.aiStep();
     }
 
+    @Override public void thunderHit(ServerLevel world, LightningBolt bolt){
+        this.setRemainingFireTicks(this.getRemainingFireTicks() + 1);
+        if (this.getRemainingFireTicks() == 0) {
+            this.igniteForSeconds(8.0F);
+        }
 
+        this.hurt(this.damageSources().lightningBolt(), 5.0F);
+    }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -104,13 +113,16 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
 
     @Unique
     public float hungrycows$getNeckAngle(float delta) {
+        float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
+        float neckAngle;
         if (this.eatGrassTimer <= 0) {
-            return 0.0F;
+            neckAngle = 0.0F;
         } else if (this.eatGrassTimer >= 4 && this.eatGrassTimer <= 36) {
-            return 1.0F;
+            neckAngle = 1.0F;
         } else {
-            return this.eatGrassTimer < 4 ? ((float)this.eatGrassTimer - delta) / 4.0F : -((float)(this.eatGrassTimer - 40) - delta) / 4.0F;
+            neckAngle = this.eatGrassTimer < 4 ? ((float)this.eatGrassTimer - delta) / 4.0F : -((float)(this.eatGrassTimer - 40) - delta) / 4.0F;
         }
+        return neckAngle * babyNeckMultiplier;
     }
 
     @Unique
@@ -173,10 +185,11 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
 
         int healthDiff = (int) thisCow.getMaxHealth() - (int) thisCow.getHealth();
         if (healthDiff > 0){
-            this.heal(blockEatSettings.cowBlockEatHealAmount());
+            int i = blockEatSettings.cowBlockEatHealAmount();
+            thisCow.heal(i);
             if (!this.level().isClientSide()) {
                 Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "cow_body");
-                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.375F, 0.625F, 0.375F, 0.2F);
+                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.375F, 0.625F, 0.375F, 0.2F);
             }
         }
     }

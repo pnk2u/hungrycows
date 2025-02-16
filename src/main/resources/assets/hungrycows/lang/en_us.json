@@ -144,5 +144,8 @@
   "item.hungrycows.milk_bucket.cow": "§lCow§r Milk Bucket",
   "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§r Milk Bucket",
   "item.hungrycows.milk_bucket.goat": "§lGoat§r Milk Bucket",
-  "hungrycows.modmenu.nutritiousmilk": "§f§l§nNutritious Milk§r (Recommended)"
+  "hungrycows.modmenu.nutritiousmilk": "§f§l§nNutritious Milk§r (Recommended)",
+
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Apply this above §f§lFresh Animations§7 for compatibility!"
 }

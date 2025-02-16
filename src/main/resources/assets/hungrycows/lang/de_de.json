@@ -148,6 +148,9 @@
   "hungrycows.feedable.true.moobloom": "Füttere die Moobloom, um sie erneut melken zu können.",
   "hungrycows.feedable.true.moobloom.item": "Füttere die Moobloom mit diesem Item (    %s), um sie erneut melken zu können.",
 
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Setze mich über §f§lFresh Animations§7 für Kompatibilität!",
+
   "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
 
   "text.owo.itemGroup.select_hint": {"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"},

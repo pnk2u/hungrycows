@@ -1,10 +1,22 @@
 package de.pnku.hungrycows.util;
 
+import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.entity.EntityType;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.pnku.hungrycows.HungryCows.*;
 
 public class HungryCowsCompatibilityHelper {
     public static EntityDataAccessor<Boolean> IS_MILKED_MOOBLOOM;
@@ -17,6 +29,17 @@ public class HungryCowsCompatibilityHelper {
     public static void init() {
         setMilkableEntities();
         setFeedableEntities();
+        ResourcePackActivationType activationType;
+        if (isResourcePackEnabled("FreshAnimations")){
+            LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
+            activationType = ResourcePackActivationType.DEFAULT_ENABLED;
+        } else {activationType = ResourcePackActivationType.NORMAL;}
+        ResourceManagerHelper.registerBuiltinResourcePack(
+                withModId("hungryandfreshcows"),
+                FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
+                Component.translatable("resourcepack.hungrycows.hungryandfreshcows.title"),
+                activationType
+        );
     }
 
     protected static void setMilkableEntities() {
@@ -34,4 +57,19 @@ public class HungryCowsCompatibilityHelper {
         FEEDABLE_ENTITIES.addAll(CUSTOM_FEEDABLE_ENTITIES);
     }
 
+    public static boolean isResourcePackEnabled(String packName) {
+        File optionsFile = new File(Minecraft.getInstance().gameDirectory, "options.txt");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("resourcePacks:")) {
+                    return line.contains(packName);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 }
