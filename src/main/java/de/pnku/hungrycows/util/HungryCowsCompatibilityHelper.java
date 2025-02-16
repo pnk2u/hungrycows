@@ -33,7 +33,7 @@ public class HungryCowsCompatibilityHelper {
         ResourcePackActivationType activationType;
         if (isResourcePackEnabled("FreshAnimations")){
             LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
-            activationType = ResourcePackActivationType.ALWAYS_ENABLED;
+            activationType = ResourcePackActivationType.DEFAULT_ENABLED;
         } else {activationType = ResourcePackActivationType.NORMAL;}
         ResourceManagerHelper.registerBuiltinResourcePack(
                 withModId("hungryandfreshcows"),
