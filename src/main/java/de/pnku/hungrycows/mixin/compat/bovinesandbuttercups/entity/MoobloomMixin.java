@@ -32,7 +32,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.blockEatSettings;
-import static de.pnku.hungrycows.config.HungryCowsConfigHelper.checkFeedability;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.*;
 
 @Mixin(Moobloom.class)
