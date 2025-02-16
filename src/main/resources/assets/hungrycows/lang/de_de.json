@@ -145,9 +145,6 @@
   "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§rmilcheimer",
   "item.hungrycows.milk_bucket.goat": "§lZiege§rnmilcheimer",
 
-  "hungrycows.feedable.true.moobloom": "Füttere die Moobloom, um sie erneut melken zu können.",
-  "hungrycows.feedable.true.moobloom.item": "Füttere die Moobloom mit diesem Item (    %s), um sie erneut melken zu können.",
-
   "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
   "resourcepack.hungrycows.hungryandfreshcows.description": "§7Setze mich über §f§lFresh Animations§7 für Kompatibilität!",
 
