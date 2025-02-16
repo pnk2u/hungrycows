@@ -142,5 +142,8 @@
   "item.hungrycows.milk_bucket.goat": "§lGoat§r Milk Bucket",
 
   "hungrycows.feedable.true.moobloom": "Can be fed to allow the Moobloom to be §fmilked§r again.",
-  "hungrycows.feedable.true.moobloom.item": "Can be fed with this    %s to allow the Moobloom to be §fmilked§r again."
+  "hungrycows.feedable.true.moobloom.item": "Can be fed with this    %s to allow the Moobloom to be §fmilked§r again.",
+
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Apply this above §f§lFresh Animations§7 for compatibility!"
 }

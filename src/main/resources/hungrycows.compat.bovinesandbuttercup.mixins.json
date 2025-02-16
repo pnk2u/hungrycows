@@ -9,6 +9,7 @@
   "client": [
     "client.renderer.entity.LivingEntityRendererMixin",
     "client.renderer.entity.model.CustomCowModelLayersMixin",
+    "client.renderer.entity.model.MoobloomModelMixin",
     "client.renderer.entity.layer.CowLayersLayerMixin",
     "entity.MoobloomMixin",
     "item.NectarBowlItemMixin"

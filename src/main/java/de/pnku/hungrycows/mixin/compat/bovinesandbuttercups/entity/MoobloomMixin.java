@@ -1,7 +1,6 @@
 package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.IHungryCows;
 import house.greenhouse.bovinesandbuttercups.content.entity.Moobloom;
@@ -11,14 +10,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -30,11 +31,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static de.pnku.hungrycows.HungryCows.FED_TIMER;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.blockEatSettings;
+import static de.pnku.hungrycows.config.HungryCowsConfigHelper.checkFeedability;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.*;
 
 @Mixin(Moobloom.class)
-public abstract class MoobloomMixin extends Cow implements IHungryCows {
+public abstract class MoobloomMixin extends Cow implements Shearable, IHungryCows {
+
+    @Unique
+    private EatBlockGoal moobloomEatGrassGoal;
+
+    @Unique
+    private int moobloomEatGrassTimer;
 
     public MoobloomMixin(EntityType<? extends Cow> entityType, Level level) {
         super(entityType, level);
@@ -55,6 +63,67 @@ public abstract class MoobloomMixin extends Cow implements IHungryCows {
         return "moobloom";
     }
 
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    protected void injectedRegisterGoals(CallbackInfo info) {
+        this.goalSelector.removeAllGoals(goal -> goal instanceof EatBlockGoal);
+        this.moobloomEatGrassGoal = new EatBlockGoal(this);
+        this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.moobloomEatGrassGoal);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.moobloomEatGrassTimer = this.moobloomEatGrassGoal.getEatAnimationTick();
+        super.customServerAiStep();
+    }
+
+    @Override
+    public void aiStep() {
+        this.moobloomEatGrassTimer = Math.max(0, this.moobloomEatGrassTimer - 1);
+
+        super.aiStep();
+    }
+
+    @Override public void thunderHit(ServerLevel world, LightningBolt bolt){
+        this.setRemainingFireTicks(this.getRemainingFireTicks() + 1);
+        if (this.getRemainingFireTicks() == 0) {
+            this.igniteForSeconds(8.0F);
+        }
+
+        this.hurt(this.damageSources().lightningBolt(), 5.0F);
+    }
+
+    @Override
+    public void handleEntityEvent(byte status) {
+        if (status == 10) {
+            this.moobloomEatGrassTimer = 40;
+        } else {
+            super.handleEntityEvent(status);
+        }
+    }
+
+    @Unique
+    public float hungrycows$getNeckAngle(float delta) {
+        float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
+        float neckAngle;
+        if (this.moobloomEatGrassTimer <= 0) {
+            neckAngle = 0.0F;
+        } else if (this.moobloomEatGrassTimer >= 4 && this.moobloomEatGrassTimer <= 36) {
+            neckAngle = 1.0F;
+        } else {
+            neckAngle = this.moobloomEatGrassTimer < 4 ? ((float)this.moobloomEatGrassTimer - delta) / 4.0F : -((float)(this.moobloomEatGrassTimer - 40) - delta) / 4.0F;
+        }
+        return neckAngle * babyNeckMultiplier;
+    }
+
+    @Unique
+    public float hungrycows$getHeadAngle(float delta) {
+        if (this.moobloomEatGrassTimer > 4 && this.moobloomEatGrassTimer <= 36) {
+            float f = ((float)(this.moobloomEatGrassTimer - 4) - delta) / 32.0F;
+            return 0.62831855F + 0.21991149F * Mth.sin(f * 28.7F);
+        } else {
+            return this.moobloomEatGrassTimer > 0 ? 0.62831855F : this.getXRot() * 0.017453292F;
+        }
+    }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void injectedDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
