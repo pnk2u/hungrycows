@@ -1,6 +1,7 @@
 package de.pnku.hungrycows.util;
 
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -31,16 +32,18 @@ public class HungryCowsCompatibilityHelper {
         setMilkableEntities();
         setFeedableEntities();
         ResourcePackActivationType activationType;
-        if (isResourcePackEnabled("FreshAnimations")){
-            LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
-            activationType = ResourcePackActivationType.DEFAULT_ENABLED;
-        } else {activationType = ResourcePackActivationType.NORMAL;}
-        ResourceManagerHelper.registerBuiltinResourcePack(
-                withModId("hungryandfreshcows"),
-                FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
-                Component.translatable("resourcepack.hungrycows.hungryandfreshcows.title"),
-                activationType
-        );
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            if (isResourcePackEnabled("FreshAnimations")){
+                LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
+                activationType = ResourcePackActivationType.DEFAULT_ENABLED;
+            } else {activationType = ResourcePackActivationType.NORMAL;}
+            ResourceManagerHelper.registerBuiltinResourcePack(
+                    withModId("hungryandfreshcows"),
+                    FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
+                    Component.translatable("resourcepack.hungrycows.hungryandfreshcows.title"),
+                    activationType
+            );
+        }
     }
 
     protected static void setMilkableEntities() {
