@@ -1,13 +1,11 @@
 package de.pnku.hungrycows.util;
 
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.entity.EntityType;
 
 import java.io.BufferedReader;

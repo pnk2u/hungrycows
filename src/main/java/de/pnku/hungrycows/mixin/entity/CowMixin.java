@@ -91,7 +91,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     @Override public void thunderHit(ServerLevel world, LightningBolt bolt){
         this.setRemainingFireTicks(this.getRemainingFireTicks() + 1);
         if (this.getRemainingFireTicks() == 0) {
-            this.igniteForSeconds(8.0F);
+            this.setSecondsOnFire(8);
         }
 
         this.hurt(this.damageSources().lightningBolt(), 5.0F);
