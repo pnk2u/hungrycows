@@ -7,6 +7,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,8 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerPlaceRecipe.class)
 public abstract class ServerPlaceRecipeMixin {
 
+    @Final
     @Shadow
-    protected Inventory inventory;
+    private Inventory inventory;
 
     @Inject(method = "moveItemToGrid", at = @At("HEAD"), cancellable = true)
     private void moveItemToGrid(Slot slot, Holder<Item> item, int maxAmount, CallbackInfoReturnable<Integer> cir) {
