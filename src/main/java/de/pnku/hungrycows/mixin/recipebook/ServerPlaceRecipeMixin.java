@@ -1,8 +1,10 @@
 package de.pnku.hungrycows.mixin.recipebook;
 
+import net.minecraft.core.Holder;
 import net.minecraft.recipebook.ServerPlaceRecipe;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,13 +20,13 @@ public abstract class ServerPlaceRecipeMixin {
     protected Inventory inventory;
 
     @Inject(method = "moveItemToGrid", at = @At("HEAD"), cancellable = true)
-    private void moveItemToGrid(Slot slot, ItemStack stack, int maxAmount, CallbackInfoReturnable<Integer> cir) {
-        int i = this.inventory.findSlotMatchingUnusedItem(stack);
-        if (i == -1 && stack.is(Items.MILK_BUCKET) && !slot.hasItem()) {
+    private void moveItemToGrid(Slot slot, Holder<Item> item, int maxAmount, CallbackInfoReturnable<Integer> cir) {
+        int i = this.inventory.findSlotMatchingCraftingIngredient(item, slot.getItem());
+        if (i == -1 && slot.getItem().is(Items.MILK_BUCKET) && !slot.hasItem()) {
             for (int j = 0; j < this.inventory.items.size(); j++) {
                 ItemStack itemStack = this.inventory.getItem(j);
                 if (!itemStack.isEmpty()
-                        && itemStack.is(stack.getItem())
+                        && itemStack.is(slot.getItem().getItem())
                         && !itemStack.isDamaged()
                         && !itemStack.isEnchanted()) {
                     i = j;
