@@ -76,11 +76,11 @@ processResources {
 	}
 }
 
-//json Minifier
+//jem Minifier
 
 tasks.named("processResources").configure {
 	doLast {
-		fileTree(dir: layout.buildDirectory.file("resources/main"), include: ["**/*.json", "**/*.jem"],).each { file ->
+		fileTree(dir: layout.buildDirectory.file("resources/main"), include: ["**/*.jem"],).each { file ->
 			def content = file.text
 			content = content.replaceAll("\\s(?=[\\s\":\\[\\]{}])", "")
 			file.text = content

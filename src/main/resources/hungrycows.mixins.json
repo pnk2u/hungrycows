@@ -8,6 +8,7 @@
     "entity.MushroomCowMixin" ,
     "entity.SheepMixin" ,
     "entity.ai.GoatAiMixin" ,
+    "recipebook.ServerPlaceRecipeMixin" ,
     "item.MilkBucketItemMixin"
   ] ,
   "injectors": {
