@@ -68,16 +68,17 @@ public class HungryCowsCompatibilityHelper {
 
     public static boolean isResourcePackEnabled(String packName) {
         File optionsFile = new File(Minecraft.getInstance().gameDirectory, "options.txt");
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("resourcePacks:")) {
-                    return line.contains(packName);
+        if (optionsFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("resourcePacks:")) {
+                        return line.contains(packName);
+                    }
                 }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
         return false;
     }
