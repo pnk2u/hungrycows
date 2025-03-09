@@ -36,7 +36,7 @@ public abstract class MoobloomModelMixin extends HierarchicalModel<Moobloom> {
     @Override
     public void prepareMobModel(@NotNull Moobloom moobloomEntity, float limbAngle, float limbDistance, float tickDelta) {
         this.cowModel.prepareMobModel(moobloomEntity, limbAngle, limbDistance, tickDelta);
-        this.neckAngle = 6.0F + ((IHungryCows) moobloomEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
+        this.neckAngle = 4.0F + (float) Math.pow(((IHungryCows) moobloomEntity).hungrycows$getNeckAngle(tickDelta), 1.05) * 10.625F;
         this.headAngle = ((IHungryCows) moobloomEntity).hungrycows$getHeadAngle(tickDelta);
     }
 }

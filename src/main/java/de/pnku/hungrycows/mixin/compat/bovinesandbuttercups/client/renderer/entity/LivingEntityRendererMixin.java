@@ -32,10 +32,12 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "getRenderType", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/LivingEntityRenderer;getTextureLocation(Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/resources/ResourceLocation;", shift = At.Shift.BY, by = 3))
     public void injectedGetRenderType(T livingEntity, boolean bodyVisible, boolean translucent, boolean glowing, CallbackInfoReturnable<RenderType> cir, @Local LocalRef<ResourceLocation> modifiedResourceLocation) {
-        if (livingEntity.getType().equals(BovinesEntityTypes.MOOBLOOM) && modifiedResourceLocation.get().getPath().contains("moobloom")) {
+        String modifiedTexturePath = modifiedResourceLocation.get().getPath();
+        EntityType<?> type = livingEntity.getType();
+        if (type.equals(BovinesEntityTypes.MOOBLOOM) && modifiedTexturePath.contains("moobloom")) {
             if (((IHungryCows) livingEntity).hungrycows$isMilkable() && showMilkableTexture()) {
                 String modifier = "";
-                if (!modifiedResourceLocation.get().getPath().contains("sombercup")) {
+                if (!modifiedTexturePath.contains("sombercup")) {
                     for (Pack resourcePack : ((Minecraft.getInstance())).getResourcePackRepository().getSelectedPacks()) {
                         if (resourcePack.getId().equals("bovinesandbuttercups:mojang")) {
                             modifier = "mojang_";
@@ -45,9 +47,11 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
                 }
                 modifiedResourceLocation.set(ResourceLocation.tryParse(modifiedResourceLocation.get().toString().replace("moobloom/", "moobloom/" + modifier + "milkable_")));
             }
-        } else if (livingEntity.getType().equals(EntityType.MOOSHROOM) && modifiedResourceLocation.get().getPath().contains("mooshroom")) {
-            if (((IHungryCows) livingEntity).hungrycows$isMilkable() && showMilkableTexture()) {
-                modifiedResourceLocation.set(HungryCows.withModId("textures/entity/cow/milkable_" + (modifiedResourceLocation.get().getPath().contains("brown") ? "brown" : "red") + "_mooshroom.png"));
+        } else {
+            if ((type.equals(EntityType.MOOSHROOM) && modifiedTexturePath.contains("mooshroom")) || (type.equals(EntityType.COW) && modifiedTexturePath.contains("cow"))) {
+                if (((IHungryCows) livingEntity).hungrycows$isMilkable() && showMilkableTexture()) {
+                    modifiedResourceLocation.set(HungryCows.withModId("textures/entity/cow/milkable_" + (modifiedTexturePath.contains("mooshroom") ? (modifiedTexturePath.contains("brown") ? "brown" : "red") + "_mooshroom.png" : "cow.png")));
+                }
             }
         }
     }

@@ -89,7 +89,7 @@ public class HungryCowsConfigHelper {
                         .texOffs(60, 12).addBox("left_front_teat", 1.075F, 3.0F, -8.8115F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F))
                         .texOffs(60, 12).addBox("right_hind_teat", -2.025F, 6.0F, -8.8115F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F))
                         .texOffs(60, 12).addBox("left_hind_teat", 1.075F, 6.0F, -8.8115F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F));
-            } else if (type.equals("flat")) { // Sombercup (bovinesandbuttercups)
+            } else if (type.equals("sculk")) { // Sombercup (bovinesandbuttercups)
                 return CubeListBuilder.create().texOffs(18, 4).addBox(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F)
                         .texOffs(52, 0).addBox("udder1", -2.0F, 2.0F, -8.0F, 4.0F, 6.0F, 1.0F)
                         // Any following boxes will only get "rendered" when isMilkable() is true as defined in CowRendererMixin.injectedGetTextureLocation by nature of the used pixels being transparent in the original texture

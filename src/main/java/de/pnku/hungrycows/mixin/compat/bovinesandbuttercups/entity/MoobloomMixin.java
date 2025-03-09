@@ -82,15 +82,6 @@ public abstract class MoobloomMixin extends Cow implements Shearable, IHungryCow
         super.aiStep();
     }
 
-    @Override public void thunderHit(ServerLevel world, LightningBolt bolt){
-        this.setRemainingFireTicks(this.getRemainingFireTicks() + 1);
-        if (this.getRemainingFireTicks() == 0) {
-            this.igniteForSeconds(8.0F);
-        }
-
-        this.hurt(this.damageSources().lightningBolt(), 5.0F);
-    }
-
     @Override
     public void handleEntityEvent(byte status) {
         if (status == 10) {

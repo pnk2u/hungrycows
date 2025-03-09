@@ -3,6 +3,7 @@ package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.client.renderer.ent
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
+import de.pnku.hungrycows.util.IHungryCows;
 import house.greenhouse.bovinesandbuttercups.client.renderer.entity.layer.CowLayersLayer;
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.minecraft.client.model.EntityModel;
@@ -37,8 +38,10 @@ public abstract class CowLayersLayerMixin <T extends LivingEntity, M extends Ent
             @Local(ordinal = 0) LocalRef<ResourceLocation> mappedTextureLocationRef
     ) {
         ResourceLocation original = mappedTextureLocationRef.get();
-        if (original.getPath().contains("sombercup") && entity.getType().equals(BovinesEntityTypes.MOOBLOOM) && showMilkableTexture()) {
-            mappedTextureLocationRef.set(ResourceLocation.tryBuild(original.getNamespace(), original.getPath().replace("sombercup", "milkable_sombercup")));
+        if (original.getPath().contains("sombercup") && original.getPath().contains("ing_layer") && entity.getType().equals(BovinesEntityTypes.MOOBLOOM) && showMilkableTexture()) {
+            if (((IHungryCows) entity).hungrycows$isMilkable()) {
+                mappedTextureLocationRef.set(ResourceLocation.tryBuild(original.getNamespace(), original.getPath().replace("sombercup", "milkable_sombercup")));
+            }
         }
     }
 }
