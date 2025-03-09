@@ -90,15 +90,6 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         super.aiStep();
     }
 
-    @Override public void thunderHit(ServerLevel world, LightningBolt bolt){
-        this.setRemainingFireTicks(this.getRemainingFireTicks() + 1);
-        if (this.getRemainingFireTicks() == 0) {
-            this.igniteForSeconds(8.0F);
-        }
-
-        this.hurt(this.damageSources().lightningBolt(), 5.0F);
-    }
-
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HungryCows.IS_MILKED, false);

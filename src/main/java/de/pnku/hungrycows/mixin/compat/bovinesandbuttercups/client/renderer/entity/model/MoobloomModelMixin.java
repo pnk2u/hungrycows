@@ -34,7 +34,7 @@ public abstract class MoobloomModelMixin<T extends LivingEntityRenderState> exte
 
     @Inject(method = "setupAnim(Lhouse/greenhouse/bovinesandbuttercups/client/renderer/entity/model/state/MoobloomRenderState;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/QuadrupedModel;setupAnim(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)V", shift = At.Shift.AFTER))
     public void injectedSetupAnimSetupAnimAfter(MoobloomRenderState moobloomRenderState, CallbackInfo ci) {
-        this.head.y = this.head.y + (((IHungryCows) moobloomRenderState).hungrycows$getNeckAngle()) * 9.0F * (moobloomRenderState.ageScale);
+        this.head.y = this.head.y + (float) Math.pow(((IHungryCows) moobloomRenderState).hungrycows$getNeckAngle(), 1.05) * 10.625F * (moobloomRenderState.ageScale);
         this.head.xRot = ((IHungryCows) moobloomRenderState).hungrycows$getHeadAngle();
     }
 }

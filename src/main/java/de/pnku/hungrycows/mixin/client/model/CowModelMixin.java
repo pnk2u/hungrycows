@@ -2,6 +2,7 @@ package de.pnku.hungrycows.mixin.client.model;
 
 import de.pnku.hungrycows.renderer.HungryCowRenderState;
 import de.pnku.hungrycows.renderer.HungryMushroomCowRenderState;
+import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -37,7 +38,7 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
         if (isMoo) {mooState = (HungryMushroomCowRenderState) livingEntityRenderState; cowState = null;}
         else {cowState = (HungryCowRenderState) livingEntityRenderState; mooState = null;}
         super.setupAnim(isMoo ? mooState : cowState);
-        this.head.y = this.head.y + (isMoo ? mooState.neckAngle : cowState.neckAngle) * 9.0F * (isMoo ? mooState.ageScale : cowState.ageScale);
+        this.head.y = this.head.y + (float) Math.pow((isMoo ? mooState.neckAngle : cowState.neckAngle), 1.05) * 10.625F * (isMoo ? mooState.ageScale : cowState.ageScale);
         this.head.xRot = (isMoo ? mooState.headAngle : cowState.headAngle);
         float f = livingEntityRenderState.walkAnimationPos;
         float g = livingEntityRenderState.walkAnimationSpeed;

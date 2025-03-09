@@ -2,13 +2,15 @@ package de.pnku.hungrycows.util;
 
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.impl.client.event.lifecycle.ClientLifecycleEventsImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.entity.EntityType;
 
 import java.io.BufferedReader;
@@ -22,15 +24,16 @@ import static de.pnku.hungrycows.HungryCows.*;
 public class HungryCowsCompatibilityHelper {
     public static EntityDataAccessor<Boolean> IS_MILKED_MOOBLOOM;
     public static List<EntityType<?>> MILKABLE_ENTITIES = new ArrayList<>();
-    public static List<EntityType<?>> CUSTOM_MILKABLE_ENTITIES = new ArrayList<>();
     public static List<EntityType<?>> FEEDABLE_ENTITIES = new ArrayList<>();
-    public static List<EntityType<?>> CUSTOM_FEEDABLE_ENTITIES = new ArrayList<>();
     public static boolean isBnBLoaded = false;
 
     public static void init() {
-        if (isBnBLoaded) {initBnB();}
         setMilkableEntities();
         setFeedableEntities();
+
+    }
+
+    public static void clientInit() {
         ResourcePackActivationType activationType;
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             if (isResourcePackEnabled("FreshAnimations")){
@@ -44,13 +47,13 @@ public class HungryCowsCompatibilityHelper {
                     activationType
             );
         }
+        if (isBnBLoaded) {initBnB();}
     }
 
     protected static void setMilkableEntities() {
         MILKABLE_ENTITIES.add(EntityType.COW);
         MILKABLE_ENTITIES.add(EntityType.MOOSHROOM);
         MILKABLE_ENTITIES.add(EntityType.GOAT);
-        MILKABLE_ENTITIES.addAll(CUSTOM_MILKABLE_ENTITIES);
     }
 
     protected static void setFeedableEntities() {
@@ -58,26 +61,27 @@ public class HungryCowsCompatibilityHelper {
         FEEDABLE_ENTITIES.add(EntityType.MOOSHROOM);
         FEEDABLE_ENTITIES.add(EntityType.SHEEP);
         FEEDABLE_ENTITIES.add(EntityType.GOAT);
-        FEEDABLE_ENTITIES.addAll(CUSTOM_FEEDABLE_ENTITIES);
     }
 
     protected static void initBnB() {
-        CUSTOM_MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
-        CUSTOM_FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
+        BovinesEntityTypes.registerAll();
+        MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
+        FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
     }
 
     public static boolean isResourcePackEnabled(String packName) {
         File optionsFile = new File(Minecraft.getInstance().gameDirectory, "options.txt");
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("resourcePacks:")) {
-                    return line.contains(packName);
+        if (optionsFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("resourcePacks:")) {
+                        return line.contains(packName);
+                    }
                 }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
         return false;
     }

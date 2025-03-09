@@ -12,19 +12,19 @@ import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 @Mixin(CustomCowModelLayers.class)
 public class CustomCowModelLayersMixin {
 
-    @ModifyArg(method = "createBuffalo", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
+    @ModifyArg(method = "createWarm", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
     private static CubeListBuilder modifiedCreateBuffaloArgCubeListBuilder(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
         return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }
-    @ModifyArg(method = "createOx", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
+    @ModifyArg(method = "createLush", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
     private static CubeListBuilder modifiedCreateOxArgCubeListBuilder(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
-        return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder, "ox");
+        return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }
-    @ModifyArg(method = "createFlat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
+    @ModifyArg(method = "createSculk", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
     private static CubeListBuilder modifiedCreateFlatArgCubeListBuilder(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
-        return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder, "flat");
+        return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder, "sculk");
     }
-    @ModifyArg(method = "createHighland", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
+    @ModifyArg(method = "createCold", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
     private static CubeListBuilder modifiedCreateHighlandArgCubeListBuilder(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
         return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }

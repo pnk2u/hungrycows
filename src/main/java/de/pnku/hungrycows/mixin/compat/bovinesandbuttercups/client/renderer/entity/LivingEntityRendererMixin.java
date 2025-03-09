@@ -34,10 +34,11 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
 
     @Inject(method = "getRenderType", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/LivingEntityRenderer;getTextureLocation(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)Lnet/minecraft/resources/ResourceLocation;", shift = At.Shift.BY, by = 3))
     public void injectedGetRenderType(S renderState, boolean isVisible, boolean renderTranslucent, boolean appearsGlowing, CallbackInfoReturnable<RenderType> cir, @Local LocalRef<ResourceLocation> modifiedResourceLocation) {
-        if (renderState instanceof MoobloomRenderState moobloomRenderState && modifiedResourceLocation.get().getPath().contains("moobloom")) {
+        String modifiedTexturePath = modifiedResourceLocation.get().getPath();
+        if (renderState instanceof MoobloomRenderState moobloomRenderState && modifiedTexturePath.contains("moobloom")) {
             if (((IHungryCows) moobloomRenderState).hungrycows$isMilkable() && showMilkableTexture()) {
                 String modifier = "";
-                if (!modifiedResourceLocation.get().getPath().contains("sombercup")) {
+                if (!modifiedTexturePath.contains("sombercup")) {
                     for (Pack resourcePack : ((Minecraft.getInstance())).getResourcePackRepository().getSelectedPacks()) {
                         if (resourcePack.getId().equals("bovinesandbuttercups:mojang")) {
                             modifier = "mojang_";
@@ -47,7 +48,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
                 }
                 modifiedResourceLocation.set(ResourceLocation.tryParse(modifiedResourceLocation.get().toString().replace("moobloom/", "moobloom/" + modifier + "milkable_")));
             }
-        } else if (renderState instanceof HungryMushroomCowRenderState && modifiedResourceLocation.get().getPath().contains("mooshroom")) {
+        } else if ((renderState instanceof HungryMushroomCowRenderState && modifiedResourceLocation.get().getPath().contains("mooshroom")) || (renderState instanceof HungryCowRenderState && modifiedResourceLocation.get().getPath().contains("cow"))) {
             if (((HungryMushroomCowRenderState) renderState).isMilkable && showMilkableTexture()) {
                 modifiedResourceLocation.set(HungryCows.withModId("textures/entity/cow/milkable_" + (modifiedResourceLocation.get().getPath().contains("brown") ? "brown" : "red") + "_mooshroom.png"));
             }
