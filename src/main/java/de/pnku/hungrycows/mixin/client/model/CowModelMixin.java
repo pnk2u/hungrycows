@@ -1,5 +1,6 @@
 package de.pnku.hungrycows.mixin.client.model;
 
+import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -30,7 +31,7 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
     @Override
     public void prepareMobModel(Cow cowEntity, float limbAngle, float limbDistance, float tickDelta) {
         super.prepareMobModel(cowEntity, limbAngle, limbDistance, tickDelta);
-        this.head.y = 6.0F + ((IHungryCows) cowEntity).hungrycows$getNeckAngle(tickDelta) * 9.0F;
+        this.head.y = 4.0F + (float) Math.pow(((IHungryCows) cowEntity).hungrycows$getNeckAngle(tickDelta), 1.05) * 10.625F;
         this.headAngle = ((IHungryCows) cowEntity).hungrycows$getHeadAngle(tickDelta);
     }
 
