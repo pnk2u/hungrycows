@@ -3,7 +3,7 @@ package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups.client.renderer.ent
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.vertex.PoseStack;
-import house.greenhouse.bovinesandbuttercups.api.CowConfiguration;
+import house.greenhouse.bovinesandbuttercups.api.BaseCowConfiguration;
 import house.greenhouse.bovinesandbuttercups.client.api.CowVariantRenderState;
 import de.pnku.hungrycows.util.IHungryCows;
 import house.greenhouse.bovinesandbuttercups.client.renderer.entity.layer.CowLayersLayer;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.showMilkableTexture;
 
 @Mixin(CowLayersLayer.class)
-public abstract class CowLayersLayerMixin <C extends CowConfiguration, T extends LivingEntityRenderState & CowVariantRenderState<LivingEntity, C, M>, M extends EntityModel<T>> extends RenderLayer<T, M> {
+public abstract class CowLayersLayerMixin <C extends BaseCowConfiguration, T extends LivingEntityRenderState & CowVariantRenderState<LivingEntity, C, M>, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
     public CowLayersLayerMixin(RenderLayerParent<T, M> renderer) {
         super(renderer);

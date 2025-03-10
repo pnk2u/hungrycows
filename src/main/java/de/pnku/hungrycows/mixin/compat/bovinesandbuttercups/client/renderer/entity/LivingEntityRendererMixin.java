@@ -6,7 +6,7 @@ import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.renderer.HungryCowRenderState;
 import de.pnku.hungrycows.renderer.HungryMushroomCowRenderState;
 import de.pnku.hungrycows.util.IHungryCows;
-import house.greenhouse.bovinesandbuttercups.api.CowConfiguration;
+import house.greenhouse.bovinesandbuttercups.api.BaseCowConfiguration;
 import house.greenhouse.bovinesandbuttercups.client.api.CowVariantRenderState;
 import house.greenhouse.bovinesandbuttercups.client.renderer.entity.model.state.MoobloomRenderState;
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
@@ -49,8 +49,8 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
                 modifiedResourceLocation.set(ResourceLocation.tryParse(modifiedResourceLocation.get().toString().replace("moobloom/", "moobloom/" + modifier + "milkable_")));
             }
         } else if ((renderState instanceof HungryMushroomCowRenderState && modifiedResourceLocation.get().getPath().contains("mooshroom")) || (renderState instanceof HungryCowRenderState && modifiedResourceLocation.get().getPath().contains("cow"))) {
-            if (((HungryMushroomCowRenderState) renderState).isMilkable && showMilkableTexture()) {
-                modifiedResourceLocation.set(HungryCows.withModId("textures/entity/cow/milkable_" + (modifiedResourceLocation.get().getPath().contains("brown") ? "brown" : "red") + "_mooshroom.png"));
+            if (((IHungryCows) renderState).hungrycows$isMilkable() && showMilkableTexture()) {
+                modifiedResourceLocation.set(HungryCows.withModId("textures/entity/cow/milkable_" + (((IHungryCows) renderState).hungrycows$isMooshroom() ? (modifiedTexturePath.contains("brown") ? "brown" : "red") + "_mooshroom.png" : "cow.png")));
             }
         }
     }
