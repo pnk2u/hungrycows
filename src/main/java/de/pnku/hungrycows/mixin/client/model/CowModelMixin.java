@@ -31,7 +31,7 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
     @Override
     public void prepareMobModel(Cow cowEntity, float limbAngle, float limbDistance, float tickDelta) {
         super.prepareMobModel(cowEntity, limbAngle, limbDistance, tickDelta);
-        this.head.y = 4.0F + (float) Math.pow(((IHungryCows) cowEntity).hungrycows$getNeckAngle(tickDelta), 1.05) * 10.625F;
+        this.head.y = 4.0F + ((IHungryCows) cowEntity).hungrycows$getNeckAngle(tickDelta) * 10.95F;
         this.headAngle = ((IHungryCows) cowEntity).hungrycows$getHeadAngle(tickDelta);
     }
 

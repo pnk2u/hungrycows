@@ -59,9 +59,11 @@ dependencies {
 	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
 	// Mod Menu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
-	// Bovines and Buttercups
-	modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.moobloom_version}"
-	modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.moobloom_version}"
+	// Mooblooms
+		// Bovines and Buttercups
+		modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
+		// Friends & Foes
+		modLocalRuntime "maven.modrinth:friends-and-foes:${project.fnf_version}"
 
 }
 
