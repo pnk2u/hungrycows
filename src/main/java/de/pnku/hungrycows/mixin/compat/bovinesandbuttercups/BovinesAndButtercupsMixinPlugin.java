@@ -16,13 +16,14 @@ import java.util.Set;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.isBnBLoaded;
 
 public class BovinesAndButtercupsMixinPlugin  implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("hungrycowsmoobloommixinplugin");
+    public static final Logger LOGGER = LoggerFactory.getLogger("hungrycowsbnbmoobloommixinplugin");
+    public static boolean isBnBLoaded = false;
 
     @Override
     public void onLoad(String mixinPackage) {
         if (FabricLoader.getInstance().isModLoaded("bovinesandbuttercups")) {
             isBnBLoaded = true;
-            LOGGER.info("Moos are blooming... and hungry!");
+            LOGGER.info("Mooing Bovines (BnB) are blooming... and hungry!");
         }
     }
 

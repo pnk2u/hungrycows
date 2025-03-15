@@ -47,6 +47,9 @@ public class HungryCowsCompatibilityHelper {
                     activationType
             );
         }
+        if (FabricLoader.getInstance().isModLoaded("bovinesandbuttercups")) {
+            isBnBLoaded = true;
+        }
         if (isBnBLoaded) {initBnB();}
     }
 
