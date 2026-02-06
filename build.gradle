@@ -209,6 +209,12 @@ dependencies {
 	annotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
 	// Mod Menu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
+	// Fresh Animations
+		// EMF & ETF
+		modCompileOnly "maven.modrinth:entity-model-features:${project.emf_version}"
+		modLocalRuntime "maven.modrinth:entity-model-features:${project.emf_version}"
+		modCompileOnly "maven.modrinth:entitytexturefeatures:${project.etf_version}"
+		modLocalRuntime "maven.modrinth:entitytexturefeatures:${project.etf_version}"
 	// Mooblooms
 		// Bovines and Buttercups
 		modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
