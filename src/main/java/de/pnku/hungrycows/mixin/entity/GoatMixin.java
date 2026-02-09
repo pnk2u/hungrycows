@@ -51,6 +51,7 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
     @Unique public boolean hungrycows$isCow(){
         return false;
     }
+    @Unique public boolean hungrycows$isEating() {return false;}
     @Unique public String hungrycows$getName(){
         return "goat";
     }

@@ -1,11 +1,10 @@
 {
-  "required": false ,
-  "package": "de.pnku.hungrycows.mixin.client" ,
-  "compatibilityLevel": "JAVA_21" ,
+  "required": false,
+  "package": "de.pnku.hungrycows.mixin.client",
+  "compatibilityLevel": "JAVA_21",
   "client": [
-    "renderer.CowRendererMixin",
-    "renderer.MushroomCowRendererMixin"
-  ] ,
+    "renderer.LivingEntityRendererMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
