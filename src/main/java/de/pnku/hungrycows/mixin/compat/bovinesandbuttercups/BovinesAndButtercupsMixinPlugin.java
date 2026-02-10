@@ -16,7 +16,7 @@ import java.util.Set;
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.isBnBLoaded;
 
 public class BovinesAndButtercupsMixinPlugin  implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("hungrycowsbnbmoobloommixinplugin");
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Bovines-And-Buttercups-Mixin-Plugin");
     public static boolean isBnBLoaded = false;
 
     @Override

@@ -1,16 +1,16 @@
 {
-  "required": true ,
-  "package": "de.pnku.hungrycows.mixin" ,
-  "compatibilityLevel": "JAVA_21" ,
+  "required": true,
+  "package": "de.pnku.hungrycows.mixin",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "entity.CowMixin" ,
-    "entity.GoatMixin" ,
-    "entity.MushroomCowMixin" ,
-    "entity.SheepMixin" ,
-    "entity.ai.GoatAiMixin" ,
-    "recipebook.ServerPlaceRecipeMixin" ,
-    "item.MilkBucketItemMixin"
-  ] ,
+    "entity.CowMixin",
+    "entity.GoatMixin",
+    "entity.MushroomCowMixin",
+    "entity.SheepMixin",
+    "entity.ai.GoatAiMixin",
+    "item.MilkBucketItemMixin",
+    "recipebook.ServerPlaceRecipeMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

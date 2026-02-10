@@ -94,7 +94,8 @@
 
     {"text": "§ocolor of an udder", "color": "#f7afaf"}, " to this ", {"text": "§ocolor of a milkable udder", "color": "#e58f8f"},
 
-    ".\nThis setting does not apply to goats as they do not have a visible udder."
+    ".\n",{"text": "This setting does not apply to goats as they do not have a visible udder.\nEn-/Disabling the model changes requires a reload (§o§lF3§r+§o§lT§r) to take effect.", "color": "#71586A"},"\n",
+    {"text": "En-/Disabling the texture changes takes effect immediately.", "color": "#71586A"}
   ],
   "text.config.hungrycows.enum.mCDO.hide_none": "Show Model & Texture",
   "text.config.hungrycows.enum.mCDO.hide_model": "Show Only Texture",
@@ -144,6 +145,9 @@
   "hungrycows.feedable.true.moobloom": "Can be fed to allow the Moobloom to be §fmilked§r again.",
   "hungrycows.feedable.true.moobloom.item": "Can be fed with this    %s to allow the Moobloom to be §fmilked§r again.",
 
-  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
-  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Apply this above §f§lFresh Animations§7 for compatibility!"
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7For compatibility: Apply above §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
+
+  "modmenu.summaryTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.",
+  "modmenu.descriptionTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like:\n - Feeding §4Cows§r/§cMooshrooms§r or even §fGoats§r to restore their §fMilkability§r\n - Feeding §lSheep§r to restore their §fShearability§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!"
 }

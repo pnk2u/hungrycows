@@ -226,6 +226,7 @@ dependencies {
 	// Mooblooms
 		// Bovines and Buttercups
 		modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
+		//modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		// Friends & Foes
 		modLocalRuntime "maven.modrinth:friends-and-foes:${project.fnf_version}"
 

@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Set;
 
 public class HungryCowsLDMMixinPlugin implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("hungrycowsmixinplugin");
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Lets-Do-Meadow-Mixin-Plugin");
     public static Boolean isLDMLoaded = false;
 
     @Override
     public void onLoad(String mixinPackage) {
         if (FabricLoader.getInstance().isModLoaded("meadow")){
             isLDMLoaded = true;
-            LOGGER.info("LDM loaded");
+            LOGGER.info("LDM loaded.");
         }
     }
 
