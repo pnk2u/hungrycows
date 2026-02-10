@@ -110,7 +110,7 @@ public class HungryCowsConfigHelper {
             if (type.equals("default")) {
                 return CubeListBuilder.create().texOffs(18, 4).addBox(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F)
                         .texOffs(52, 0).addBox("udder1", -2.0F, 2.0F, -8.0F, 4.0F, 6.0F, 1.0F)
-                        // Any following boxes will only get "rendered" when isMilkable() is true as defined in CowRendererMixin.injectedGetTextureLocation by nature of the used pixels being transparent in the original texture
+                        // Any following boxes will only get "rendered" when isMilkable() is true as defined in LivingEntityRendererMixin.wrappedGetTextureLocation by nature of the used pixels being transparent in the original texture
                         .texOffs(52, 7).addBox("udder1.5", -2.0F, 2.0F, -8.55F, 4.0F, 6.0F, 1.0F, new CubeDeformation(0, 0, -0.45F))
                         .texOffs(60, 10).addBox("udder_cover", -0.5F, 2.0F, -8.5525F, 1.0F, 1.0F, 1.0F, new CubeDeformation(1.499F, 0, -0.4515F))
                         .texOffs(52, 8).addBox("udder2", -2.0F, 3.0F, -8.625F - 0.1F, 4.0F, 4.0F, 1.0F, new CubeDeformation(-0.1F, 0, -0.375F))
@@ -121,7 +121,7 @@ public class HungryCowsConfigHelper {
             } else if (type.equals("sculk")) { // Sombercup (bovinesandbuttercups)
                 return CubeListBuilder.create().texOffs(18, 4).addBox(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F)
                         .texOffs(52, 0).addBox("udder1", -2.0F, 2.0F, -8.0F, 4.0F, 6.0F, 1.0F)
-                        // Any following boxes will only get "rendered" when isMilkable() is true as defined in CowRendererMixin.injectedGetTextureLocation by nature of the used pixels being transparent in the original texture
+                        // Any following boxes will only get "rendered" when isMilkable() is true as defined in LivingEntityRendererMixin.wrappedGetTextureLocation by nature of the used pixels being transparent in the original texture
                         .texOffs(55, 12).addBox("right_front_teat", -2.025F, 3.0F, -8.45F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F))
                         .texOffs(55, 12).addBox("left_front_teat", 1.075F, 3.0F, -8.45F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F))
                         .texOffs(55, 12).addBox("right_hind_teat", -2.025F, 6.0F, -8.45F - 0.1F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.25F, -0.25F, -0.45F))

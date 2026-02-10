@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "hungrycows",
-	"version": "${version}",
+	"version": "${mod_version}",
 	"name": "Hungry Cows",
 	"description": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food§f¹§r.\n Also adding several other related features like feeding Cows for Milk or Dispensers being able to milk Cows and lots of customizability.\n\n\n §f¹§r) This feature is unavailable in the 1.20.1 version of this mod.\nPlease additionally download Serilum's §f§lNutritious Milk§r—link below!",
 	"authors": [
@@ -44,16 +44,34 @@
 		{
 			"config": "hungrycows.client.model.mixins.json" ,
 			"environment": "client"
+		},
+		{
+			"config": "hungrycows.compat.vanillacowvariants.mixins.json",
+			"environment": "client"
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.15.10",
-		"minecraft": ">=1.20.1",
+		"fabricloader": ">=${loader_version}",
+		"minecraft": [">${minecraft_version_0} <${minecraft_version_1}"],
 		"java": ">=17",
 		"fabric-api": "*",
       	"owo": "*"
-	},
-	"suggests": {
-		"nutritiousmilk": "*"
-	}
+    },
+  	"suggests": {
+    	"nutritiousmilk": "*"
+  	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.lieonlion.dev"
+			}
+		},
+		"mc-publish": {
+			"modrinth": "6aOUwIa8",
+			"curseforge": "1058451",
+			"dependencies": [
+				"fabric-api(required)#(ignore)"
+			]
+		}
+    }
 }

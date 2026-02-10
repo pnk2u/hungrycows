@@ -1,7 +1,7 @@
 {
-  "required": true ,
-  "package": "de.pnku.hungrycows.mixin" ,
-  "compatibilityLevel": "JAVA_17" ,
+  "required": true,
+  "package": "de.pnku.hungrycows.mixin",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "entity.CowMixin" ,
     "entity.GoatMixin" ,

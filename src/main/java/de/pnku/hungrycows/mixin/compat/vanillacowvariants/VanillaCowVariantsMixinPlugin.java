@@ -1,4 +1,4 @@
-package de.pnku.hungrycows.mixin.client.model;
+package de.pnku.hungrycows.mixin.compat.vanillacowvariants;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -10,15 +10,15 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public class HungryCowsLDMMixinPlugin implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Lets-Do-Meadow-Mixin-Plugin");
-    public static Boolean isLDMLoaded = false;
+public class VanillaCowVariantsMixinPlugin implements IMixinConfigPlugin {
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Vanilla-Backport-Mixin-Plugin");
+    public static boolean isVanillaBackportLoaded = false;
 
     @Override
     public void onLoad(String mixinPackage) {
-        if (FabricLoader.getInstance().isModLoaded("meadow")){
-            isLDMLoaded = true;
-            LOGGER.info("LDM loaded.");
+        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
+            isVanillaBackportLoaded = true;
+            LOGGER.info("Cold and warm cows have been spotted early... and they're hungry!");
         }
     }
 
@@ -29,7 +29,7 @@ public class HungryCowsLDMMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !isLDMLoaded;
+        return isVanillaBackportLoaded;
     }
 
     @Override

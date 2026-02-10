@@ -103,6 +103,11 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
 
     @Unique
+    public boolean hungrycows$isEating() {
+        return this.eatGrassTimer > 0;
+    }
+
+    @Unique
     public float hungrycows$getNeckAngle(float delta) {
         float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
         float neckAngle;

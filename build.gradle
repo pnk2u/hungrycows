@@ -1,9 +1,17 @@
+import groovy.json.JsonSlurper
+import groovy.xml.XmlSlurper
+
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' // version from latest-loom.gradle via settings.gradle's pluginManagement
 	id 'maven-publish'
 }
 
-version = "${mod_version}+${minecraft_version}"
+def mc_version_name(){
+	String key = 'minecraft_version_name'
+	if (project.hasProperty(key)) {String value = project.getProperties().get(key); return !value.isEmpty() ? value : project.minecraft_version}
+	else {return project.minecraft_version}
+}
+version = "${mod_version}+${mc_version_name()}-Fabric"
 group = project.maven_group
 
 base {
@@ -30,6 +38,7 @@ repositories {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 	}
+	maven { url = "https://maven.bawnorton.com/releases" }
 	maven {
 		url "https://maven.jamieswhiteshirt.com/libs-release"
 		content {
@@ -47,40 +56,222 @@ loom {
 	accessWidenerPath = file("src/main/resources/hungrycows.accesswidener")
 
 }
+static List<Integer> previousMcVersion(int major, int minor, int patch) {
+	def maxForMajor = { int m ->
+		if (m == 1) {
+			return [21, 11] // 1.21.11 is the ceiling for major=1
+		}
+		if (m >= 26) {
+			return [52, 52] // 52 for <53 calendar weeks in a year
+		}
+		return [21, 11]
+	}
+
+	if (major > 1 && (major < 26 || major == 26 && minor == 1 && patch == 0)) {
+		return [1, 21, 11]
+	}
+
+	if (patch > 0) {
+		return [major, minor, patch - 1]
+	}
+
+	// patch == 0: move to previous minor
+	if (minor > 0) {
+		def (_, maxPatch) = maxForMajor(major)
+		return [major, minor - 1, maxPatch]
+	}
+
+	// minor == 0 and patch == 0: move to previous major
+	if (major <= 1) {
+		return [1, 0, 0]
+	}
+
+	int newMajor = major - 1
+	if (newMajor > 1 && newMajor < 26) {
+		// Skip 2..25 and go directly to 1.21.11
+		return [1, 21, 11]
+	}
+
+	def (maxMinor, maxPatch) = maxForMajor(newMajor)
+	return [newMajor, maxMinor, maxPatch]
+}
+
+def getReleaseVersion(minecraftVersion) {
+	// Truncate version after first non-integer/dot
+	def releaseVersion = minecraftVersion.replaceAll(/[^0-9.].*/, '')
+	if (minecraftVersion != releaseVersion) {println('==='); println('Resolved \"' + minecraftVersion + '\" as \"' + releaseVersion + '\" for Fabric and Parchment.');
+		println('===')}
+	return releaseVersion
+}
+
+def releaseVersion = getReleaseVersion(minecraft_version)
+
+def getLatestFabric(minecraftVersion) {
+	def fApiXmlUrl = 'https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/maven-metadata.xml'
+	def fLoaderJsonUrl = 'https://meta.fabricmc.net/v2/versions/loader'
+
+	def fLoaderJson = new JsonSlurper().parseText(new URI(fLoaderJsonUrl).toURL().text)
+	def fLoaderLatestVersion = fLoaderJson.get(0).version
+	println('Fabric Loader: ' + fLoaderLatestVersion)
+
+	def fApiLatestVersion
+	try {
+		def metadata = new XmlSlurper().parse(fApiXmlUrl)
+		def versions = metadata.versioning.versions.version*.text()
+		fApiLatestVersion = versions.findAll { it ==~ /\d+(\.\d+)*.${minecraftVersion}/ }.last()
+		println('Fabric Api: ' + fApiLatestVersion)
+	} catch (Exception e) {
+		throw new GradleException("Failed to fetch $fApiXmlUrl: ${e.message}")
+	}
+	return [fLoaderLatestVersion, fApiLatestVersion]
+}
+
+def getParchmentWithDecrementedMC(minecraftVersion) {
+	def url = 'https://versioning.parchmentmc.org/versions'
+	def response
+	try {
+		response = new URI(url).toURL().text
+		if (response.length() < 100) throw new Exception("Response too short")
+	} catch (Exception e) {
+		println "Loading local fallback due to: ${e.message}"
+		response = new File("../../resources/versioning.parchmentmc.org/versions").text
+	}
+	def json = new JsonSlurper().parseText(response)
+	def releases = json['releases']
+
+	// Truncate version after first non-integer/dot
+	def releaseVersion = minecraftVersion.replaceAll(/[^0-9.].*/, '')
+
+	def versionParts = releaseVersion.toString().split('\\.') as List
+	if (versionParts.size() == 2) versionParts << "0"
+	if (versionParts.size() < 2 || versionParts.size() > 3) throw new GradleException("Invalid Minecraft version format: $minecraftVersion")
+	def (rMaj, rMin, rPat) = versionParts.collect {it as Integer}
+	def (int dMaj, int dMin, int dPat) = previousMcVersion(rMaj, rMin, rPat)
+	def decrementedVersion = "${dMaj}.${dMin}.${dPat}"
+
+	def allVersions = releases.keySet().collect { String key ->
+		def parts = key.split('\\.')
+		if (parts.length == 2) {
+			parts = [parts[0], parts[1], "0"]
+		} else if (parts.length != 3) {
+			throw new GradleException("Unexpected Parchment MC version format in releases: ${key}")
+		}
+		def maj = parts[0] as int
+		def min = parts[1] as int
+		def pat = parts[2] as int
+		[major: maj, minor: min, patch: pat, key: key]
+	}.sort { a, b ->
+		if (a.major != b.major) return a.major <=> b.major
+		if (a.minor != b.minor) return a.minor <=> b.minor
+		return a.patch <=> b.patch
+	}
+
+	if (allVersions.isEmpty()) {
+		throw new GradleException("Unable to find any Parchment versions from releases.")
+	} else if(logger.isEnabled(LogLevel.INFO)) {
+		println("All Parchment versions found in ${url}:")
+		allVersions.each { v ->
+			println("  - ${v.key}")
+		}
+	}
+
+	def found = null
+	for (int i = allVersions.size() - 1; i >= 0; i--) {
+		def v = allVersions[i]
+		if (v.major < rMaj ||
+				(v.major == rMaj && v.minor < rMin) ||
+				(v.major == rMaj && v.minor == rMin && v.patch <= rPat)) {
+			found = v
+			break
+		}
+	}
+
+	if (found == null) {
+		throw new GradleException("No valid Parchment version found for $minecraftVersion or earlier.")
+	}
+
+	def parchmentKey = found.key
+	def parchmentDate = releases[parchmentKey]
+	logger.print("Parchment: " + parchmentKey + " + " + parchmentDate as String + "\n")
+	return [decrementedVersion, parchmentKey, parchmentDate]
+}
+
+def (fabric_loader_version, fabric_api_version) = getLatestFabric(releaseVersion)
+def (decrementedVersion, pMinecraftVersion, mostRecentParchmentDate) = getParchmentWithDecrementedMC(releaseVersion)
 
 dependencies {
+	implementation 'org.apache.commons:commons-text:1.12.0'
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered() {
 		officialMojangMappings()
-		parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_date}@zip")
+		parchment("org.parchmentmc.data:parchment-${pMinecraftVersion}:${mostRecentParchmentDate}@zip")
 	}
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 	// Jade
 	modApi "curse.maven:jade-324717:${jade_id}"
 	// owo
-	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	annotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
 	// Mod Menu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
+	// Fresh Animations
+		// EMF & ETF
+		modCompileOnly "maven.modrinth:entity-model-features:${project.emf_version}"
+		modLocalRuntime "maven.modrinth:entity-model-features:${project.emf_version}"
+		modApi "maven.modrinth:entity-model-features:${project.emf_version}"
+		modCompileOnly "maven.modrinth:entitytexturefeatures:${project.etf_version}"
+		modLocalRuntime "maven.modrinth:entitytexturefeatures:${project.etf_version}"
+	// Vanilla Backport
+		modCompileOnly "maven.modrinth:vanillabackport:${project.vpb_version}"
+		modLocalRuntime "maven.modrinth:vanillabackport:${project.vpb_version}"
+		modCompileOnly "maven.modrinth:platform:${project.platform_version}"
+		modLocalRuntime "maven.modrinth:platform:${project.platform_version}"
+		include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
+
 	// Mooblooms
 		//Bovines and Buttercups (only in 1.21+)
 		//modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
+		//modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		// Friends & Foes
 		modRuntimeOnly "maven.modrinth:friends-and-foes:${project.fnf_version}"
 		modRuntimeOnly "com.jamieswhiteshirt:reach-entity-attributes:2.4.0"
 
 }
 
-sourceSets.main.java.srcDirs += [ 'src/main/generatedJava' ]
-compileJava.options.generatedSourceOutputDirectory = file("${projectDir}/src/main/generatedJava/de/pnku/hungrycows/config")
+static def version_reduced(String input) { // Reduces a version string by one minor version and sets patch to 0
+	def parts = input.split('\\.')
+	if (parts.length < 2) throw new IllegalArgumentException("Invalid version: $input")
+	def major = parts[0] as Integer
+	def minor = (parts[1] as Integer) - 1
+	return "${major}.${minor}.0"
+}
+
+def minecraft_version_0() {
+	String key = 'minecraft_version_lower'
+	if (project.hasProperty(key)) {String value = project.getProperties().get(key); return !value.isEmpty() ? value :
+			version_reduced("${project.minecraft_version}") }
+	else {return version_reduced("${project.minecraft_version}")} // Default to one minor version lower with patch = 0 as lower bound if none is specified
+}
+
+def minecraft_version_1() {
+	String key = 'minecraft_version_upper'
+	if (project.hasProperty(key)) {String value = project.getProperties().get(key); return !value.isEmpty() ? value : "99.0.0"}
+	else {return "99.0.0"} // Effectively no upper bound
+}
 
 processResources {
-	inputs.property "version", project.version
+	// Disregard Patch version from Fabric Loader for dependency
+	var fabric_loader_version_0 = "${fabric_loader_version}".replaceFirst(/\.[^.]*$/, '.0')
+
+	var replaceProperties = [
+			loader_version: fabric_loader_version_0, mod_version: mod_version,
+			minecraft_version: minecraft_version, minecraft_version_0: minecraft_version_0(), minecraft_version_1: minecraft_version_1()
+	]
+	inputs.properties replaceProperties
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand replaceProperties
 	}
 }
 

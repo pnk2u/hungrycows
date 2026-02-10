@@ -98,7 +98,8 @@
 
     {"text": "§odie Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "§oFarbe eines melkbaren Euters", "color": "#e58f8f"},
 
-    ".\nDiese Einstellung betrifft Ziegen nicht, da sie keine sichtbaren Euter haben."
+    ".\n",{"text": "Diese Einstellung betrifft Ziegen nicht, da sie keine sichtbaren Euter haben.\nZum An-/Ausschalten der Modellveränderungen ist ein Neuladen (§o§lF3§r+§o§lT§r) erforderlich.", "color": "#71586A"},"\n",
+    {"text": "Das An-/Ausschalten der Texturveränderungen ist sofort sichtbar.", "color": "#71586A"}
   ],
   "text.config.hungrycows.enum.mCDO.hide_none": "Modell & Textur",
   "text.config.hungrycows.enum.mCDO.hide_model": "Nur Textur anzeigen",
@@ -145,8 +146,11 @@
   "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§rmilcheimer",
   "item.hungrycows.milk_bucket.goat": "§lZiege§rnmilcheimer",
 
-  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows",
-  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Setze mich über §f§lFresh Animations§7 für Kompatibilität!",
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Für Kompatibilität: Setze über §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
+
+  "modmenu.summaryTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.",
+  "modmenu.descriptionTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.\n Außerdem werden mehrere andere verwandte Features hinzugefügt wie:\n - Füttern von §4Kühen§r/§cMooshrooms§r oder sogar §fZiegen§r, um ihre §fMelkbarkeit§r wiederherzustellen\n - Füttern von §lSchafen§r, um ihre §fScherbarkeit§r wiederherzustellen\n - Beim Füttern oder Grasen können diese Tiere auch Gesundheitspunkte wiederherstellen und Babys können schneller erwachsen werden\n - Dispenser können melken wie sie scheren können\n - Anpassbare Einstellungen für all das und mehr!",
 
   "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
 
