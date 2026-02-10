@@ -1,26 +1,27 @@
 package de.pnku.hungrycows.util;
 
+import com.blackgear.vanillabackport.client.api.renderer.CowVariantRenderer;
 import de.pnku.hungrycows.HungryCows;
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.fabric.impl.client.event.lifecycle.ClientLifecycleEventsImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.CowRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.EntityType;
-import traben.entity_model_features.utils.EMFEntity;
+import net.minecraft.world.entity.animal.Cow;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import static de.pnku.hungrycows.HungryCows.*;
 
@@ -46,9 +47,9 @@ public class HungryCowsCompatibilityHelper {
                 String variableName = "is_eating";
                 String description = "Set to true when the Cow/Mooshroom is currently eating a grass/mycelium block, so that Hungry Cows uses Fresh Animations' eating animation for Cows and Mooshrooms.";
                 traben.entity_model_features.EMFAnimationApi.registerSingletonAnimationVariable(HungryCows.MOD_ID, variableName, description, () -> {
-                        Optional<EMFEntity> entity = Optional.ofNullable(traben.entity_model_features.EMFAnimationApi.getCurrentEntity());
-                        if (entity.isPresent() && entity.get().etf$getType() instanceof EntityType<?> entityType) {
-                            if (HUNGRY_ENTITIES.contains(entityType)) {
+                        Optional<traben.entity_model_features.utils.EMFEntity> entity = Optional.ofNullable(traben.entity_model_features.EMFAnimationApi.getCurrentEntity());
+                        if (entity.isPresent()) {
+                            if (HUNGRY_ENTITIES.contains(entity.get().etf$getType())) {
                                     return ((IHungryCows) entity.get()).hungrycows$isEating();
                             }
                         }
@@ -98,6 +99,7 @@ public class HungryCowsCompatibilityHelper {
 
     protected static void initBnB() {
 //      BovinesEntityTypes.registerAll();
+//        HUNGRY_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
 //      MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
 //      FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
     }
