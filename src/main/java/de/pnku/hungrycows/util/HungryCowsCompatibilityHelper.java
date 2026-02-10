@@ -1,27 +1,21 @@
 package de.pnku.hungrycows.util;
 
-import com.blackgear.vanillabackport.client.api.renderer.CowVariantRenderer;
 import de.pnku.hungrycows.HungryCows;
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.CowRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Cow;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import static de.pnku.hungrycows.HungryCows.*;
 
