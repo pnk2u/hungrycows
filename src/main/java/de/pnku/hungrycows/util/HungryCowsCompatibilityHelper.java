@@ -1,12 +1,10 @@
 package de.pnku.hungrycows.util;
 
+import de.pnku.hungrycows.HungryCows;
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
-import net.fabricmc.fabric.impl.client.event.lifecycle.ClientLifecycleEventsImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -18,36 +16,67 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static de.pnku.hungrycows.HungryCows.*;
 
 public class HungryCowsCompatibilityHelper {
     public static EntityDataAccessor<Boolean> IS_MILKED_MOOBLOOM;
+    public static List<EntityType<?>> HUNGRY_ENTITIES = new ArrayList<>(); // Can eat blocks but wouldn't in vanilla
     public static List<EntityType<?>> MILKABLE_ENTITIES = new ArrayList<>();
     public static List<EntityType<?>> FEEDABLE_ENTITIES = new ArrayList<>();
     public static boolean isBnBLoaded = false;
+    public static boolean isVanillaBackportLoaded = false;
 
     public static void init() {
+        setHungryEntities();
         setMilkableEntities();
         setFeedableEntities();
-
     }
 
     public static void clientInit() {
         ResourcePackActivationType activationType;
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            if (isResourcePackEnabled("FreshAnimations")){
-                LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
-                activationType = ResourcePackActivationType.DEFAULT_ENABLED;
-            } else {activationType = ResourcePackActivationType.NORMAL;}
-            ResourceManagerHelper.registerBuiltinResourcePack(
-                    withModId("hungryandfreshcows"),
-                    FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
-                    Component.translatable("resourcepack.hungrycows.hungryandfreshcows.title"),
-                    activationType
-            );
+            if (FabricLoader.getInstance().isModLoaded("entity_model_features")) {
+                LOGGER.info("Detected \"Entity Model Features\". Registering compatibility features.");
+                String variableName = "is_eating";
+                String description = "Set to true when the Cow/Mooshroom is currently eating a grass/mycelium block, so that Hungry Cows uses Fresh Animations' eating animation for Cows and Mooshrooms.";
+                traben.entity_model_features.EMFAnimationApi.registerSingletonAnimationVariable(HungryCows.MOD_ID, variableName, description, () -> {
+                        Optional<traben.entity_model_features.utils.EMFEntity> entity = Optional.ofNullable(traben.entity_model_features.EMFAnimationApi.getCurrentEntity());
+                        if (entity.isPresent()) {
+                            if (HUNGRY_ENTITIES.contains(entity.get().etf$getType())) {
+                                    return ((IHungryCows) entity.get()).hungrycows$isEating();
+                            }
+                        }
+                        return false;
+                    }
+                );
+                if (isResourcePackEnabled("FreshAnimations")) {
+                    LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
+                    activationType = ResourcePackActivationType.DEFAULT_ENABLED;
+                } else {
+                    activationType = ResourcePackActivationType.NORMAL;
+                }
+                ResourceManagerHelper.registerBuiltinResourcePack(
+                        withModId("hungryandfreshcows"),
+                        FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(),
+                        Component.translatable("resourcepack.hungrycows.hungryandfreshcows.title"),
+                        activationType
+                );
+            }
+        }
+        if (FabricLoader.getInstance().isModLoaded("bovinesandbuttercups")) {
+            isBnBLoaded = true;
         }
         if (isBnBLoaded) {initBnB();}
+        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
+            isVanillaBackportLoaded = true;
+        }
+    }
+
+    protected static void setHungryEntities() {
+        HUNGRY_ENTITIES.add(EntityType.COW);
+        HUNGRY_ENTITIES.add(EntityType.MOOSHROOM);
     }
 
     protected static void setMilkableEntities() {
@@ -65,6 +94,7 @@ public class HungryCowsCompatibilityHelper {
 
     protected static void initBnB() {
         BovinesEntityTypes.registerAll();
+        HUNGRY_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
         MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
         FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
     }

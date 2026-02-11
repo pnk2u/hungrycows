@@ -3,8 +3,8 @@
   "package": "de.pnku.hungrycows.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "renderer.CowRendererMixin",
-    "renderer.MushroomCowRendererMixin",
+    "renderer.LivingEntityRendererMixin",
+    "renderer.MushroomCowRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

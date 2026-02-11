@@ -12,6 +12,7 @@ float hungrycows$headAngle = 0;
 void hungrycows$setHeadAngle(float angle);
 float hungrycows$neckAngle = 0;
 void hungrycows$setNeckAngle(float angle);
+boolean hungrycows$isEating();
 boolean hungrycows$isMilkable();
 boolean hungrycows$isMilkable = false;
 void hungrycows$setMilkable(boolean milkable);

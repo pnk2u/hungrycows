@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "hungrycows",
-	"version": "${version}",
+	"version": "${mod_version}",
 	"name": "Hungry Cows",
 	"description": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like feeding Cows for Milk or Dispensers being able to milk Cows and lots of customizability.",
 	"authors": [
@@ -38,13 +38,31 @@
 			"config": "hungrycows.client.model.mixins.json" ,
 			"environment": "client"
 		},
-		"hungrycows.compat.bovinesandbuttercup.mixins.json"
+		"hungrycows.compat.bovinesandbuttercup.mixins.json",
+		{
+			"config": "hungrycows.compat.vanillacowvariants.mixins.json",
+			"environment": "client"
+		}
 	],
 	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": ">=1.21",
+		"fabricloader": ">=${loader_version}",
+		"minecraft": [">${minecraft_version_0} <${minecraft_version_1}"],
 		"java": ">=21",
 		"fabric-api": "*",
 		"owo": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.lieonlion.dev"
+			}
+		},
+		"mc-publish": {
+			"modrinth": "6aOUwIa8",
+			"curseforge": "1058451",
+			"dependencies": [
+				"fabric-api(required)#(ignore)"
+			]
+		}
 	}
 }

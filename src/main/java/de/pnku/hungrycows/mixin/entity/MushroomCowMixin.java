@@ -101,6 +101,11 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     }
 
     @Unique
+    public boolean hungrycows$isEating() {
+        return this.eatMyceliumTimer > 0;
+    }
+
+    @Unique
     public float hungrycows$getNeckAngle(float delta) {
         float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;
         float neckAngle;

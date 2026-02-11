@@ -99,6 +99,11 @@ public abstract class MoobloomMixin extends Cow implements Shearable, IHungryCow
         }
     }
 
+
+    @Unique public boolean hungrycows$isEating() {
+        return this.moobloomEatGrassTimer > 0;
+    }
+
     @Unique
     public float hungrycows$getNeckAngle(float delta) {
         float babyNeckMultiplier = this.isBaby() ? 0.125F : 1.0F;

@@ -1,11 +1,11 @@
 {
 	"credit": "Created by FreshLX for Fresh Animations",
-	"textureSize": [64, 48],
+	"textureSize": [64, 64],
 	"models": [
 		{
 			"part":"root",
 			"id":"root",
-			"model":"mooshroom_animations.jpm",
+			"model":"cow_animations.jpm",
 			"attach":"true"
 		},
 		{
@@ -27,6 +27,18 @@
 			]
 		},
 		{
+			"part": "left_horn",
+			"id": "left_horn",
+			"invertAxis": "xy",
+			"translate": [0, 0, 0]
+		},
+		{
+			"part": "right_horn",
+			"id": "right_horn",
+			"invertAxis": "xy",
+			"translate": [0, 0, 0]
+		},
+		{
 			"part": "body",
 			"id": "body",
 			"invertAxis": "xy",
@@ -38,41 +50,8 @@
 					"translate": [0, 13, 2],
 					"rotate": [-90, 0, 0],
 					"boxes": [
-						{"coordinates": [-6, -8, -1, 12, 18, 10], "textureOffset": [18, 4]}
-					],
-					"submodels": [
-						{
-							"id": "mushroom2",
-							"invertAxis": "xy",
-							"translate": [2, 2, 9],
-							"rotate": [90, 0, -39],
-							"boxes": [
-								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvWest": [0, 41, 8, 48]
-								},
-								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
-								}
-							]
-						},
-						{
-							"id": "mushroom3",
-							"invertAxis": "xy",
-							"translate": [-3, -6, 9],
-							"rotate": [90, 0, 3],
-							"boxes": [
-								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvWest": [0, 41, 8, 48]
-								},
-								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
-								}
-							]
-						}
+						{"coordinates": [-6, -8, -1, 12, 18, 10], "textureOffset": [18, 4]},
+						{"coordinates": [-6, -8, -1, 12, 18, 10], "textureOffset": [20, 32], "sizeAdd": 0.25}
 					]
 				},
 				{
@@ -88,32 +67,17 @@
 							"invertAxis": "xy",
 							"translate": [0, -2, -6],
 							"boxes": [
-								{"coordinates": [-3, -2, -1, 6, 3, 1], "textureOffset": [27, 0]}
+								{"coordinates": [-3, -2, -1, 6, 3, 1], "textureOffset": [9, 33]}
 							]
 						},
 						{
 							"id": "horns",
 							"invertAxis": "xy",
-							"translate": [0, 0, 0],
+							"translate": [0, 3, -3],
+							"rotate": [-90, 0, 0],
 							"boxes": [
-								{"coordinates": [-5, 2, -5, 1, 3, 1], "textureOffset": [22, 0]},
-								{"coordinates": [4, 2, -5, 1, 3, 1], "textureOffset": [22, 0]}
-							]
-						},
-						{
-							"id": "mushroom1",
-							"invertAxis": "xy",
-							"translate": [0, 4, -3],
-							"rotate": [0, 33, 0],
-							"boxes": [
-								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvEast": [8, 41, 0, 48]
-								},
-								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
-								}
+								{"coordinates": [4, -1, -1, 2, 6, 2], "textureOffset": [0, 32]},
+								{"coordinates": [-6, -1, -1, 2, 6, 2], "textureOffset": [0, 40]}
 							]
 						},
 						{

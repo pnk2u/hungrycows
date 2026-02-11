@@ -1,8 +1,5 @@
-package de.pnku.hungrycows.mixin.compat.bovinesandbuttercups;
+package de.pnku.hungrycows.mixin.compat.vanillacowvariants;
 
-import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.slf4j.Logger;
@@ -13,17 +10,15 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.isBnBLoaded;
-
-public class BovinesAndButtercupsMixinPlugin  implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Bovines-And-Buttercups-Mixin-Plugin");
-    public static boolean isBnBLoaded = false;
+public class VanillaCowVariantsMixinPlugin implements IMixinConfigPlugin {
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Vanilla-Backport-Mixin-Plugin");
+    public static boolean isVanillaBackportLoaded = false;
 
     @Override
     public void onLoad(String mixinPackage) {
-        if (FabricLoader.getInstance().isModLoaded("bovinesandbuttercups")) {
-            isBnBLoaded = true;
-            LOGGER.info("Mooing Bovines (BnB) are blooming... and hungry!");
+        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
+            isVanillaBackportLoaded = true;
+            LOGGER.info("Cold and warm cows have been spotted early... and they're hungry!");
         }
     }
 
@@ -34,7 +29,7 @@ public class BovinesAndButtercupsMixinPlugin  implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return isBnBLoaded;
+        return isVanillaBackportLoaded;
     }
 
     @Override

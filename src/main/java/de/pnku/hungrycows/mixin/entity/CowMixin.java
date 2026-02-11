@@ -74,7 +74,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
 
     protected void customServerAiStep(ServerLevel level) {
-        if (thisCow.getType().equals(EntityType.COW)) {
+        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
             this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
 
@@ -82,7 +82,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         super.customServerAiStep(level);
     }
     public void aiStep() {
-        if (thisCow.getType().equals(EntityType.COW)) {
+        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
             this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
         }
@@ -102,6 +102,11 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         } else {
             super.handleEntityEvent(status);
         }
+    }
+
+    @Unique
+    public boolean hungrycows$isEating() {
+        return this.eatGrassTimer > 0;
     }
 
     @Unique
