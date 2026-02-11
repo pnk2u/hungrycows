@@ -223,8 +223,8 @@ dependencies {
 		modCompileOnly "maven.modrinth:entitytexturefeatures:${project.etf_version}"
 		modLocalRuntime "maven.modrinth:entitytexturefeatures:${project.etf_version}"
 	// Vanilla Backport
-		modCompileOnly "maven.modrinth:vanillabackport:${project.vpb_version}"
-		modLocalRuntime "maven.modrinth:vanillabackport:${project.vpb_version}"
+		modCompileOnly "maven.modrinth:vanillabackport:${project.vbp_version}"
+		modLocalRuntime "maven.modrinth:vanillabackport:${project.vbp_version}"
 		modCompileOnly "maven.modrinth:platform:${project.platform_version}"
 		modLocalRuntime "maven.modrinth:platform:${project.platform_version}"
 		include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
