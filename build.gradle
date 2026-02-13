@@ -38,7 +38,10 @@ repositories {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 	}
-	maven { url = "https://maven.bawnorton.com/releases" }
+	maven {
+		name = "QuiltMC"
+		url = "https://maven.quiltmc.org/repository/release/"
+	}
 }
 
 loom {
@@ -223,6 +226,9 @@ dependencies {
 		//modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		// Friends & Foes
 		modLocalRuntime "maven.modrinth:friends-and-foes:${project.fnf_version}"
+		modRuntimeOnly "maven.modrinth:yacl:${project.yacl_version}"
+		modRuntimeOnly "maven.modrinth:resourceful-lib:${project.rlib_version}"
+		implementation("org.quiltmc.parsers:gson:0.3.1")
 
 }
 
