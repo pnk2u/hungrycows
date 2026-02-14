@@ -1,3 +1,4 @@
+/*
 package de.pnku.hungrycows.mixin.compat.vanillacowvariants.model;
 
 import com.blackgear.vanillabackport.client.level.entities.model.cow.CowVariantModel;
@@ -17,3 +18,4 @@ public abstract class CowVariantModelMixin {
         return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }
 }
+*/

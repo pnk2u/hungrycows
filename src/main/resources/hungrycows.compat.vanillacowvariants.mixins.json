@@ -6,8 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "model.CowVariantModelMixin",
-    "model.ColdCowModelMixin"
   ] ,
   "injectors": {
     "defaultRequire": 1
