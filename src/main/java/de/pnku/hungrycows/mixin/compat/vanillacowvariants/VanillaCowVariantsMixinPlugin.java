@@ -11,15 +11,10 @@ import java.util.List;
 import java.util.Set;
 
 public class VanillaCowVariantsMixinPlugin implements IMixinConfigPlugin {
-    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Vanilla-Backport-Mixin-Plugin");
-    public static boolean isVanillaBackportLoaded = false;
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hungry Cows: Vanilla-Cow-Variants-Mixin-Plugin");
 
     @Override
     public void onLoad(String mixinPackage) {
-        if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
-            isVanillaBackportLoaded = true;
-            LOGGER.info("Cold and warm cows have been spotted early... and they're hungry!");
-        }
     }
 
     @Override
@@ -29,7 +24,7 @@ public class VanillaCowVariantsMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return isVanillaBackportLoaded;
+        return true;
     }
 
     @Override

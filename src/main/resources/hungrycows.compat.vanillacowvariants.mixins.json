@@ -1,12 +1,13 @@
 {
   "plugin": "de.pnku.hungrycows.mixin.compat.vanillacowvariants.VanillaCowVariantsMixinPlugin",
-  "required": false ,
-  "package": "de.pnku.hungrycows.mixin.compat.vanillacowvariants" ,
-  "compatibilityLevel": "JAVA_21" ,
+  "required": false,
+  "package": "de.pnku.hungrycows.mixin.compat.vanillacowvariants",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],
   "client": [
-  ] ,
+    "model.ColdCowModelMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

@@ -1,7 +1,6 @@
-/*
 package de.pnku.hungrycows.mixin.compat.vanillacowvariants.model;
 
-import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
+import net.minecraft.client.model.ColdCowModel;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,4 +16,3 @@ public abstract class ColdCowModelMixin {
         return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }
 }
-*/
