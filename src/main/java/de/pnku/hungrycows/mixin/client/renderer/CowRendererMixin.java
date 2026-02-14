@@ -27,9 +27,6 @@ public abstract class CowRendererMixin extends AgeableMobRenderer<Cow, HungryCow
         super(context, new CowModel(context.bakeLayer(ModelLayers.COW)), new CowModel(context.bakeLayer(ModelLayers.COW_BABY)), 0.7F);
     }
 
-    @Shadow @Final
-    private static ResourceLocation COW_LOCATION;
-
     @Inject(method = "createRenderState()Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;", at = @At("HEAD"), cancellable = true)
     public void injectedCreateRenderState(CallbackInfoReturnable<HungryCowRenderState> cir) {
         cir.setReturnValue(new HungryCowRenderState());
