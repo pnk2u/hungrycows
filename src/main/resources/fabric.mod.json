@@ -38,7 +38,6 @@
 			"config": "hungrycows.client.model.mixins.json" ,
 			"environment": "client"
 		},
-		"hungrycows.compat.bovinesandbuttercup.mixins.json",
 		{
 			"config": "hungrycows.compat.vanillacowvariants.mixins.json",
 			"environment": "client"

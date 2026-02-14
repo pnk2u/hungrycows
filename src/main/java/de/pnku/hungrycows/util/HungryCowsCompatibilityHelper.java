@@ -1,7 +1,6 @@
 package de.pnku.hungrycows.util;
 
 import de.pnku.hungrycows.HungryCows;
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -21,11 +20,9 @@ import java.util.Optional;
 import static de.pnku.hungrycows.HungryCows.*;
 
 public class HungryCowsCompatibilityHelper {
-    public static EntityDataAccessor<Boolean> IS_MILKED_MOOBLOOM;
     public static List<EntityType<?>> HUNGRY_ENTITIES = new ArrayList<>(); // Can eat blocks but wouldn't in vanilla
     public static List<EntityType<?>> MILKABLE_ENTITIES = new ArrayList<>();
     public static List<EntityType<?>> FEEDABLE_ENTITIES = new ArrayList<>();
-    public static boolean isBnBLoaded = false;
     public static boolean isVanillaBackportLoaded = false;
 
     public static void init() {
@@ -65,10 +62,6 @@ public class HungryCowsCompatibilityHelper {
                 );
             }
         }
-        if (FabricLoader.getInstance().isModLoaded("bovinesandbuttercups")) {
-            isBnBLoaded = true;
-        }
-        if (isBnBLoaded) {initBnB();}
         if (FabricLoader.getInstance().isModLoaded("vanillabackport")) {
             isVanillaBackportLoaded = true;
         }
@@ -90,13 +83,6 @@ public class HungryCowsCompatibilityHelper {
         FEEDABLE_ENTITIES.add(EntityType.MOOSHROOM);
         FEEDABLE_ENTITIES.add(EntityType.SHEEP);
         FEEDABLE_ENTITIES.add(EntityType.GOAT);
-    }
-
-    protected static void initBnB() {
-        BovinesEntityTypes.registerAll();
-        HUNGRY_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
-        MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
-        FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
     }
 
     public static boolean isResourcePackEnabled(String packName) {
