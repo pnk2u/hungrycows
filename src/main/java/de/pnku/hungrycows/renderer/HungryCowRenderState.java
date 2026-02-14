@@ -43,6 +43,11 @@ public class HungryCowRenderState extends LivingEntityRenderState implements IHu
         this.neckAngle = angle;
     }
 
+    @Override
+    public boolean hungrycows$isEating() {
+        return false;
+    }
+
     @Unique public boolean hungrycows$isMilkable() {
         return this.isMilkable;
     }

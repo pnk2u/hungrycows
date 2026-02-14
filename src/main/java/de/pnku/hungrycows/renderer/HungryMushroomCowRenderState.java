@@ -42,6 +42,11 @@ public class HungryMushroomCowRenderState extends MushroomCowRenderState impleme
         this.neckAngle = angle;
     }
 
+    @Override
+    public boolean hungrycows$isEating() {
+        return false;
+    }
+
     @Unique public boolean hungrycows$isMilkable() {
         return this.isMilkable;
     }
