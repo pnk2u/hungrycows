@@ -25,7 +25,7 @@ public abstract class ServerPlaceRecipeMixin {
     private void moveItemToGrid(Slot slot, Holder<Item> item, int maxAmount, CallbackInfoReturnable<Integer> cir) {
         int i = this.inventory.findSlotMatchingCraftingIngredient(item, slot.getItem());
         if (i == -1 && slot.getItem().is(Items.MILK_BUCKET) && !slot.hasItem()) {
-            for (int j = 0; j < this.inventory.items.size(); j++) {
+            for (int j = 0; j < this.inventory.getNonEquipmentItems().size(); j++) {
                 ItemStack itemStack = this.inventory.getItem(j);
                 if (!itemStack.isEmpty()
                         && itemStack.is(slot.getItem().getItem())

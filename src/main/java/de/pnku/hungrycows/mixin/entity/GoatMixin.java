@@ -74,7 +74,7 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        ((IHungryCows) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
+        ((IHungryCows) this).hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
     }
 
     // Goats should not be sheared... yet.

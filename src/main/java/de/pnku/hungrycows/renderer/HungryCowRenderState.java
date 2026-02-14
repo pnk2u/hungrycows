@@ -3,12 +3,12 @@ package de.pnku.hungrycows.renderer;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.CowRenderState;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
-public class HungryCowRenderState extends LivingEntityRenderState implements IHungryCows {
+public class HungryCowRenderState extends CowRenderState implements IHungryCows {
     public float headAngle;
     public float neckAngle;
     public boolean isMilkable;

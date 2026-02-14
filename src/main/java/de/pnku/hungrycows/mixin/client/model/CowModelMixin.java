@@ -25,8 +25,8 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
         super(root);
     }
 
-    @ModifyArg(method = "createBodyLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
-    private static CubeListBuilder injectedCreateBodyLayer(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
+    @ModifyArg(method = "createBaseCowModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/builders/PartDefinition;addOrReplaceChild(Ljava/lang/String;Lnet/minecraft/client/model/geom/builders/CubeListBuilder;Lnet/minecraft/client/model/geom/PartPose;)Lnet/minecraft/client/model/geom/builders/PartDefinition;"))
+    private static CubeListBuilder injectedCreateBaseCowModel(String name, CubeListBuilder cubeListBuilder, PartPose partPose) {
         return getMilkableCowBodyWithUdderCubeListBuilder(name, cubeListBuilder);
     }
 

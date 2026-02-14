@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -96,7 +96,7 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        this.hungrycows$setSheepHasBeenFedManuallyTimer(nbt.getInt("HasBeenFed"));
+        this.hungrycows$setSheepHasBeenFedManuallyTimer(nbt.getIntOr("HasBeenFed", 0));
     }
 
     @Unique

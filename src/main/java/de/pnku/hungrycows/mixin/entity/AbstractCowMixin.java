@@ -16,12 +16,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.AbstractCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,7 +28,6 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,18 +37,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static de.pnku.hungrycows.HungryCows.*;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
-@Mixin(Cow.class)
-public abstract class CowMixin extends Animal implements Shearable, IHungryCows {
+@Mixin(AbstractCow.class)
+public abstract class AbstractCowMixin extends Animal implements Shearable, IHungryCows {
     @Unique
     private EatBlockGoal cowEatGrassGoal;
     @Unique
     private int eatGrassTimer;
     @Unique
-    Cow thisCow = (Cow) (Object) this;
+    AbstractCow thisAbstractCow = (AbstractCow) (Object) this;
     @Unique
     protected int hasBeenFedManuallyTimer;
 
-    public CowMixin(EntityType<? extends Cow> entityType, Level level) {
+    public AbstractCowMixin(EntityType<? extends AbstractCow> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -74,7 +72,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
 
     protected void customServerAiStep(ServerLevel level) {
-        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
+        if (!thisAbstractCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = this.cowEatGrassGoal.getEatAnimationTick();
             this.hungrycows$setCowHasBeenFedManuallyTimer(this.getEntityData().get(FED_TIMER));
 
@@ -82,7 +80,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
         super.customServerAiStep(level);
     }
     public void aiStep() {
-        if (!thisCow.getType().equals(EntityType.MOOSHROOM)) {
+        if (!thisAbstractCow.getType().equals(EntityType.MOOSHROOM)) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
             this.hungrycows$setCowHasBeenFedManuallyTimer(!this.isBaby() ? Math.max(1, this.hungrycows$getCowHasBeenFedManuallyTimer() - 1) : 0);
         }
@@ -150,8 +148,8 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.hungrycows$setMilked(nbt.getBoolean("Milked"));
-        this.hungrycows$setCowHasBeenFedManuallyTimer(nbt.getInt("HasBeenFed"));
+        this.hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
+        this.hungrycows$setCowHasBeenFedManuallyTimer(nbt.getIntOr("HasBeenFed", 0));
     }
 
     @Unique
@@ -187,10 +185,10 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
             }
         }
 
-        int healthDiff = (int) thisCow.getMaxHealth() - (int) thisCow.getHealth();
+        int healthDiff = (int) thisAbstractCow.getMaxHealth() - (int) thisAbstractCow.getHealth();
         if (healthDiff > 0){
             int i = blockEatSettings.cowBlockEatHealAmount();
-            thisCow.heal(i);
+            thisAbstractCow.heal(i);
             if (!this.level().isClientSide()) {
                 Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "cow_body");
                 ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.375F, 0.625F, 0.375F, 0.2F);
@@ -199,8 +197,8 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     }
 
     static {
-        HungryCows.IS_MILKED = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.BOOLEAN);
-        HungryCows.FED_TIMER = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.INT);
+        HungryCows.IS_MILKED = SynchedEntityData.defineId(AbstractCowMixin.class, EntityDataSerializers.BOOLEAN);
+        HungryCows.FED_TIMER = SynchedEntityData.defineId(AbstractCowMixin.class, EntityDataSerializers.INT);
     }
 
     @Unique
@@ -216,7 +214,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        Animal thisCowLike = hungrycows$isMooshroom() ? thisCow : this;
+        Animal thisCowLike = hungrycows$isMooshroom() ? thisAbstractCow : this;
         if (checkFeedability(itemStack, thisCowLike)) {
             boolean isMooshroom = hungrycows$isMooshroom();
             int s = hungrycows$getCowHasBeenFedManuallyTimer();

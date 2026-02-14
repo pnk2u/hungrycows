@@ -19,7 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.AbstractCow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,13 +38,13 @@ import static de.pnku.hungrycows.HungryCows.*;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
 @Mixin(MushroomCow.class)
-public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.Variant>, IHungryCows {
+public abstract class MushroomCowMixin extends AbstractCow implements Shearable, IHungryCows {
     public MushroomCowMixin(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
     }
 
     @Shadow
-    public Cow getBreedOffspring(ServerLevel level, AgeableMob otherParent){
+    public MushroomCow getBreedOffspring(ServerLevel level, AgeableMob otherParent){
         return null;
     }
 
@@ -202,7 +202,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        ((IHungryCows) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
+        ((IHungryCows) this).hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
     }
 
     static {
