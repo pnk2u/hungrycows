@@ -1,6 +1,6 @@
 {
 	"credit": "Created by FreshLX for Fresh Animations",
-	"textureSize": [64, 48],
+	"textureSize": [64, 64],
 	"models": [
 		{
 			"part":"root",
@@ -48,12 +48,12 @@
 							"rotate": [90, 0, -39],
 							"boxes": [
 								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvWest": [0, 41, 8, 48]
+									"coordinates": [0, -0.25, -8, 0, 16, 16],
+									"uvWest": [0, 48, 16, 64]
 								},
 								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
+									"coordinates": [-8, -0.25, 0, 16, 16, 0],
+									"uvNorth": [0, 48, 16, 64]
 								}
 							]
 						},
@@ -64,12 +64,12 @@
 							"rotate": [90, 0, 3],
 							"boxes": [
 								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvWest": [0, 41, 8, 48]
+									"coordinates": [0, -0.25, -8, 0, 16, 16],
+									"uvWest": [0, 48, 16, 64]
 								},
 								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
+									"coordinates": [-8, -0.25, 0, 16, 16, 0],
+									"uvNorth": [0, 48, 16, 64]
 								}
 							]
 						}
@@ -88,7 +88,7 @@
 							"invertAxis": "xy",
 							"translate": [0, -2, -6],
 							"boxes": [
-								{"coordinates": [-3, -2, -1, 6, 3, 1], "textureOffset": [27, 0]}
+								{"coordinates": [-3, -2, -1, 6, 3, 1], "textureOffset": [1, 33]}
 							]
 						},
 						{
@@ -107,12 +107,12 @@
 							"rotate": [0, 33, 0],
 							"boxes": [
 								{
-									"coordinates": [0, -0.25, -6, 0, 7, 12],
-									"uvEast": [8, 41, 0, 48]
+									"coordinates": [0, -0.25, -8, 0, 16, 16],
+									"uvEast": [16, 48, 0, 64]
 								},
 								{
-									"coordinates": [-6, -0.25, 0, 12, 7, 0],
-									"uvNorth": [0, 41, 8, 48]
+									"coordinates": [-8, -0.25, 0, 16, 16, 0],
+									"uvNorth": [0, 48, 16, 64]
 								}
 							]
 						},
@@ -204,6 +204,7 @@
 					"id": "udder",
 					"invertAxis": "xy",
 					"translate": [0, 12, 7],
+					"rotate": [-90, 0, 0],
 					"submodels": [
 						{
 							"id": "udder1",
