@@ -151,5 +151,8 @@
   "resourcepack.hungrycows.hungryandfreshcows.description": "§7For compatibility: Apply above §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
 
   "modmenu.summaryTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.",
-  "modmenu.descriptionTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like:\n - Feeding §4Cows§r/§cMooshrooms§r or even §fGoats§r to restore their §fMilkability§r\n - Feeding §lSheep§r to restore their §fShearability§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!"
+  "modmenu.descriptionTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like:\n - Feeding §4Cows§r/§cMooshrooms§r or even §fGoats§r to restore their §fMilkability§r\n - Feeding §lSheep§r to restore their §fShearability§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!",
+
+  "subtitles.entity.cow.eat": "Cow eats",
+  "subtitles.entity.sheep.eat": "Sheep eats"
 }

@@ -152,6 +152,9 @@
   "modmenu.summaryTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.",
   "modmenu.descriptionTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.\n Außerdem werden mehrere andere verwandte Features hinzugefügt wie:\n - Füttern von §4Kühen§r/§cMooshrooms§r oder sogar §fZiegen§r, um ihre §fMelkbarkeit§r wiederherzustellen\n - Füttern von §lSchafen§r, um ihre §fScherbarkeit§r wiederherzustellen\n - Beim Füttern oder Grasen können diese Tiere auch Gesundheitspunkte wiederherstellen und Babys können schneller erwachsen werden\n - Dispenser können melken wie sie scheren können\n - Anpassbare Einstellungen für all das und mehr!",
 
+  "subtitles.entity.cow.eat": "Kuh frisst",
+  "subtitles.entity.sheep.eat": "Schaf frisst",
+
   "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
 
   "text.owo.itemGroup.select_hint": {"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"},

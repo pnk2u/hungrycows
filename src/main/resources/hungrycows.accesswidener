@@ -1,6 +1,7 @@
 accessWidener v1 named
 
 accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
+accessible method net/minecraft/world/entity/animal/MushroomCow getEffectFromItemStack (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 accessible field net/minecraft/world/entity/animal/MushroomCow effect Lnet/minecraft/world/effect/MobEffect;
 accessible field net/minecraft/world/entity/animal/MushroomCow effectDuration I
 accessible field net/minecraft/world/entity/animal/Sheep DATA_WOOL_ID Lnet/minecraft/network/syncher/EntityDataAccessor;

@@ -1,6 +1,7 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
+import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -128,7 +129,7 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
                     Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
                     ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.25F, 0.3F, 0.25F, 0.2F);
                 }
-                level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
+                level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
             int healthDiff = (int) thisSheep.getMaxHealth() - (int) thisSheep.getHealth();
             if (healthDiff > 0 && sheepSettings.isSheepFeedToHeal()) {
@@ -138,7 +139,7 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
                     ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.3F, 0.3F, 0.3F, 0.2F);
                 }
                 itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
-                level().playSound(player, this, SoundEvents.GOAT_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
+                level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
         }
     }
