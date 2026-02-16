@@ -49,6 +49,8 @@ loom {
 	}
 	accessWidenerPath = file("src/main/resources/hungrycows.accesswidener")
 
+
+	log4jConfigs.from(file("log4j2-dev.xml"))
 }
 static List<Integer> previousMcVersion(int major, int minor, int patch) {
 	def maxForMajor = { int m ->
@@ -192,6 +194,13 @@ def getParchmentWithDecrementedMC(minecraftVersion) {
 
 def (fabric_loader_version, fabric_api_version) = getLatestFabric(releaseVersion)
 def (decrementedVersion, pMinecraftVersion, mostRecentParchmentDate) = getParchmentWithDecrementedMC(releaseVersion)
+
+def generatedConfigDir = layout.buildDirectory.dir("generated/sources/owoConfig/java/main")
+sourceSets.main.java.srcDirs += [ generatedConfigDir.get().asFile ]
+
+tasks.withType(JavaCompile).configureEach {
+    options.generatedSourceOutputDirectory = generatedConfigDir.get().asFile
+}
 
 dependencies {
 	implementation 'org.apache.commons:commons-text:1.12.0'

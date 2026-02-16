@@ -5,12 +5,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+import de.pnku.hungrycows.HungryCows;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import static de.pnku.hungrycows.HungryCows.LOGGER;
 
 public class HungryCowsLegacyConfigJsonHelper {
     private static final File folder = new File("config");
@@ -55,11 +54,11 @@ public class HungryCowsLegacyConfigJsonHelper {
                         legacyConfig.delete();
                         s = true;
                     } catch (IOException e) {
-                        LOGGER.info(e.getMessage() + " - Config file failed to be migrated to Hungry Cows v2.0.0+.");
+                        HungryCows.getLogger().info(e.getMessage() + " - Config file failed to be migrated to Hungry Cows v2.0.0+.");
                     }
                     finally {
                         if (s) {
-                        LOGGER.info("Config file has successfully been migrated from cloth-config/json (HC v1.4.3 and older) to owo-lib/json5 (HC v2.0.0+).");
+                        HungryCows.getLogger().info("Config file has successfully been migrated from cloth-config/json (HC v1.4.3 and older) to owo-lib/json5 (HC v2.0.0+).");
                         }
                     }
                 } catch (IOException e) {
