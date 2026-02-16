@@ -2,7 +2,6 @@ package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
