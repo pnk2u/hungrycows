@@ -18,6 +18,6 @@ public class HungryCowsSoundEvents {
     }
 
     private static void register(SoundEvent soundEvent) {
-        Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.getLocation(), soundEvent);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.location(), soundEvent);
     }
 }

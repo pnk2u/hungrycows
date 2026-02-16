@@ -54,7 +54,7 @@ public abstract class EatBlockGoalMixin {
     };
     @Unique Predicate<BlockState> IS_EDIBLE_FLOWER_FOR_BROWN_MOOSHROOMS = blockState ->
             this.mob instanceof MushroomCow mooshroom
-                    && mooshroom.getVariant().equals(MushroomCow.MushroomType.BROWN)
+                    && mooshroom.getVariant().equals(MushroomCow.Variant.BROWN)
                     && blockState.is(BlockTags.SMALL_FLOWERS);
     @Unique
     private boolean isPlantEater() {
