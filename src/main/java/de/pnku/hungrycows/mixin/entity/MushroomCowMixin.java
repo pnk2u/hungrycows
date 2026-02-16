@@ -183,7 +183,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
         SoundEvent soundEvent = suspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
         HungryCows.getLogger().debug("Playing mooshroom milk sound: " + soundEvent.getLocation());
-
+        player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
         this.playSound(soundEvent, 1.0F, 1.0F);
 
         cir.setReturnValue(InteractionResult.SUCCESS);
