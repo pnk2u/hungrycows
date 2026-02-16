@@ -258,7 +258,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
             if (!this.isBaby() && this.hungrycows$isMilkable()) {
                 this.hungrycows$setMilked(true);
                 player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
-                player.playSound(!isMooshroom ? SoundEvents.COW_MILK : HungryCowsSoundEvents.MOOSHROOM_MILK, 1.317F, 1.237F);
+                this.playSound(!isMooshroom ? SoundEvents.COW_MILK : HungryCowsSoundEvents.MOOSHROOM_MILK, 1.317F, 1.237F);
                 if (!this.level().isClientSide()) {
                     Vec3 heartPos = relParticlePos(this.position(), this.getYRot(), "udder_heart");
                     ((ServerLevel) this.level()).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);
