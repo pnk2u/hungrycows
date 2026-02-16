@@ -35,7 +35,7 @@ public class HungryCowsCompatibilityHelper {
         ResourcePackActivationType activationType;
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             if (FabricLoader.getInstance().isModLoaded("entity_model_features")) {
-                LOGGER.info("Detected \"Entity Model Features\". Registering compatibility features.");
+                HungryCows.getLogger().info("Detected \"Entity Model Features\". Registering compatibility features.");
                 String variableName = "is_eating";
                 String description = "Set to true when the Cow/Mooshroom is currently eating a grass/mycelium block, so that Hungry Cows uses Fresh Animations' eating animation for Cows and Mooshrooms.";
                 traben.entity_model_features.EMFAnimationApi.registerSingletonAnimationVariable(HungryCows.MOD_ID, variableName, description, () -> {
@@ -49,7 +49,7 @@ public class HungryCowsCompatibilityHelper {
                     }
                 );
                 if (isResourcePackEnabled("FreshAnimations")) {
-                    LOGGER.info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
+                    HungryCows.getLogger().info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
                     activationType = ResourcePackActivationType.DEFAULT_ENABLED;
                 } else {
                     activationType = ResourcePackActivationType.NORMAL;

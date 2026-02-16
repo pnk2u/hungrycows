@@ -1,0 +1,29 @@
+{
+  "entity.cow.eat": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.goat.eat",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.cow.eat"
+  },
+  "entity.sheep.eat": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.goat.eat",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.sheep.eat"
+  },
+  "entity.mooshroom.milk": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.cow.milk",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.mooshroom.milk"
+  }
+}
