@@ -1,6 +1,7 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
+import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
 import de.pnku.hungrycows.util.IHungryCows;
 import de.pnku.hungrycows.HungryCows;
 import net.minecraft.core.component.DataComponents;
@@ -217,8 +218,8 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         Animal thisCowLike = hungrycows$isMooshroom() ? thisCow : this;
+        boolean isMooshroom = hungrycows$isMooshroom();
         if (checkFeedability(itemStack, thisCowLike)) {
-            boolean isMooshroom = hungrycows$isMooshroom();
             int s = hungrycows$getCowHasBeenFedManuallyTimer();
             float eatSoundPitch = isMooshroom ? 1.35F : 0.65F;
             boolean isMilked = hungrycows$isMilked();
@@ -227,7 +228,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
             if ((isMilked && s <= 1)) {
                 hungrycows$setMilked(false);
                 hungrycows$setCowHasBeenFedManuallyTimer(feedabilityRegainTime);
-                level().playSound(player, this, SoundEvents.MOOSHROOM_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*0.8F);
+                level().playSound(player, this, isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*0.8F);
                 itemStack.consume(1, player);
                 if (!this.level().isClientSide()) {
                     Vec3 udderPos = relParticlePos(this.position(), this.getYRot(), "cow_udder");
@@ -239,7 +240,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
 
             if (this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
-                level().playSound(player, this.getOnPos(), SoundEvents.MOOSHROOM_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*1.1F);
+                level().playSound(player, this.getOnPos(), isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*1.1F);
                 itemStack.consume(1, player);
                 if (!this.level().isClientSide()) {
                     Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "cow_body");
@@ -257,7 +258,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
             if (!this.isBaby() && this.hungrycows$isMilkable()) {
                 this.hungrycows$setMilked(true);
                 player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
-                player.playSound(SoundEvents.COW_MILK, 1.317F, 1.237F);
+                player.playSound(!isMooshroom ? SoundEvents.COW_MILK : HungryCowsSoundEvents.MOOSHROOM_MILK, 1.317F, 1.237F);
                 if (!this.level().isClientSide()) {
                     Vec3 heartPos = relParticlePos(this.position(), this.getYRot(), "udder_heart");
                     ((ServerLevel) this.level()).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:cow",
+    {
+      "id": "bovinesandbuttercups:moobloom",
+      "required": false
+    }
+  ]
+}

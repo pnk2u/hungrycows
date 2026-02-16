@@ -1,7 +1,6 @@
 package de.pnku.hungrycows.mixin.entity;
 
 import de.pnku.hungrycows.HungryCows;
-import de.pnku.hungrycows.entity.ai.EatMyceliumBlockGoal;
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.component.DataComponents;
@@ -12,7 +11,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -49,7 +47,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     }
 
     @Unique
-    private EatMyceliumBlockGoal mushroomCowEatMyceliumGoal;
+    private EatBlockGoal mushroomCowEatMyceliumGoal;
     @Unique
     private int eatMyceliumTimer;
     @Unique
@@ -72,7 +70,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         super.registerGoals();
         this.goalSelector.removeAllGoals(goal -> goal instanceof TemptGoal || goal instanceof EatBlockGoal);
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, itemStack -> checkFeedability(itemStack, this), false));
-        this.mushroomCowEatMyceliumGoal = new EatMyceliumBlockGoal(this);
+        this.mushroomCowEatMyceliumGoal = new EatBlockGoal(this);
         this.goalSelector.addGoal((int) Math.pow(2, 4 - blockEatSettings.grassEatProbability()), this.mushroomCowEatMyceliumGoal);
     }
 
@@ -142,38 +140,55 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ItemTags.SMALL_FLOWERS) && thisMushroomCow.getVariant().equals(MushroomCow.MushroomType.BROWN) && thisMushroomCow.stewEffects == null) {
+
+        if (!this.level().isClientSide && itemStack.is(ItemTags.SMALL_FLOWERS)
+                && thisMushroomCow.getVariant() == MushroomCow.MushroomType.BROWN
+                && thisMushroomCow.stewEffects == null) {
             ((IHungryCows) thisMushroomCow).hungrycows$setMilked(false);
             this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
         }
-        if (itemStack.is(Items.BOWL)) {
-            if (((IHungryCows) thisMushroomCow).hungrycows$isMilkable()) {
-                boolean bl = false;
-                ItemStack itemStack2;
-                if (thisMushroomCow.stewEffects != null) {
-                    bl = true;
-                    itemStack2 = new ItemStack(Items.SUSPICIOUS_STEW);
-                    itemStack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, thisMushroomCow.stewEffects);
-                    thisMushroomCow.stewEffects = null;
-                } else {
-                    itemStack2 = new ItemStack(Items.MUSHROOM_STEW);
-                }
 
-                ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
-                player.setItemInHand(hand, itemStack3);
-
-                ((IHungryCows) thisMushroomCow).hungrycows$setMilked(true);
-
-                SoundEvent soundEvent = bl ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
-
-                player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
-                level().playSound(player, this, soundEvent, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
-            } else {
-                cir.setReturnValue(InteractionResult.PASS);
-            }
+        if (!itemStack.is(Items.BOWL)) {
             return;
         }
+
+        if (!((IHungryCows) thisMushroomCow).hungrycows$isMilkable()) {
+            cir.setReturnValue(InteractionResult.PASS);
+            return;
+        }
+
+        if (this.level().isClientSide) {
+            cir.setReturnValue(InteractionResult.SUCCESS);
+            return;
+        }
+
+        HungryCows.getLogger().debug("Interacted with a mooshroom with a bowl in hand");
+        HungryCows.getLogger().debug("The mooshroom is milkable, proceeding to milk it");
+
+        boolean suspicious = thisMushroomCow.stewEffects != null;
+
+        ItemStack result;
+        if (suspicious) {
+            HungryCows.getLogger().debug("The mooshroom has stew effects, giving the player a suspicious stew with the same effects");
+            result = new ItemStack(Items.SUSPICIOUS_STEW);
+            result.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, thisMushroomCow.stewEffects);
+            thisMushroomCow.stewEffects = null;
+        } else {
+            HungryCows.getLogger().debug("The mooshroom does not have stew effects, giving the player a regular mushroom stew");
+            result = new ItemStack(Items.MUSHROOM_STEW);
+        }
+
+        ItemStack filled = ItemUtils.createFilledResult(itemStack, player, result, false);
+        player.setItemInHand(hand, filled);
+
+        ((IHungryCows) thisMushroomCow).hungrycows$setMilked(true);
+
+        SoundEvent soundEvent = suspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
+        HungryCows.getLogger().debug("Playing mooshroom milk sound: " + soundEvent.getLocation());
+
+        this.playSound(soundEvent, 1.0F, 1.0F);
+
+        cir.setReturnValue(InteractionResult.SUCCESS);
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
