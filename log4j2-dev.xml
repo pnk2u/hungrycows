@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG" packages="de.pnku.hungrycows">
+    <Appenders>
+        <Console name="SysOut" target="SYSTEM_OUT">
+            <!-- Filter out the authentication errors when starting in development -->
+            <Filters>
+                <RegexFilter regex="^Failed to verify authentication$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <RegexFilter regex="^Failed to fetch user properties$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <RegexFilter regex="^Couldn't connect to realms$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <RegexFilter regex="^Failed to fetch Realms feature flags$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <RegexFilter regex="^Failed reading REFMAP JSON from.*$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <RegexFilter regex="^Reference map '' for [a-z.]+\.mixins\.json could not be read. If this is a development environment you can ignore this message$" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout>
+                <LoggerNamePatternSelector defaultPattern="%style{[%d{HH:mm:ss}]}{blue} %highlight{[%t/%level]}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=green, TRACE=blue} %style{(%logger{1})}{cyan} %highlight{%msg%n}{FATAL=red, ERROR=red, WARN=normal, INFO=normal, DEBUG=normal, TRACE=normal}" disableAnsi="${sys:fabric.log.disableAnsi:-true}">
+                    <!-- Dont show the logger name for minecraft classes-->
+                    <PatternMatch key="net.minecraft.,com.mojang." pattern="%style{[%d{HH:mm:ss}]}{blue} %highlight{[%t/%level]}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=green, TRACE=blue} %style{(Minecraft)}{cyan} %highlight{%msg{nolookups}%n}{FATAL=red, ERROR=red, WARN=normal, INFO=normal, DEBUG=normal, TRACE=normal}"/>
+                    <PatternMatch key="de.pnku.hungrycows." pattern="%style{[%d{HH:mm:ss}]}{bright_blue} %highlight{[%t/%level]}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=bright_blue, TRACE=blue} %style{(%logger{1})}{bright_blue} %highlight{%msg%n}{FATAL=bright_red, ERROR=red, WARN=yellow, INFO=normal, DEBUG=bright_green, TRACE=normal}"/>
+                </LoggerNamePatternSelector>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="de.pnku.hungrycows.HungryCows" level="debug" additivity="false">
+            <AppenderRef ref="DebugFile" level="${sys:fabric.log.debug.level:-debug}" />
+            <AppenderRef ref="SysOut" />
+            <AppenderRef ref="LatestFile" level="${sys:fabric.log.level:-info}" />
+            <AppenderRef ref="ServerGuiConsole" />
+        </Logger>
+    </Loggers>
+</Configuration>

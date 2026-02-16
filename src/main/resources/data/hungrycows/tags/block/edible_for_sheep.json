@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:short_grass",
+    "minecraft:fern",
+    {
+        "id": "#minecraft:edible_for_sheep",
+        "required": false
+    }
+  ]
+}
