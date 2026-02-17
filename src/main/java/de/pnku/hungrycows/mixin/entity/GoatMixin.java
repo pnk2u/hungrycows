@@ -24,6 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -68,12 +70,12 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+    private void injectedAddAdditionalSaveData(ValueOutput nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+    private void injectedReadAdditionalSaveData(ValueInput nbt, CallbackInfo ci) {
         ((IHungryCows) this).hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
     }
 

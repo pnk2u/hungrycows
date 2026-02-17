@@ -27,6 +27,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -142,12 +144,12 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
     public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
-    public void addAdditionalSaveData(CompoundTag nbt) {
+    public void addAdditionalSaveData(ValueOutput nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Milked", this.hungrycows$isMilked());
         nbt.putInt("HasBeenFed", this.hungrycows$getCowHasBeenFedManuallyTimer());
     }
-    public void readAdditionalSaveData(CompoundTag nbt) {
+    public void readAdditionalSaveData(ValueInput nbt) {
         super.readAdditionalSaveData(nbt);
         this.hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
         this.hungrycows$setCowHasBeenFedManuallyTimer(nbt.getIntOr("HasBeenFed", 0));
