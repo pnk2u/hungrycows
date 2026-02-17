@@ -157,7 +157,12 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             return;
         }
 
-        if (this.level().isClientSide) {
+        boolean hasSuspicious = thisMushroomCow.stewEffects != null;
+
+        if (this.level.isClientSide()) {
+            if (hasSuspicious) {
+                thisMushroomCow.stewEffects = null;
+            }
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;
         }
@@ -165,10 +170,8 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         HungryCows.getLogger().debug("Interacted with a mooshroom with a bowl in hand");
         HungryCows.getLogger().debug("The mooshroom is milkable, proceeding to milk it");
 
-        boolean suspicious = thisMushroomCow.stewEffects != null;
-
         ItemStack result;
-        if (suspicious) {
+        if (hasSuspicious) {
             HungryCows.getLogger().debug("The mooshroom has stew effects, giving the player a suspicious stew with the same effects");
             result = new ItemStack(Items.SUSPICIOUS_STEW);
             result.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, thisMushroomCow.stewEffects);
@@ -183,7 +186,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
         ((IHungryCows) thisMushroomCow).hungrycows$setMilked(true);
 
-        SoundEvent soundEvent = suspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
+        SoundEvent soundEvent = hasSuspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
         HungryCows.getLogger().debug("Playing mooshroom milk sound: " + soundEvent.getLocation());
         player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
         this.playSound(soundEvent, 1.0F, 1.0F);
