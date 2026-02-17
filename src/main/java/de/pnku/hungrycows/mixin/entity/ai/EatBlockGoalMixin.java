@@ -48,7 +48,7 @@ public abstract class EatBlockGoalMixin {
     private Predicate<BlockState> IS_EDIBLE_BLOCK = blockState -> {
         if (this.mob.getType().is(HUNGRY_GRAZERS)) { return blockState.is(Blocks.GRASS_BLOCK); }
         else if (this.mob.getType().is(HUNGRY_MYCOPHAGES)) {
-            BlockState onTopBlockState = this.mob.level().getBlockState(this.mob.blockPosition());
+            BlockState onTopBlockState = this.mob.level.getBlockState(this.mob.blockPosition());
             return blockState.is(Blocks.MYCELIUM) && !(onTopBlockState.is(Blocks.RED_MUSHROOM) || onTopBlockState.is(Blocks.BROWN_MUSHROOM)); }
         return false;
     };
@@ -95,7 +95,7 @@ public abstract class EatBlockGoalMixin {
             if (mooshroom.stewEffects != null) {
                 HungryCows.getLogger().debug("The Mooshroom already had stew effects, no new effects will be added");
                 for(int i = 0; i < 2; ++i) {
-                    mooshroom.level().addParticle(ParticleTypes.SMOKE, mooshroom.getX() + mooshroom.getRandom().nextDouble() / (double)2.0F, mooshroom.getY((double)0.5F), mooshroom.getZ() + mooshroom.getRandom().nextDouble() / (double)2.0F, (double)0.0F, mooshroom.getRandom().nextDouble() / (double)5.0F, (double)0.0F);
+                    mooshroom.level.addParticle(ParticleTypes.SMOKE, mooshroom.getX() + mooshroom.getRandom().nextDouble() / (double)2.0F, mooshroom.getY((double)0.5F), mooshroom.getZ() + mooshroom.getRandom().nextDouble() / (double)2.0F, (double)0.0F, mooshroom.getRandom().nextDouble() / (double)5.0F, (double)0.0F);
                 }
             } else {
                 HungryCows.getLogger().debug("The Mooshroom did not have any stew effects, trying to get new effects from the eaten flower: " + ((BlockState) blockState).getBlock().asItem());
@@ -103,7 +103,7 @@ public abstract class EatBlockGoalMixin {
                 if (optional.isPresent()) {
                     HungryCows.getLogger().debug("The eaten flower had stew effects, adding them to the mooshroom");
                     for (int j = 0; j < 4; ++j) {
-                        mooshroom.level().addParticle(ParticleTypes.EFFECT, mooshroom.getX() + mooshroom.getRandom().nextDouble() / (double) 2.0F, mooshroom.getY((double) 0.5F), mooshroom.getZ() + mooshroom.getRandom().nextDouble() / (double) 2.0F, (double) 0.0F, mooshroom.getRandom().nextDouble() / (double) 5.0F, (double) 0.0F);
+                        mooshroom.level.addParticle(ParticleTypes.EFFECT, mooshroom.getX() + mooshroom.getRandom().nextDouble() / (double) 2.0F, mooshroom.getY((double) 0.5F), mooshroom.getZ() + mooshroom.getRandom().nextDouble() / (double) 2.0F, (double) 0.0F, mooshroom.getRandom().nextDouble() / (double) 5.0F, (double) 0.0F);
                     }
                     mooshroom.stewEffects = (SuspiciousStewEffects) optional.get();
                 } else HungryCows.getLogger().debug("The eaten flower did not have any stew effects, no new effects will be added");

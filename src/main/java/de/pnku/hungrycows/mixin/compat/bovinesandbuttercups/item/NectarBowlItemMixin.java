@@ -34,7 +34,7 @@ public abstract class NectarBowlItemMixin extends Item {
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             ItemNectar effects = (ItemNectar)nectarBowlStack.getOrDefault(BovinesDataComponents.NECTAR, ItemNectar.EMPTY);
             ((Nectar)effects.holder().value()).effects().applyEffectInstance(livingEntity);
         }

@@ -141,7 +141,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!this.level().isClientSide && itemStack.is(ItemTags.SMALL_FLOWERS)
+        if (!this.level.isClientSide() && itemStack.is(ItemTags.SMALL_FLOWERS)
                 && thisMushroomCow.getVariant() == MushroomCow.MushroomType.BROWN
                 && thisMushroomCow.stewEffects == null) {
             ((IHungryCows) thisMushroomCow).hungrycows$setMilked(false);

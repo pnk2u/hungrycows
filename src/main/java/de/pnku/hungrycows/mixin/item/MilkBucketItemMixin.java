@@ -36,7 +36,7 @@ public abstract class MilkBucketItemMixin extends Item {
                             player.drop(itemStack, false);
                         }
                         return stack;
-                    } else if (!player.level().isClientSide()) {
+                    } else if (!player.level.isClientSide()) {
                         player.getInventory().add(itemStack);
                         return stack;
                     }
