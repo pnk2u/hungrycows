@@ -10,14 +10,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.api.ui.Element;
+import snownee.jade.api.ui.JadeUI;
 
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.MILKABLE_ENTITIES;
 
@@ -34,9 +33,9 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
         if (MILKABLE_ENTITIES.contains(type)) {
             if (!((Animal) entity).isBaby()) {
                 boolean isMilkable = ((IHungryCows) entity).hungrycows$isMilkable();
-                IElement emptyBucketIcon = IElementHelper.get().item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -2));
-                IElement heartBucketIcon = IElementHelper.get().sprite(HungryCows.withModId("heart_milk"), 8, 8).translate(new Vec2(-1, -1));
-                IElement grassIcon = IElementHelper.get().item(new ItemStack(Items.SHORT_GRASS), 0.5f).size(new Vec2(4, 8)).translate(new Vec2(1, -2));
+                Element emptyBucketIcon = JadeUI.item(new ItemStack(Items.BUCKET), 0.5f).size(8, 8).offset(-6, -2);
+                Element heartBucketIcon = JadeUI.sprite(HungryCows.withModId("heart_milk"), 8, 8).offset(-1, -1);
+                Element grassIcon = JadeUI.item(new ItemStack(Items.SHORT_GRASS), 0.5f).size(4, 8).offset(1, -2);
                 tooltip.add(isMilkable ? heartBucketIcon : grassIcon);
                 if (!isMilkable) {tooltip.append(emptyBucketIcon);}
                 tooltip.append(Component.translatable("hungrycows.milkable." + isMilkable));

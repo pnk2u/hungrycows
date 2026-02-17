@@ -19,8 +19,8 @@ import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.api.ui.Element;
+import snownee.jade.api.ui.JadeUI;
 
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
 
@@ -59,9 +59,9 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
                               : isGoat ? 172
                               : 191 // if Moobloom
                               : 102;
-                        IElement icon = IElementHelper.get().item(new ItemStack(handStack.getItem()), 0.5f).size(new Vec2(10, 10)).translate(new Vec2(horizantalIconShift, -2));
+                        Element icon = JadeUI.item(new ItemStack(handStack.getItem()), 0.5f).size(10, 10).offset(horizantalIconShift, -2);
                         tooltip.add(icon);
-                        IElement moveToLeftSpace = IElementHelper.get().spacer(-10, 0);
+                        Element moveToLeftSpace = JadeUI.spacer(-10, 0);
                         tooltip.append(moveToLeftSpace);
                         tooltip.append(feedableTrueComponent);
                     } else {
