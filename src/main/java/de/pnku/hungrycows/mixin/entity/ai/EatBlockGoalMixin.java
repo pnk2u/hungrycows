@@ -34,6 +34,7 @@ import java.util.function.Predicate;
 import static de.pnku.hungrycows.block.HungryCowsBlockTags.*;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.relParticlePos;
 import static de.pnku.hungrycows.entity.HungryCowsEntityTypeTags.*;
+import static de.pnku.hungrycows.util.HungryCowsDebug.log;
 
 
 @Mixin(EatBlockGoal.class)
@@ -96,14 +97,14 @@ public abstract class EatBlockGoalMixin {
 
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/function/Predicate;test(Ljava/lang/Object;)Z"))
     private boolean wrappedTickAtPredicateTest(Predicate<Object> instance, Object blockState, Operation<Boolean> original) {
+        log(this.mob.level, "EATBLOCK_TEST", blockState, this.mob.getType());
+
         if (this.mob instanceof MushroomCow mooshroom && IS_EDIBLE_FLOWER_FOR_BROWN_MOOSHROOMS.test((BlockState) blockState)) {
-            HungryCows.getLogger().debug("Ate an edible flower as a brown mooshroom");
-                HungryCows.getLogger().debug("The Mooshroom already had stew effects, no new effects will be added");
-                HungryCows.getLogger().debug("The Mooshroom did not have any stew effects, trying to get new effects from the eaten flower: " + ((BlockState) blockState).getBlock().asItem());
-                    HungryCows.getLogger().debug("The eaten flower had stew effects, adding them to the mooshroom");
+            log(this.mob.level, "EATBLOCK_ATE_FLOWER");
 
             if (!mooshroom.level.isClientSide()) {
                 if (mooshroom.stewEffects != null) {
+                    log(this.mob.level, "EATBLOCK_ALREADY_EFFECTS");
 
                     if (((IHungryCows)mooshroom).hungrycows$isMilked()) {
                         Vec3 bodyPos = relParticlePos(mooshroom.position, mooshroom.getYRot(), "cow_body");
@@ -111,17 +112,20 @@ public abstract class EatBlockGoalMixin {
                     } else return false;
                 } else {
                     Item flowerItem = ((BlockState) blockState).getBlock().asItem();
+                    log(this.mob.level, "EATBLOCK_TRY_EFFECTS", flowerItem);
 
                     Optional<SuspiciousStewEffects> optional = mooshroom.getEffectsFromItemStack(flowerItem.getDefaultInstance());
                     if (optional.isPresent()) {
+                        log(this.mob.level, "EATBLOCK_GOT_EFFECTS");
 
                         Vec3 bodyPos = relParticlePos(mooshroom.position, mooshroom.getYRot(), "cow_body");
                         ((ServerLevel) mooshroom.level).sendParticles(ParticleTypes.EFFECT, bodyPos.x, bodyPos.y, bodyPos.z, 5, 0, 0.1F, 0, 0.45F);
                         mooshroom.stewEffects = optional.get();
                         ((IHungryCows) mooshroom).hungrycows$setSuspiciousFlowerStack(flowerItem.getDefaultInstance());
-                    } else HungryCows.getLogger().debug("The eaten flower did not have any stew effects, no new effects will be added");
+                    } else log(this.mob.level, "EATBLOCK_NO_EFFECTS");
                 }
             }
+            log(this.mob.level, "EATBLOCK_FINISHED", ((IHungryCows) mooshroom).hungrycows$getSuspiciousFlowerStack());
             return true;
         }
         if (isPlantEater()) {

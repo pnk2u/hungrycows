@@ -36,6 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static de.pnku.hungrycows.HungryCows.*;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.*;
+import static de.pnku.hungrycows.util.HungryCowsDebug.log;
 
 @Mixin(MushroomCow.class)
 public abstract class MushroomCowMixin extends Cow implements Shearable, VariantHolder<MushroomCow.MushroomType>, IHungryCows {
@@ -146,15 +147,20 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
 
+        log(this.level, "MOOSHROOM_INTERACT", itemStack.getItem().getDescription()); log(this.level, "MOOSHROOM_VARIANT", thisMushroomCow.getVariant().name());
 
         ItemStack syncedFlower = ((IHungryCows) thisMushroomCow).hungrycows$getSuspiciousFlowerStack();
         boolean hasSyncedSuspicious = !syncedFlower.isEmpty();
 
+        log(this.level, "MOOSHROOM_SYNCED_FLOWER", hasSyncedSuspicious ? syncedFlower : "Empty"); log(this.level, "MOOSHROOM_STEW_EFFECTS", thisMushroomCow.stewEffects != null ? thisMushroomCow.stewEffects : "None");
 
         if (!this.level.isClientSide()
                 && itemStack.is(ItemTags.SMALL_FLOWERS)
                 && thisMushroomCow.getVariant() == MushroomCow.MushroomType.BROWN
                 && (!hasSyncedSuspicious || ((IHungryCows) thisMushroomCow).hungrycows$isMilked())) {
+
+            log(this.level, "MOOSHROOM_FEED_FLOWER");
+            ((IHungryCows) thisMushroomCow).hungrycows$setMilked(false);
 
             if (!hasSyncedSuspicious) {
                 ItemStack one = itemStack.copyWithCount(1);
@@ -166,14 +172,17 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         }
 
         if (this.level.isClientSide() && stewEffects == null && hasSyncedSuspicious) {
+            log(this.level, "MOOSHROOM_CLIENT_SYNC_FIX");
             thisMushroomCow.getEffectsFromItemStack(syncedFlower).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
         }
 
         if (!itemStack.is(Items.BOWL)) {
+            log(this.level, "MOOSHROOM_NO_BOWL");
             return;
         }
 
         if (!((IHungryCows) thisMushroomCow).hungrycows$isMilkable()) {
+            log(this.level, "MOOSHROOM_NOT_MILKABLE");
             cir.setReturnValue(InteractionResult.PASS);
             return;
         }
@@ -183,11 +192,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             return;
         }
 
-        HungryCows.getLogger().debug("Interacted with a mooshroom with a bowl in hand");
-        HungryCows.getLogger().debug("The mooshroom is milkable, proceeding to milk it");
+        log(this.level, "MOOSHROOM_BOWL_SERVER", hasSyncedSuspicious);
 
         ItemStack result;
-            HungryCows.getLogger().debug("The mooshroom has stew effects, giving the player a suspicious stew with the same effects");
         if (hasSyncedSuspicious) {
             result = new ItemStack(Items.SUSPICIOUS_STEW);
 
@@ -198,7 +205,6 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             thisMushroomCow.stewEffects = null;
             ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(ItemStack.EMPTY);
         } else {
-            HungryCows.getLogger().debug("The mooshroom does not have stew effects, giving the player a regular mushroom stew");
             result = new ItemStack(Items.MUSHROOM_STEW);
         }
 
