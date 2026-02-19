@@ -23,7 +23,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,6 +48,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         return null;
     }
 
+    @Shadow
+    @Nullable
+    public SuspiciousStewEffects stewEffects;
     @Unique
     private EatBlockGoal mushroomCowEatMyceliumGoal;
     @Unique
@@ -141,11 +146,27 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     private void injectedMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!this.level.isClientSide() && itemStack.is(ItemTags.SMALL_FLOWERS)
+
+        ItemStack syncedFlower = ((IHungryCows) thisMushroomCow).hungrycows$getSuspiciousFlowerStack();
+        boolean hasSyncedSuspicious = !syncedFlower.isEmpty();
+
+
+        if (!this.level.isClientSide()
+                && itemStack.is(ItemTags.SMALL_FLOWERS)
                 && thisMushroomCow.getVariant() == MushroomCow.MushroomType.BROWN
-                && thisMushroomCow.stewEffects == null) {
-            ((IHungryCows) thisMushroomCow).hungrycows$setMilked(false);
+                && (!hasSyncedSuspicious || ((IHungryCows) thisMushroomCow).hungrycows$isMilked())) {
+
+            if (!hasSyncedSuspicious) {
+                ItemStack one = itemStack.copyWithCount(1);
+                ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(one);
+                thisMushroomCow.getEffectsFromItemStack(one).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
+            }
+
             this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
+        }
+
+        if (this.level.isClientSide() && stewEffects == null && hasSyncedSuspicious) {
+            thisMushroomCow.getEffectsFromItemStack(syncedFlower).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
         }
 
         if (!itemStack.is(Items.BOWL)) {
@@ -157,12 +178,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             return;
         }
 
-        boolean hasSuspicious = thisMushroomCow.stewEffects != null;
-
         if (this.level.isClientSide()) {
-            if (hasSuspicious) {
-                thisMushroomCow.stewEffects = null;
-            }
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;
         }
@@ -171,11 +187,16 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         HungryCows.getLogger().debug("The mooshroom is milkable, proceeding to milk it");
 
         ItemStack result;
-        if (hasSuspicious) {
             HungryCows.getLogger().debug("The mooshroom has stew effects, giving the player a suspicious stew with the same effects");
+        if (hasSyncedSuspicious) {
             result = new ItemStack(Items.SUSPICIOUS_STEW);
-            result.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, thisMushroomCow.stewEffects);
+
+            thisMushroomCow.getEffectsFromItemStack(syncedFlower).ifPresent(effects ->
+                    result.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, effects)
+            );
+
             thisMushroomCow.stewEffects = null;
+            ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(ItemStack.EMPTY);
         } else {
             HungryCows.getLogger().debug("The mooshroom does not have stew effects, giving the player a regular mushroom stew");
             result = new ItemStack(Items.MUSHROOM_STEW);
@@ -186,9 +207,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
         ((IHungryCows) thisMushroomCow).hungrycows$setMilked(true);
 
-        SoundEvent soundEvent = hasSuspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
-        HungryCows.getLogger().debug("Playing mooshroom milk sound: " + soundEvent.getLocation());
-        player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
+        SoundEvent soundEvent = hasSyncedSuspicious ? SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY : SoundEvents.MOOSHROOM_MILK;
         this.playSound(soundEvent, 1.0F, 1.0F);
 
         cir.setReturnValue(InteractionResult.SUCCESS);
@@ -197,6 +216,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void injectedDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
             builder.define(IS_MILKED_MOOSHROOM, false);
+            builder.define(SUSPICIOUS_FLOWER_STACK, ItemStack.EMPTY);
     }
 
     @Unique
@@ -212,18 +232,31 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {
+        return this.entityData.get(SUSPICIOUS_FLOWER_STACK);
+    }
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {
+        this.entityData.set(SUSPICIOUS_FLOWER_STACK, stack);
+    }
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());
+        nbt.put("SuspiciousFlowerStack", this.hungrycows$getSuspiciousFlowerStack().saveOptional(this.registryAccess()));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         ((IHungryCows) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
+        this.hungrycows$setSuspiciousFlowerStack(ItemStack.parseOptional(this.registryAccess(), nbt.getCompound("SuspiciousFlowerStack")));
     }
 
     static {
         IS_MILKED_MOOSHROOM = SynchedEntityData.defineId(MushroomCowMixin.class, EntityDataSerializers.BOOLEAN);
+        SUSPICIOUS_FLOWER_STACK = SynchedEntityData.defineId(MushroomCowMixin.class, EntityDataSerializers.ITEM_STACK);
     }
 
 }

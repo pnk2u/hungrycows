@@ -67,6 +67,13 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
         builder.define(HungryCows.FED_TIMER_GOAT, 0);
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());

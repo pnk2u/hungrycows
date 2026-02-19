@@ -144,6 +144,12 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
     public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Milked", this.hungrycows$isMilked());

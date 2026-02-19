@@ -22,4 +22,6 @@ void hungrycows$setGoatHasBeenFedManuallyTimer(int time);
 int hungrycows$getFeedableHasBeenFedManuallyTimer();
 void hungrycows$setFeedableHasBeenFedManuallyTimer(int time);
 ItemStack hungrycows$getEdibleMilk();
+ItemStack hungrycows$getSuspiciousFlowerStack();
+void hungrycows$setSuspiciousFlowerStack(ItemStack stack);
 }

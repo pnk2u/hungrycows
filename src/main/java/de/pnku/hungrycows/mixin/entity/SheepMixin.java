@@ -90,6 +90,13 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
         }
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         nbt.putInt("HasBeenFed", this.hungrycows$getSheepHasBeenFedManuallyTimer());
