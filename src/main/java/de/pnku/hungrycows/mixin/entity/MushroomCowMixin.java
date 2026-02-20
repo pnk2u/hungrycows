@@ -154,6 +154,11 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
 
         log(this.level, "MOOSHROOM_SYNCED_FLOWER", hasSyncedSuspicious ? syncedFlower : "Empty"); log(this.level, "MOOSHROOM_STEW_EFFECTS", thisMushroomCow.stewEffects != null ? thisMushroomCow.stewEffects : "None");
 
+        if (this.level.isClientSide() && stewEffects == null && hasSyncedSuspicious) {
+            log(this.level, "MOOSHROOM_CLIENT_SYNC_FIX");
+            thisMushroomCow.getEffectsFromItemStack(syncedFlower).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
+        }
+
         if (!this.level.isClientSide()
                 && itemStack.is(ItemTags.SMALL_FLOWERS)
                 && thisMushroomCow.getVariant() == MushroomCow.MushroomType.BROWN
@@ -165,15 +170,9 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             if (!hasSyncedSuspicious) {
                 ItemStack one = itemStack.copyWithCount(1);
                 ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(one);
-                thisMushroomCow.getEffectsFromItemStack(one).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
             }
 
             this.playSound(SoundEvents.MOOSHROOM_EAT, 1.2F, 1.05F);
-        }
-
-        if (this.level.isClientSide() && stewEffects == null && hasSyncedSuspicious) {
-            log(this.level, "MOOSHROOM_CLIENT_SYNC_FIX");
-            thisMushroomCow.getEffectsFromItemStack(syncedFlower).ifPresent(effects -> thisMushroomCow.stewEffects = effects);
         }
 
         if (!itemStack.is(Items.BOWL)) {
@@ -184,11 +183,6 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         if (!((IHungryCows) thisMushroomCow).hungrycows$isMilkable()) {
             log(this.level, "MOOSHROOM_NOT_MILKABLE");
             cir.setReturnValue(InteractionResult.PASS);
-            return;
-        }
-
-        if (this.level.isClientSide()) {
-            cir.setReturnValue(InteractionResult.SUCCESS);
             return;
         }
 
@@ -206,6 +200,11 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(ItemStack.EMPTY);
         } else {
             result = new ItemStack(Items.MUSHROOM_STEW);
+        }
+        
+        if (this.level.isClientSide()) {
+            cir.setReturnValue(InteractionResult.SUCCESS);
+            return;
         }
 
         ItemStack filled = ItemUtils.createFilledResult(itemStack, player, result, false);
