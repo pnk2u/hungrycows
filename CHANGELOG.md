@@ -1,6 +1,6 @@
 <!--publish=false-->
 ## 2.2.0:
-- `1.21.5`, `1.21.6(-10)`, `1.21.9(-11)`: Update to <ins>1.21.5</ins>~<ins>1.21.11</ins>
+- `1.21.5`, `1.21.6(-8)`, `1.21.9(-11)`: Update to <ins>1.21.5</ins>~<ins>1.21.11</ins>
 #### <ins>Added</ins>:
 - Implement _Mooshrooms_ and _Cows_ eating plant blocks (e.g. _Short Grass_) like _Sheep_.  
   This is controlled by _Block Tags_, that by default contain the following items:
@@ -29,6 +29,7 @@
   > This is to prevent _Mooshrooms_ from removing all _Mushrooms_ in their habitat as eating _Mycelium_ blocks breaks any _Mushrooms_ on top.
 - Implement eating sound and subtitles for _Cows_ and _Sheep_ eating _Grass Blocks_
 - Add compatibility with <ins>Vanilla Backport</ins> (&#x200A;<sub><a title="Vanilla Backport&#10;on Modrinth" href="https://modrinth.com/mod/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Vanilla Backport&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;)'s _Cow_ variants
+#### <ins>Fixed</ins>:
 - Update <ins>Fresh Animations</ins> (&#x200A;<sub><a title="Fresh Animations&#10;on Modrinth" href="https://modrinth.com/resourcepack/fresh-animations/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Fresh Animations&#10;on Curseforge" href="https://www.curseforge.com/minecraft/texture-packs/fresh-animations/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) compatibility resourcepack "_Hungry & Fresh Cows_" to latest version `1.10.3` (previously `1.9.2`) fixing many visual bugs found using the incompatible versions
   - _Cows_/_Mooshrooms_ eating Blocks now use <ins>FA</ins>'s own eating animation instead of the modified Vanilla eating animation (originally from _Sheep_)
   > **_Note_**:   
