@@ -9,6 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class HungryCows implements ModInitializer {
 	public static EntityDataAccessor<Integer> FED_TIMER;
 	public static EntityDataAccessor<Integer> FED_TIMER_SHEEP;
 	public static EntityDataAccessor<Integer> FED_TIMER_GOAT;
+	public static EntityDataAccessor<ItemStack> SUSPICIOUS_FLOWER_STACK;
 
 	@Override
 	public void onInitialize() {

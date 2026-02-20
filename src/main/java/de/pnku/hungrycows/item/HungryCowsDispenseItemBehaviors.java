@@ -59,7 +59,7 @@ public class HungryCowsDispenseItemBehaviors {
                     }
                 } else {
                     ServerLevel serverLevel = blockSource.getLevel();
-                    if (!serverLevel.isClientSide) {
+                    if (!serverLevel.isClientSide()) {
                         for (LivingEntity livingEntity : serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos), EntitySelector.NO_SPECTATORS)) {
                             if (livingEntity.getType() == EntityType.COW || livingEntity.getType() == EntityType.MOOSHROOM || livingEntity.getType() == EntityType.GOAT) {
                                 if (((IHungryCows) livingEntity).hungrycows$isMilkable()) {
@@ -98,7 +98,7 @@ public class HungryCowsDispenseItemBehaviors {
                 BlockState blockState = levelAccessor.getBlockState(blockPos);
                 Block block = blockState.getBlock();
                 ServerLevel serverLevel = blockSource.getLevel();
-                if (!serverLevel.isClientSide) {
+                if (!serverLevel.isClientSide()) {
                     for (LivingEntity livingEntity : serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos), EntitySelector.NO_SPECTATORS)) {
                         if (livingEntity.getType() == EntityType.MOOSHROOM) {
                             if (((IHungryCows) livingEntity).hungrycows$isMilkable()) {
