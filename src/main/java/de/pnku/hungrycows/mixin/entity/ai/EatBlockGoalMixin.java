@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
+import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -46,7 +47,12 @@ public abstract class EatBlockGoalMixin {
     private int eatAnimationTick;
     @Unique
     private Predicate<BlockState> IS_EDIBLE_PLANT = blockState -> {
-        if (this.mob.getType().is(HUNGRY_COWS)) { return blockState.is(EDIBLE_PLANTS_FOR_COWS); }
+        if (HungryCowsCompatibilityHelper.isVanillaBackportLoaded) {
+            if (this.mob.getType() == EntityType.COW) {
+                return blockState.is(HungryCowsCompatibilityHelper.getEdiblePlantBlockTagForCowVariant(this.mob));
+            }
+        }
+        if (this.mob.getType().is(HUNGRY_COWS)) { return blockState.is(EDIBLE_PLANTS_FOR_TEMPERATE_COWS); }
         else if (this.mob.getType().is(HUNGRY_MOOSHROOMS)) { return blockState.is(EDIBLE_PLANTS_FOR_MOOSHROOMS); }
         else if (this.mob.getType().is(HUNGRY_SHEEP)) { return blockState.is(EDIBLE_PLANTS_FOR_SHEEP);}
         return false;

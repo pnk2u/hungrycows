@@ -7,7 +7,13 @@
   - `#hungrycows:edible_for_cows`:
     - _Wheat_
     - _Short Grass_
-    - _Fern_
+    > `1.21.5+` or when _Vanilla Backport_'s installed:
+    >    - `#hungrycows:edible_for_cold_cows`:  
+<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+    >    - `#hungrycows:edible_for_temperate_cows`:  
+<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+    >    - `#hungrycows:edible_for_warm_cows`:  
+<sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
   - `#hungrycows:edible_for_mooshrooms`:
     - _Short Grass_
     - _Fern_

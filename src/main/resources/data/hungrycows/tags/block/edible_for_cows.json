@@ -1,7 +1,6 @@
 {
   "values": [
     "minecraft:wheat",
-    "minecraft:short_grass",
-    "minecraft:fern"
+    "minecraft:short_grass"
   ]
 }
