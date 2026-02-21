@@ -69,6 +69,13 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
         builder.define(HungryCows.FED_TIMER_GOAT, 0);
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
+
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(ValueOutput nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());
@@ -134,9 +141,9 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
                 hungrycows$setGoatHasBeenFedManuallyTimer(feedabilityRegainTime);
                 level().playSound(player, this, goatEatSound, SoundSource.NEUTRAL,0.95F, 1.35F);
                 itemStack.consume(1, player);
-                if (!this.level().isClientSide()) {
-                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "goat_udder");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
+                if (!this.level.isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "goat_udder");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -146,14 +153,14 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
                 this.heal(2.0F);
                 level().playSound(player, this.getOnPos(), goatEatSound, SoundSource.NEUTRAL,0.95F, 1.44F);
                 itemStack.consume(1, player);
-                if (!this.level().isClientSide()) {
-                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "goat_body");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.375F, 0.3F, 0.375F, 0.2F);
+                if (!this.level.isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "goat_body");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.375F, 0.3F, 0.375F, 0.2F);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
             }
-            if (this.level().isClientSide) {
+            if (this.level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.CONSUME);
                 return;
             }
@@ -165,9 +172,9 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
                 player.playSound(goatMilkSound, 1.317F, 1.237F);
                 ItemStack itemStackMilk = ItemUtils.createFilledResult(itemStack, player, hungrycows$getEdibleMilk());
                 player.setItemInHand(hand, itemStackMilk);
-                if (!this.level().isClientSide()) {
-                    Vec3 heartPos = relParticlePos(this.position(), this.getYRot(), "udder_heart");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);
+                if (!this.level.isClientSide()) {
+                    Vec3 heartPos = relParticlePos(this.position, this.getYRot(), "udder_heart");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
             }

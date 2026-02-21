@@ -5,6 +5,7 @@ import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -12,7 +13,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -47,23 +47,15 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
             if (hasBeenFedManuallyTimer > 0 && canBeHungry) {
                 boolean canBeFed = (hasBeenFedManuallyTimer == 1);
                 if (canBeFed) {
-                    Component feedableTrueComponent = Component.translatable("hungrycows.feedable.true." + ((IHungryCows) entity).hungrycows$getName() + (!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item" : ""), Component.translatable(handStack.getItem().getDescriptionId()));
+                    String feedableTrueComponentKey = "hungrycows.feedable.true" + ((!handStack.isEmpty() && checkFeedability(handStack, entity) ? ".item.1" : "") + (isSheep ? ".sheep" : ""));
+                    Component feedableTrueComponent = Component.translatable(feedableTrueComponentKey);
+                    Component feedableTrueItem2Component = Component.translatable(feedableTrueComponentKey.replace("1", "2"));
                     if (!handStack.isEmpty() && checkFeedability(handStack, entity)) {
-                        int horizantalIconShift =
-                        Minecraft.getInstance().getLanguageManager().getSelected().startsWith("en") ? 102 :
-                        Minecraft.getInstance().getLanguageManager().getSelected().equals("pt_br") ? 150 :
-                        Minecraft.getInstance().getLanguageManager().getSelected().equals("de_de") ?
-                                isCow ? 164
-                              : isMooshroom ? 200
-                              : isSheep ? 179
-                              : isGoat ? 172
-                              : 191 // if Moobloom
-                              : 102;
-                        Element icon = JadeUI.item(new ItemStack(handStack.getItem()), 0.5f).size(10, 10).offset(horizantalIconShift, -2);
-                        tooltip.add(icon);
-                        Element moveToLeftSpace = JadeUI.spacer(-10, 0);
-                        tooltip.append(moveToLeftSpace);
-                        tooltip.append(feedableTrueComponent);
+                        Element icon = JadeUI.item(new ItemStack(handStack.getItem()), 0.5f).size(10, 10).offset(-2, -2);
+                        tooltip.add(feedableTrueComponent);
+                        tooltip.append(icon);
+                        tooltip.append(Component.translatable(handStack.getItem().getDescriptionId()).setStyle(Style.EMPTY.withItalic(true)));
+                        tooltip.append(feedableTrueItem2Component);
                     } else {
                         tooltip.add(feedableTrueComponent);
                     }
