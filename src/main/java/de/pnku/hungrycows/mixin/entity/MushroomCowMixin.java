@@ -201,6 +201,11 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
             return;
         }
 
+        if (this.level.isClientSide()) {
+            cir.setReturnValue(InteractionResult.SUCCESS);
+            return;
+        }
+
         ItemStack filled = ItemUtils.createFilledResult(itemStack, player, result, false);
         player.setItemInHand(hand, filled);
 

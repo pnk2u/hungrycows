@@ -7,9 +7,11 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -36,6 +38,9 @@ public class HungryCowsConfigHelper {
 
     public static boolean checkFeedability(ItemStack feedStack, Entity fedEntity) {
         EntityType<?> type = fedEntity.getType();
+        if (fedEntity instanceof MushroomCow mooshroom && mooshroom.getVariant() == MushroomCow.MushroomType.BROWN) {
+            return feedStack.is(ItemTags.SMALL_FLOWERS);
+        }
         return checkFeedability(feedStack, type);
     }
 
