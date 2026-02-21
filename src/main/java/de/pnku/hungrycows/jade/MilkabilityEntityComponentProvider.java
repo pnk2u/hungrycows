@@ -34,12 +34,29 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
         if (MILKABLE_ENTITIES.contains(type)) {
             if (!((Animal) entity).isBaby()) {
                 boolean isMilkable = ((IHungryCows) entity).hungrycows$isMilkable();
-                IElement emptyBucketIcon = IElementHelper.get().item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -2));
+                IElement emptyBucketIcon = IElementHelper.get().item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -1));
+                IElement filledBucketIcon = IElementHelper.get().item(new ItemStack(Items.MILK_BUCKET), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));
                 IElement heartBucketIcon = IElementHelper.get().sprite(HungryCows.withModId("heart_milk"), 8, 8).translate(new Vec2(-1, -1));
+                IElement mushroomStewIcon = IElementHelper.get().item(new ItemStack(Items.MUSHROOM_STEW), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));
+                IElement suspiciousStewIcon = IElementHelper.get().item(new ItemStack(Items.SUSPICIOUS_STEW), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));
                 IElement grassIcon = IElementHelper.get().item(new ItemStack(Items.SHORT_GRASS), 0.5f).size(new Vec2(4, 8)).translate(new Vec2(1, -2));
-                tooltip.add(isMilkable ? heartBucketIcon : grassIcon);
+                tooltip.add(Component.translatable("hungrycows.milkable.prefix"));
+                tooltip.append(isMilkable ? heartBucketIcon : grassIcon);
                 if (!isMilkable) {tooltip.append(emptyBucketIcon);}
                 tooltip.append(Component.translatable("hungrycows.milkable." + isMilkable));
+                if (isMilkable) {
+                    tooltip.append(Component.literal(" ("));
+                    tooltip.append(filledBucketIcon);
+                    if (!type.equals(EntityType.COW) && !type.equals(EntityType.GOAT)) {
+                        if (type.equals(EntityType.MOOSHROOM)) {
+                            boolean hasSuspicious = !((IHungryCows) entity).hungrycows$getSuspiciousFlowerStack().isEmpty();
+                            tooltip.append(hasSuspicious ? suspiciousStewIcon : mushroomStewIcon);
+                        } else {
+                            tooltip.append(mushroomStewIcon);
+                        }
+                    }
+                    tooltip.append(Component.literal(")"));
+                }
             }
         }
     }

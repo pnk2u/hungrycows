@@ -1,6 +1,7 @@
 package de.pnku.hungrycows.util;
 
 import de.pnku.hungrycows.HungryCows;
+import de.pnku.hungrycows.block.HungryCowsBlockTags;
 import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -9,16 +10,22 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.level.block.Block;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static de.pnku.hungrycows.HungryCows.*;
+import static de.pnku.hungrycows.HungryCows.MOD_ID;
+import static de.pnku.hungrycows.HungryCows.withModId;
 
 public class HungryCowsCompatibilityHelper {
     public static EntityDataAccessor<Boolean> IS_MILKED_MOOBLOOM;
@@ -97,6 +104,25 @@ public class HungryCowsCompatibilityHelper {
         HUNGRY_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
         MILKABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
         FEEDABLE_ENTITIES.add(BovinesEntityTypes.MOOBLOOM);
+    }
+
+    public static TagKey<Block> getEdiblePlantBlockTagForCowVariant(Entity entity) {
+        try {
+            Field variantIdDataKeyField = Cow.class.getDeclaredField("DATA_VARIANT_ID");
+            variantIdDataKeyField.setAccessible(true);
+            Object variantIdDataKey = variantIdDataKeyField.get(null);
+            if (variantIdDataKey instanceof EntityDataAccessor<?> entityDataAccessor) {
+                String variantId = (String) entity.getEntityData().get(entityDataAccessor);
+                if (variantId.equals("minecraft:cold")) {
+                    return HungryCowsBlockTags.EDIBLE_PLANTS_FOR_COLD_COWS;
+                } else if (variantId.equals("minecraft:warm")) {
+                    return HungryCowsBlockTags.EDIBLE_PLANTS_FOR_WARM_COWS;
+                }
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+                HungryCows.getLogger().error("Failed to get cow variant data key. Defaulting to temperate cow edible plant tag.", e);
+        }
+        return HungryCowsBlockTags.EDIBLE_PLANTS_FOR_TEMPERATE_COWS;
     }
 
     public static boolean isResourcePackEnabled(String packName) {
