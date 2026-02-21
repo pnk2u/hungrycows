@@ -17,11 +17,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.AbstractCow;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,6 +31,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -142,6 +145,12 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
     public boolean hungrycows$isMilkable() { return this.isAlive() && !this.hungrycows$isMilked() && !this.isBaby();
     }
 
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Milked", this.hungrycows$isMilked());
@@ -180,9 +189,9 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
             this.ageUp(blockEatSettings.cowBlockEatGrowthAmount());
         } else if (this.hungrycows$isMilked()) {
             this.hungrycows$setMilked(false);
-            if (!this.level().isClientSide()) {
-                Vec3 udderPos = relParticlePos(this.position(), this.getYRot(), "cow_udder");
-                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, udderPos.x, udderPos.y, udderPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
+            if (!this.level.isClientSide()) {
+                Vec3 udderPos = relParticlePos(this.position, this.getYRot(), "cow_udder");
+                ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, udderPos.x, udderPos.y, udderPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
             }
         }
 
@@ -190,9 +199,9 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
         if (healthDiff > 0){
             int i = blockEatSettings.cowBlockEatHealAmount();
             thisAbstractCow.heal(i);
-            if (!this.level().isClientSide()) {
-                Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "cow_body");
-                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.375F, 0.625F, 0.375F, 0.2F);
+            if (!this.level.isClientSide()) {
+                Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "cow_body");
+                ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.375F, 0.625F, 0.375F, 0.2F);
             }
         }
     }
@@ -228,9 +237,9 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
                 hungrycows$setCowHasBeenFedManuallyTimer(feedabilityRegainTime);
                 level().playSound(player, this, isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*0.8F);
                 itemStack.consume(1, player);
-                if (!this.level().isClientSide()) {
-                    Vec3 udderPos = relParticlePos(this.position(), this.getYRot(), "cow_udder");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, udderPos.x, udderPos.y, udderPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
+                if (!this.level.isClientSide()) {
+                    Vec3 udderPos = relParticlePos(this.position, this.getYRot(), "cow_udder");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, udderPos.x, udderPos.y, udderPos.z, 6, 0.2F, 0.1F, 0.2F, 0.25F);
                 }
                     cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -240,14 +249,14 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
                 this.heal(2.0F);
                 level().playSound(player, this.getOnPos(), isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*1.1F);
                 itemStack.consume(1, player);
-                if (!this.level().isClientSide()) {
-                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "cow_body");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 2, 0.375F, 0.625F, 0.375F, 0.2F);
+                if (!this.level.isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "cow_body");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 2, 0.375F, 0.625F, 0.375F, 0.2F);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
             }
-            if (this.level().isClientSide) {
+            if (this.level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.CONSUME);
                 return;
             }
@@ -257,9 +266,9 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
                 this.hungrycows$setMilked(true);
                 player.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 0.237F, 3.17F);
                 this.playSound(!isMooshroom ? SoundEvents.COW_MILK : HungryCowsSoundEvents.MOOSHROOM_MILK, 1.317F, 1.237F);
-                if (!this.level().isClientSide()) {
-                    Vec3 heartPos = relParticlePos(this.position(), this.getYRot(), "udder_heart");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);
+                if (!this.level.isClientSide()) {
+                    Vec3 heartPos = relParticlePos(this.position, this.getYRot(), "udder_heart");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HEART, heartPos.x, heartPos.y, heartPos.z, 1, 0.05F, 0.05F, 0.05F, 0.05F);
                 }
                 ItemStack itemStackMilk = ItemUtils.createFilledResult(itemStack, player, hungrycows$getEdibleMilk());
                 player.setItemInHand(hand, itemStackMilk);

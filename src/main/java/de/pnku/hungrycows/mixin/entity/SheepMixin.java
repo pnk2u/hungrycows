@@ -83,12 +83,19 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
         if (thisSheep.getHealth() < thisSheep.getMaxHealth() && sheepSettings.isSheepBlockEatToHeal()) {
             int i = blockEatSettings.cowBlockEatHealAmount();
             thisSheep.heal(i);
-            if (!this.level().isClientSide()) {
-                Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
-                ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.5F, 0.3F, 0.5F, 0.2F);
+            if (!this.level.isClientSide()) {
+                Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "sheep_body");
+                ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, i, 0.5F, 0.3F, 0.5F, 0.2F);
             }
         }
     }
+
+    @Unique
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {return ItemStack.EMPTY;}
+
+    @Unique
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {}
+
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
@@ -124,18 +131,18 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
                 data.set(Sheep.DATA_WOOL_ID, (byte) (data.get(Sheep.DATA_WOOL_ID) & -17));
                 ((IHungryCows) thisSheep).hungrycows$setSheepHasBeenFedManuallyTimer(milkabilitySettings.secondsUntilFeedabilityRegain() * 20);
                 itemStack.consume(1, player);
-                if (!this.level().isClientSide()) {
-                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.25F, 0.3F, 0.25F, 0.2F);
+                if (!this.level.isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "sheep_body");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.25F, 0.3F, 0.25F, 0.2F);
                 }
                 level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
             int healthDiff = (int) thisSheep.getMaxHealth() - (int) thisSheep.getHealth();
             if (healthDiff > 0 && sheepSettings.isSheepFeedToHeal()) {
                 thisSheep.heal(2.0F);
-                if (!this.level().isClientSide()) {
-                    Vec3 bodyPos = relParticlePos(this.position(), this.getYRot(), "sheep_body");
-                    ((ServerLevel) this.level()).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.3F, 0.3F, 0.3F, 0.2F);
+                if (!this.level.isClientSide()) {
+                    Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "sheep_body");
+                    ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.3F, 0.3F, 0.3F, 0.2F);
                 }
                 itemStack.consume(1, player);
                 level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
