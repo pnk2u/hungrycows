@@ -2,7 +2,7 @@ package de.pnku.hungrycows;
 
 import de.pnku.hungrycows.config.HungryCowsLegacyConfigJsonHelper;
 import de.pnku.hungrycows.item.HungryCowsDispenseItemBehaviors;
-import de.pnku.hungrycows.jade.MilkabilityUIItems;
+import de.pnku.hungrycows.jade.HungryCowsJadeUIItems;
 import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
 import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import net.fabricmc.api.ModInitializer;
@@ -10,7 +10,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public class HungryCows implements ModInitializer {
 		HungryCowsLegacyConfigJsonHelper.init();
 		CONFIG.load(); // Reload after migrating legacy config to new config
 		HungryCowsDispenseItemBehaviors.registerBucketBehavior();
-		MilkabilityUIItems.initUISpriteItem();
+		HungryCowsJadeUIItems.initUISpriteItems();
 		HungryCowsCompatibilityHelper.init();
 		HungryCowsSoundEvents.registerSoundEvents();
 	}

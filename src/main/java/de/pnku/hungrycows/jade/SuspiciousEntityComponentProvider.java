@@ -43,7 +43,7 @@ public enum SuspiciousEntityComponentProvider implements IEntityComponentProvide
 
     @Override
     public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","suspiciously_milkable");
+        return ResourceLocation.tryBuild("hungrycows","suspiciously_milkable");
     }
 
 }

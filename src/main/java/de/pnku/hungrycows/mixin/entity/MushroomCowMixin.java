@@ -146,7 +146,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         ItemStack syncedFlower = ((IHungryCows) thisMushroomCow).hungrycows$getSuspiciousFlowerStack();
         boolean hasSyncedSuspicious = !syncedFlower.isEmpty();
 
-        log(this.level, "MOOSHROOM_SYNCED_FLOWER", hasSyncedSuspicious ? syncedFlower : "Empty"); log(this.level, "MOOSHROOM_STEW_EFFECTS", thisMushroomCow.stewEffects != null ? thisMushroomCow.stewEffects : "None");
+        log(this.level, "MOOSHROOM_SYNCED_FLOWER", hasSyncedSuspicious ? syncedFlower : "Empty"); log(this.level, "MOOSHROOM_STEW_EFFECTS", thisMushroomCow.effect != null ? thisMushroomCow.effect : "None");
 
         if (this.level.isClientSide() && thisMushroomCow.effect == null && hasSyncedSuspicious) {
             log(this.level, "MOOSHROOM_CLIENT_SYNC_FIX");
@@ -188,7 +188,7 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
         ItemStack result;
         if (hasSyncedSuspicious) {
             result = new ItemStack(Items.SUSPICIOUS_STEW);
-            SuspiciousStewItem.saveMobEffect(result, thisMushroomCow.effect, thisMushroomCow.effectDuration);
+            thisMushroomCow.getEffectFromItemStack(syncedFlower).ifPresent(effects -> SuspiciousStewItem.saveMobEffect(result, effects.getLeft(), effects.getRight()));
             thisMushroomCow.effect = null;
             thisMushroomCow.effectDuration = 0;
             ((IHungryCows) thisMushroomCow).hungrycows$setSuspiciousFlowerStack(ItemStack.EMPTY);
@@ -249,13 +249,15 @@ public abstract class MushroomCowMixin extends Cow implements Shearable, Variant
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());
-        nbt.put("SuspiciousFlowerStack", this.hungrycows$getSuspiciousFlowerStack().saveOptional(this.registryAccess()));
+        CompoundTag flowerStackTag = new CompoundTag();
+        this.hungrycows$getSuspiciousFlowerStack().save(flowerStackTag);
+        nbt.put("SuspiciousFlowerStack", flowerStackTag);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         ((IHungryCows) this).hungrycows$setMilked(nbt.getBoolean("Milked"));
-        this.hungrycows$setSuspiciousFlowerStack(ItemStack.parseOptional(this.registryAccess(), nbt.getCompound("SuspiciousFlowerStack")));
+        this.hungrycows$setSuspiciousFlowerStack(ItemStack.of(nbt.getCompound("SuspiciousFlowerStack")));
     }
 
     static {

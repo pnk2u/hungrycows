@@ -5,7 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 
-public class HungryCowsUIItems {
+public class HungryCowsJadeUIItems {
     public static final Item HEART_MILK_UI_ITEM = new Item (new Item.Properties());
     public static final Item COW_ICON_UI_ITEM = new Item (new Item.Properties());
     public static final Item COLD_COW_ICON_UI_ITEM = new Item (new Item.Properties());
@@ -14,7 +14,7 @@ public class HungryCowsUIItems {
     public static final Item BROWN_MOOSHROOM_ICON_UI_ITEM = new Item (new Item.Properties());
     public static final Item SHEEP_ICON_UI_ITEM = new Item (new Item.Properties());
 
-    public static void initUISpriteItem(){
+    public static void initUISpriteItems(){
         Registry.register(BuiltInRegistries.ITEM, HungryCows.withModId("heart_milk"), HEART_MILK_UI_ITEM);
         Registry.register(BuiltInRegistries.ITEM, HungryCows.withModId("cow_icon"), COW_ICON_UI_ITEM);
         Registry.register(BuiltInRegistries.ITEM, HungryCows.withModId("cold_cow_icon"), COLD_COW_ICON_UI_ITEM);

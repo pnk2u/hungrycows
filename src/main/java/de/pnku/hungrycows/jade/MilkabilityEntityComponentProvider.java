@@ -1,6 +1,5 @@
 package de.pnku.hungrycows.jade;
 
-import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -35,7 +34,7 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
                 IElementHelper elements = tooltip.getElementHelper();
                 IElement emptyBucketIcon = elements.item(new ItemStack(Items.BUCKET), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-6, -1));
                 IElement filledBucketIcon = elements.item(new ItemStack(Items.MILK_BUCKET), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));
-                IElement heartBucketIcon = elements.item(new ItemStack(MilkabilityUIItems.HEART_MILK_UI_ITEM), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-1, -1));
+                IElement heartBucketIcon = elements.item(new ItemStack(HungryCowsJadeUIItems.HEART_MILK_UI_ITEM), 0.5f).size(new Vec2(8, 8)).translate(new Vec2(-1, -1));
                         // elements.sprite(HungryCows.withModId("heart_milk"), 8, 8).translate(new Vec2(-1, -1));
                 IElement mushroomStewIcon = elements.item(new ItemStack(Items.MUSHROOM_STEW), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));
                 IElement suspiciousStewIcon = elements.item(new ItemStack(Items.SUSPICIOUS_STEW), 0.5f).size(new Vec2(9, 8)).translate(new Vec2(-1, -2));

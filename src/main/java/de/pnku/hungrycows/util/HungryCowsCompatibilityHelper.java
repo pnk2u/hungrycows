@@ -2,7 +2,6 @@ package de.pnku.hungrycows.util;
 
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.block.HungryCowsBlockTags;
-import house.greenhouse.bovinesandbuttercups.content.entity.BovinesEntityTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;

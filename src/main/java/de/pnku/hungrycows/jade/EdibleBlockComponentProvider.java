@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import snownee.jade.api.BlockAccessor;
@@ -17,6 +18,7 @@ import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.isVanillaBackportLoaded;
+import static de.pnku.hungrycows.jade.HungryCowsJadeUIItems.*;
 
 public enum EdibleBlockComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
@@ -32,14 +34,15 @@ public enum EdibleBlockComponentProvider implements IBlockComponentProvider, ISe
             boolean edibleForMooshroom = block.is(Blocks.MYCELIUM) || block.is(HungryCowsBlockTags.EDIBLE_PLANTS_FOR_MOOSHROOMS);
             boolean edibleForBrownMooshroom = block.is(BlockTags.SMALL_FLOWERS);
             boolean edibleForSheep = block.is(Blocks.GRASS_BLOCK) || block.is(HungryCowsBlockTags.EDIBLE_PLANTS_FOR_SHEEP);
-
-            IElement cowIcon = IElementHelper.get().sprite(HungryCows.withModId("cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement coldCowIcon = IElementHelper.get().sprite(HungryCows.withModId("cold_cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement warmCowIcon = IElementHelper.get().sprite(HungryCows.withModId("warm_cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement mooshroomIcon = IElementHelper.get().sprite(HungryCows.withModId("red_mooshroom_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement brownMooshroomIcon = IElementHelper.get().sprite(HungryCows.withModId("brown_mooshroom_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement sheepIcon = IElementHelper.get().sprite(HungryCows.withModId("sheep_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement spacer = IElementHelper.get().spacer(2, 0);
+            
+            IElementHelper elements = iTooltip.getElementHelper();
+            IElement cowIcon = elements.item(new ItemStack(COW_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement coldCowIcon = elements.item(new ItemStack(COLD_COW_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement warmCowIcon = elements.item(new ItemStack(WARM_COW_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement mooshroomIcon = elements.item(new ItemStack(MOOSHROOM_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement brownMooshroomIcon = elements.item(new ItemStack(BROWN_MOOSHROOM_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement sheepIcon = elements.item(new ItemStack(SHEEP_ICON_UI_ITEM), 0.5f).translate(new net.minecraft.world.phys.Vec2(0, -1));
+            IElement spacer = elements.spacer(2, 0);
 
             iTooltip.add(Component.translatable("hungrycows.edible_block.prefix"));
             if (edibleForCow) {iTooltip.append(cowIcon); iTooltip.append(spacer);}
@@ -60,7 +63,7 @@ public enum EdibleBlockComponentProvider implements IBlockComponentProvider, ISe
 
     @Override
     public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","edible_block");
+        return ResourceLocation.tryBuild("hungrycows","edible_block");
     }
 
 
