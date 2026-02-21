@@ -25,14 +25,14 @@ public enum SuspiciousEntityComponentProvider implements IEntityComponentProvide
             EntityAccessor accessor,
             IPluginConfig config) {
         Entity entity = accessor.getEntity();
-        if (entity instanceof MushroomCow mooshroom && mooshroom.getVariant() == MushroomCow.MushroomType.BROWN) {
+        if (entity instanceof MushroomCow mooshroom && mooshroom.getVariant() == MushroomCow.Variant.BROWN) {
             if (!(mooshroom.isBaby())) {
                 ItemStack suspiciousFlowerStack = ((IHungryCows) mooshroom).hungrycows$getSuspiciousFlowerStack();
                 if (suspiciousFlowerStack != null && !suspiciousFlowerStack.isEmpty()) {
                     IElement flowerIcon = IElementHelper.get().item(suspiciousFlowerStack, 0.5f).size(new Vec2(11, 8)).translate(new Vec2(1, -2));
                     tooltip.add(Component.translatable("hungrycows.suspiciously_milkable.flower"));
                     tooltip.append(flowerIcon);
-                    tooltip.append(Component.translatable(suspiciousFlowerStack.getDescriptionId()));
+                    tooltip.append(Component.translatable(suspiciousFlowerStack.getItem().getDescriptionId()));
                 }
             }
         }
