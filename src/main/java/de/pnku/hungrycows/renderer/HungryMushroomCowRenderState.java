@@ -122,4 +122,13 @@ public class HungryMushroomCowRenderState extends MushroomCowRenderState impleme
     public ItemStack hungrycows$getEdibleMilk() {
         return null;
     }
+
+    @Override
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {
+        return null;
+    }
+
+    @Override
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {
+    }
 }

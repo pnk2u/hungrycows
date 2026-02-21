@@ -123,4 +123,13 @@ public class HungryCowRenderState extends LivingEntityRenderState implements IHu
     public ItemStack hungrycows$getEdibleMilk() {
         return null;
     }
+
+    @Override
+    public ItemStack hungrycows$getSuspiciousFlowerStack() {
+        return null;
+    }
+
+    @Override
+    public void hungrycows$setSuspiciousFlowerStack(ItemStack stack) {
+    }
 }
