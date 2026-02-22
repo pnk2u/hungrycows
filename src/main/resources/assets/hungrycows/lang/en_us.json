@@ -32,9 +32,9 @@
     {"text": "§r/§c", "color": "#A12345", "bold": false},
     {"translate": "hungrycows.Mooshrooms", "bold": true},"§r"
   ],
-  "hungrycows.grass_slash_mycelium_bold": ["§2",
-    {"translate": "block.minecraft.grass", "color": "#43663A", "bold": true},
-    {"text": "§r/§7", "color": "white", "bold": false},
+  "hungrycows.grass_slash_mycelium_bold": [
+    {"text": "§2Grass§r", "color": "#43663A", "bold": true},
+    {"text": "/§7", "color": "white", "bold": false},
     {"translate": "block.minecraft.mycelium", "color": "#706366", "bold": true},
     {"text": "§r/§a", "color": "white", "bold": false},
     {"text": "plants", "color": "#40D040", "bold": true}, "§r"
