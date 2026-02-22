@@ -13,8 +13,8 @@ import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.api.ui.Element;
+import snownee.jade.api.ui.JadeUI;
 
 import static de.pnku.hungrycows.util.HungryCowsCompatibilityHelper.isVanillaBackportLoaded;
 
@@ -33,13 +33,13 @@ public enum EdibleBlockComponentProvider implements IBlockComponentProvider, ISe
             boolean edibleForBrownMooshroom = block.is(BlockTags.SMALL_FLOWERS);
             boolean edibleForSheep = block.is(Blocks.GRASS_BLOCK) || block.is(HungryCowsBlockTags.EDIBLE_PLANTS_FOR_SHEEP);
 
-            IElement cowIcon = IElementHelper.get().sprite(HungryCows.withModId("cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement coldCowIcon = IElementHelper.get().sprite(HungryCows.withModId("cold_cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement warmCowIcon = IElementHelper.get().sprite(HungryCows.withModId("warm_cow_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement mooshroomIcon = IElementHelper.get().sprite(HungryCows.withModId("red_mooshroom_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement brownMooshroomIcon = IElementHelper.get().sprite(HungryCows.withModId("brown_mooshroom_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement sheepIcon = IElementHelper.get().sprite(HungryCows.withModId("sheep_icon"), 8, 8).translate(new net.minecraft.world.phys.Vec2(0, -1));
-            IElement spacer = IElementHelper.get().spacer(2, 0);
+            Element cowIcon = JadeUI.sprite(HungryCows.withModId("cow_icon"), 8, 8).offset(0, -1);
+            Element coldCowIcon = JadeUI.sprite(HungryCows.withModId("cold_cow_icon"), 8, 8).offset(0, -1);
+            Element warmCowIcon = JadeUI.sprite(HungryCows.withModId("warm_cow_icon"), 8, 8).offset(0, -1);
+            Element mooshroomIcon = JadeUI.sprite(HungryCows.withModId("red_mooshroom_icon"), 8, 8).offset(0, -1);
+            Element brownMooshroomIcon = JadeUI.sprite(HungryCows.withModId("brown_mooshroom_icon"), 8, 8).offset(0, -1);
+            Element sheepIcon = JadeUI.sprite(HungryCows.withModId("sheep_icon"), 8, 8).offset(0, -1);
+            Element spacer = JadeUI.spacer(2, 0);
 
             iTooltip.add(Component.translatable("hungrycows.edible_block.prefix"));
             if (edibleForCow) {iTooltip.append(cowIcon); iTooltip.append(spacer);}

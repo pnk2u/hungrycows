@@ -13,8 +13,8 @@ import snownee.jade.api.IEntityComponentProvider;
 import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.api.ui.Element;
+import snownee.jade.api.ui.JadeUI;
 
 public enum SuspiciousEntityComponentProvider implements IEntityComponentProvider, IServerDataProvider<EntityAccessor> {
     INSTANCE;
@@ -29,7 +29,7 @@ public enum SuspiciousEntityComponentProvider implements IEntityComponentProvide
             if (!(mooshroom.isBaby())) {
                 ItemStack suspiciousFlowerStack = ((IHungryCows) mooshroom).hungrycows$getSuspiciousFlowerStack();
                 if (suspiciousFlowerStack != null && !suspiciousFlowerStack.isEmpty()) {
-                    IElement flowerIcon = IElementHelper.get().item(suspiciousFlowerStack, 0.5f).size(new Vec2(11, 8)).translate(new Vec2(1, -2));
+                    Element flowerIcon = JadeUI.item(suspiciousFlowerStack, 0.5f).size(11, 8).offset(1, -2);
                     tooltip.add(Component.translatable("hungrycows.suspiciously_milkable.flower"));
                     tooltip.append(flowerIcon);
                     tooltip.append(Component.translatable(suspiciousFlowerStack.getItem().getDescriptionId()));

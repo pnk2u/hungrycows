@@ -51,7 +51,7 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
                     Component feedableTrueComponent = Component.translatable(feedableTrueComponentKey);
                     Component feedableTrueItem2Component = Component.translatable(feedableTrueComponentKey.replace("1", "2"));
                     if (!handStack.isEmpty() && checkFeedability(handStack, entity)) {
-                        Element icon = JadeUI.item(new ItemStack(handStack.getItem()), 0.5f).size(10, 10).offset(-2, -2);
+                        Element icon = JadeUI.item(new ItemStack(handStack.getItem()), 0.5f).size(10, 10).offset(-1, -1);
                         tooltip.add(feedableTrueComponent);
                         tooltip.append(icon);
                         tooltip.append(Component.translatable(handStack.getItem().getDescriptionId()).setStyle(Style.EMPTY.withItalic(true)));
