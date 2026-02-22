@@ -1,20 +1,73 @@
 {
+  "owo:extended_lang": true,
+  "hungrycows.name": "Hungry Cows",
+  "hungrycows.Cows": [{"text": "Cows", "color": "#6F373B"}],
+  "hungrycows.Mooshrooms": [{"text": "Mooshrooms", "color": "#A8212E"}],
+  "hungrycows.Sheep": "§fSheep§r",
+  "hungrycows.Goats": "§fGoats§r",
+  "hungrycows.Milk": "§fMilk§r",
+  "hungrycows.Milkability": "§fMilkability§r",
+  "hungrycows.Milkability_italic": {"translate": "hungrycows.Milkability", "italic": true},
+  "hungrycows.Milkable": "§fMilkable§r",
+  "hungrycows.milkable": "§fmilkable§r",
+  "hungrycows.Shearability": "Shearability",
+  "hungrycows.Shearability_italic": {"text": "Shearability", "italic": true},
+  "hungrycows.Wool": "Wool",
+  "hungrycows.Feedability": "Feedability",
+  "hungrycows.Settings": [
+    {"translate": "mco.configure.world.buttons.settings"}
+  ],
+  "hungrycows.cow_slash_mooshroom": [
+    {"translate": "entity.minecraft.cow", "color": "#6F373B"},
+    {"text": "/", "color": "#A12345"},
+    {"translate": "entity.minecraft.mooshroom", "color": "#A8212E"}
+  ],
+  "hungrycows.cow_slash_mooshroom_bold": [
+    {"translate": "entity.minecraft.cow", "color": "#6F373B", "bold": true},
+    {"text": "/", "color": "#A12345", "bold": false},
+    {"translate": "entity.minecraft.mooshroom", "color": "#A8212E", "bold": true}
+  ],
+  "hungrycows.cows_slash_mooshrooms_bold": ["§4",
+    {"translate": "hungrycows.Cows", "bold": true},
+    {"text": "§r/§c", "color": "#A12345", "bold": false},
+    {"translate": "hungrycows.Mooshrooms", "bold": true},"§r"
+  ],
+  "hungrycows.grass_slash_mycelium_bold": ["§2",
+    {"translate": "block.minecraft.grass", "color": "#43663A", "bold": true},
+    {"text": "§r/§7", "color": "white", "bold": false},
+    {"translate": "block.minecraft.mycelium", "color": "#706366", "bold": true},
+    {"text": "§r/§a", "color": "white", "bold": false},
+    {"text": "plants", "color": "#40D040", "bold": true}, "§r"
+  ],
+  "hungrycows.nutritionValue": "Fill Hunger",
+  "hungrycows.nutritionValue.tooltip": ["Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points (10 🍖).\nThe values for vanilla foods range from 1 (like ",{"translate": "item.minecraft.beetroot"}," or ",{"translate": "item.minecraft.dried_kelp"},") to 8 (like ",{"translate": "item.minecraft.cooked_porkchop"}," or ",{"translate": "item.minecraft.pumpkin_pie"},")."],
+  "hungrycows.saturationModifier": "Restore Saturation",
+  "hungrycows.saturationModifier.tooltip": ["This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like ",{"translate": "tag.item.c.foods.raw_fish"},", ",{"translate": "tag.item.c.foods.cookies"}," or ",{"translate": "tag.item.c.foods.berries"},") to 1.2 (like ",{"translate": "item.minecraft.golden_apple"},"/",{"translate": "item.minecraft.carrot"},")."],
+  "hungrycows.feedable_item_ids_1": "Any item IDs added to this list are used to lure and feed ",
+  "hungrycows.feedable_item_ids_2": " restoring their ",
+  "hungrycows.feedable_item_ids_3": " or one heart (1 §4❤§r).\nBesides this list, item IDs can also be added to the item tag ",
+  "hungrycows.feedable_item_ids_4": " by datapacks or other mods.\nBy default, this tag only includes the vanilla item tag ",
+  "hungrycows.feedable_item_ids_5": " (contains: ",
   "text.config.hungrycows.title": [
-    {"text": "§l§nHungry Cows", "color": "#FF0066"}
+    {"translate": "hungrycows.name", "color": "#FF0066", "bold": true, "underlined": true},
+    {"text":" (", "bold": false, "underlined": false},
+    {"translate": "hungrycows.Settings", "bold": false, "underlined": false},
+    {"text":")", "bold": false, "underlined": false}
   ],
   "text.config.hungrycows.section.CowSettings": [
-    {"text": "Cow", "color": "#6F373B"},
-    {"text": "/", "color": "#A12345"},
-    {"text": "Mooshroom", "color": "#A8212E"},
-    {"text": " Settings", "color": "#A12345"}
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
+    " ",
+    {"translate": "hungrycows.Settings", "color": "#A12345"}
   ],
   "text.config.hungrycows.section.MilkSettings": [
-    {"text": "Milk Settings", "color": "#FFFFFF"}
+    {"translate": "item.minecraft.milk_bucket", "color": "#FFFFFF", "bold": true},
+    " ",
+    {"translate": "hungrycows.Settings"}
   ],
   "text.config.hungrycows.category.blockEatSettings": [
     "Block (",
 
-    {"text": "§lGrass", "color": "#43663A"}, "/", {"text": "§lMycelium", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
     ") Eating"
   ],
@@ -22,15 +75,15 @@
   "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
     "The probability that a ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " eats a block of ",
 
-    {"text": "§lGrass", "color": "#43663A"}, "/", {"text": "§lMycelium", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
     " to regenerate its milk giving ability.\nRanges from 0 (very unlikely) to 3 (the maximum), the default value is 1.0 which makes the ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " eat about once to twice a day."
   ],
@@ -38,61 +91,62 @@
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
     "How many seconds faster a baby ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " grows up after having eaten a block of ",
 
-    {"text": "§lGrass", "color": "#43663A"}, "/", {"text": "§lMycelium", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
-    ".\nBy default (the same value Sheep use), this is 60 seconds or 5% of the total time (20 minutes) it takes it to grow up."
+    ".\nBy default (the same value ", {"translate": "hungrycows.Sheep"}, " use), this is 60 seconds or 5% of the total time (20 minutes) it takes it to grow up."
   ],
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount": "Healing from Eating Blocks",
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
     "How many health points a ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " regains by eating a block of ",
 
-    {"text": "§lGrass", "color": "#43663A"}, "/", {"text": "§lMycelium", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
-    ".\nBy default this value is 1 health point (half a heart) which is 10% of the total amount of health (10) a ",
+    ".\nBy default this value is 1 health point (½ §4❤§r) which is 10% of the total amount of health (10) a ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"}, " has."
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
+
+    " has."
   ],
-  "text.config.hungrycows.category.milkabilitySettings": "Milkability",
+  "text.config.hungrycows.category.milkabilitySettings": [{"translate": "hungrycows.Milkability"}],
   "text.config.hungrycows.category.milkabilitySettings.tooltip": [
     "These settings apply to ",
 
-    {"text": "§lCows", "color": "#6F373B"}, ", ", {"text": "§lMooshrooms", "color": "#A8212E"},
-
-    " and §lGoats§r.\nUsing a bowl on a ",{"text": "§lMooshroom", "color": "#A8212E"}," to receive Mushroom Stew counts as \"§omilking§r\" it.\nBy default, sheep are also affected, see §l§oSheep (Parity)§r down below."
+    {"translate": "hungrycows.Cows", "bold": true}, ", ", {"translate": "hungrycows.Mooshrooms", "bold": true}, " and ", {"translate": "hungrycows.Goats", "bold": true},
+    ".\nUsing a bowl on a ",{"translate": "entity.minecraft.mooshroom", "color": "#A8212E", "bold": true}," to receive ", {"translate": "item.minecraft.mushroom_stew"}, " counts as \"§omilking§r\" it.\nBy default, §l", {"translate": "hungrycows.Sheep"}, "§r (", {"translate": "hungrycows.Wool"}, ") are also affected, see ",{"translate": "entity.minecraft.sheep", "bold": true, "italic": true},"§l§o (Parity)§r down below."
   ],
   "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain": "Cooldown between Feeding",
-  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": "The amount of seconds that you have to wait for an animal to be feedable again.\nThis refers to the ability to feed an animal to restore their §oMilkability§r/§oShearability§r.",
-  "text.config.hungrycows.category.milkabilitySettings.feedSettings": "Feedable Items",
-  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": "These settings let you customize which exact items can be used to lure and feed each respective animal.\nThis refers to the ability to feed an animal to restore their §oMilkability§r/§oShearability§r or heal them by 2 health points.",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": "Feeding §lCows§r (Milk)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems.tooltip": "Any item IDs added to this list are used to lure and feed §lCows§r restoring their §oMilkability§r or one heart.\nBesides this list, item IDs can also be added to the item tag \"§o#hungrycows:cow_feedable§r\" by datapacks or other mods.\nBy default, this tag only includes the vanilla item tag \"§o#minecraft:cow_food§r\" (contains: Wheat).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": "Feeding §lMooshrooms§r (Milk/Mushroom Stew)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems.tooltip": "Any item IDs added to this list are used to lure and feed §lMooshrooms§r restoring their §oMilkability§r or one heart.\nBesides this list, item IDs can also be added to the item tag \"§o#hungrycows:mooshroom_feedable§r\" by datapacks or other mods.\nBy default, this tag only includes the vanilla item tag \"§o#minecraft:cow_food§r\" (contains: Wheat).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": "Feeding §lGoats§r (Milk)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems.tooltip": "Any item IDs added to this list are used to lure and feed §lGoats§r restoring their §oMilkability§r or one heart.\nBesides this list, item IDs can also be added to the item tag \"§o#hungrycows:goat_feedable§r\" by datapacks or other mods.\nBy default, this tag only includes the vanilla item tag \"§o#minecraft:goat_food§r\" (contains: Wheat).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": "Feeding §lSheep§r (Wool)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems.tooltip": "Any item IDs added to this list are used to lure and feed §lSheep§r restoring their §Shearability§r or one heart.\nBesides this list, item IDs can also be added to the item tag \"§o#hungrycows:sheep_feedable§r\" by datapacks or other mods.\nBy default, this tag only includes the vanilla item tag \"§o#minecraft:sheep_food§r\" (contains: Wheat).",
-  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Show Custom Milkable Model/Texture",
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": ["The amount of seconds that you have to wait for an animal to be feedable again.\nThis refers to the ability to feed an animal to restore their ", {"translate": "hungrycows.Milkability_italic"}, "/", {"translate": "hungrycows.Shearability_italic"}, "."],
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings": ["Feedable Items"],
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": ["These settings let you customize which exact items can be used to lure and feed each respective animal.\nThis refers to the ability to feed an animal to restore their ", {"translate": "hungrycows.Milkability_italic"}, "/", {"translate": "hungrycows.Shearability_italic"}, " or heal them by 2 health points (1 §4❤§r)."],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": ["Feeding ", {"translate": "hungrycows.Cows", "bold": true}, " (",{"translate": "item.minecraft.milk_bucket"},")"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems.tooltip": [{"translate": "hungrycows.feedable_item_ids_1"}, {"translate": "hungrycows.Cows", "bold": true}, {"translate": "hungrycows.feedable_item_ids_2"}, {"translate": "hungrycows.Milkability_italic"}, {"translate": "hungrycows.feedable_item_ids_3"}, "\"§o#hungrycows:cow_feedable§r\"",{"translate": "hungrycows.feedable_item_ids_4"},"\"§o#minecraft:cow_food§r\"",{"translate": "hungrycows.feedable_item_ids_5"},{"translate": "item.minecraft.wheat"},")."],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": ["Feeding ", {"translate": "hungrycows.Mooshrooms", "bold": true}, " (",{"translate": "item.minecraft.milk_bucket"},"/",{"translate": "item.minecraft.mushroom_stew"},")"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems.tooltip": [{"translate": "hungrycows.feedable_item_ids_1"}, {"translate": "hungrycows.Cows", "bold": true}, {"translate": "hungrycows.feedable_item_ids_2"}, {"translate": "hungrycows.Milkability_italic"}, {"translate": "hungrycows.feedable_item_ids_3"}, "§o#hungrycows:mooshroom_feedable§r", {"translate": "hungrycows.feedable_item_ids_4"}, ",\"§o#minecraft:mooshroom_food§r\"", {"translate": "hungrycows.feedable_item_ids_5"},{"translate": "item.minecraft.wheat"},")."],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": ["Feeding §l", {"translate": "hungrycows.Goats"}, "§r (",{"translate": "item.minecraft.milk_bucket"},")"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems.tooltip": [{"translate": "hungrycows.feedable_item_ids_1"}, {"translate": "hungrycows.Goats", "bold": true}, {"translate": "hungrycows.feedable_item_ids_2"}, {"translate": "hungrycows.Milkability_italic"}, {"translate": "hungrycows.feedable_item_ids_3"}, "§o#hungrycows:goat_feedable§r", {"translate": "hungrycows.feedable_item_ids_4"}, ",\"§o#minecraft:goat_food§r\"", {"translate": "hungrycows.feedable_item_ids_5"},{"translate": "item.minecraft.wheat"},")."],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": ["Feeding §l", {"translate": "hungrycows.Sheep"}, "§r (", {"translate": "hungrycows.Wool"}, ")"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems.tooltip": [{"translate": "hungrycows.feedable_item_ids_1"}, {"translate": "hungrycows.Sheep", "bold": true}, {"translate": "hungrycows.feedable_item_ids_2"}, {"translate": "hungrycows.Shearability_italic"}, {"translate": "hungrycows.feedable_item_ids_3"}, "§o#hungrycows:sheep_feedable§r", {"translate": "hungrycows.feedable_item_ids_4"}, ",\"§o#minecraft:sheep_food§r\"", {"translate": "hungrycows.feedable_item_ids_5"},{"translate": "item.minecraft.wheat"},")."],
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": ["Show Custom ", {"translate": "hungrycows.Milkable"}, " Model/Texture"],
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
-    "This feature allows you to visually distinguish milkable ",
+    "This feature allows you to visually distinguish a ", {"translate": "hungrycows.milkable"}, " ",
 
-    {"text": "§lCows", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
-    " from those that can't be milked yet.\nWhen the ",
+    " from one that can't be milked yet.\nWhen the ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
-    " is milkable:\n a) the model increases the size and details of the udder and\n b) the texture changes the ",
+    " is ", {"translate": "hungrycows.milkable"}, ":\n a) the model increases the size and details of the udder and\n b) the texture changes the ",
 
-    {"text": "§ocolor of an udder", "color": "#f7afaf"}, " to this ", {"text": "§ocolor of a milkable udder", "color": "#e58f8f"},
+    {"text": "color of an udder", "color": "#f7afaf", "italic": true}, " to this ", {"text": "color of a ", "color": "#e58f8f", "italic": true}, {"translate": "hungrycows.milkable", "color": "white", "italic": true},{"text": " udder", "color": "#e58f8f", "italic": true},
 
     ".\n",{"text": "This setting does not apply to goats as they do not have a visible udder.\nEn-/Disabling the model changes requires a reload (§o§lF3§r+§o§lT§r) to take effect.", "color": "#71586A"},"\n",
     {"text": "En-/Disabling the texture changes takes effect immediately.", "color": "#71586A"}
@@ -100,57 +154,57 @@
   "text.config.hungrycows.enum.mCDO.hide_none": "Show Model & Texture",
   "text.config.hungrycows.enum.mCDO.hide_model": "Show Only Texture",
   "text.config.hungrycows.enum.mCDO.hide_texture_and_model": "Show Neither",
-  "text.config.hungrycows.category.sheepSettings": "Sheep (Parity)",
-  "text.config.hungrycows.category.sheepSettings.tooltip": ["These settings exist for parity as they refer to features that aren't adapted from Sheep themselves.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" Sheep use the feature with the same values set above for Cows."],
-  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Healing from Eating Blocks (Sheep)",
-  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" Sheep regain the same amount of health as Cows by eating a block of Grass.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" Sheep revert to the vanilla behavior of not regaining health at all."],
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Healing from Being Fed Food (Sheep)",
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" Sheep regain the same amount of health (2) as Cows by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" Sheep revert to the vanilla behavior of not regaining health at all."],
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Regrowing Wool from Being Fed Food (Sheep)",
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" Sheep can also regrow their wool by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" Sheep revert to the vanilla behavior of not regrowing Wool by being fed at all."],
-  "text.config.hungrycows.category.cowMilkSettings": "§lCow§r Milk",
-  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue": "Fill Hunger",
-  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
-  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": "Restore Saturation",
-  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
-  "text.config.hungrycows.category.mushroomCowMilkSettings": "§lMooshroom§r Milk",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": "Fill Hunger",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": "Restore Saturation",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
-  "text.config.hungrycows.category.goatMilkSettings": "§lGoat§r Milk",
-  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue": "Fill Hunger",
-  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": "Amount of food points added to the hunger bar, a fully filled hunger bar consists of 20 food points.\nThe values for vanilla foods range from 1 (like Beetroot or Dried Kelp) to 8 (like Cooked Porkchop or Pumpkin Pie).",
-  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": "Restore Saturation",
-  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": "This refers to the hidden stat of saturation which depending on its value lengthens the time until your hunger bar starts depleting.\nThe values for vanilla foods range from 0.1 (like Raw Fish, Cookies or Berries) to 1.2 (like Golden Apple/Carrot).",
-  "config.jade.plugin_hungrycows.edible_block": "Show Edible Block",
-  "config.jade.plugin_hungrycows.edible_block_desc": "Displaying if a Block is edible for Cows/Mooshrooms/Goats/Sheep.",
-  "config.jade.plugin_hungrycows.milkable": "Show Milkability",
-  "config.jade.plugin_hungrycows.milkable_desc": "Displaying if a Cow/Mooshroom/Goat can be milked.",
-  "config.jade.plugin_hungrycows.feedable": "Show Feedability",
-  "config.jade.plugin_hungrycows.feedable_desc": "Displaying if a Cow/Mooshroom/Goat/Sheep can be fed so they can be milked/sheared again.",
-  "config.jade.plugin_hungrycows.suspiciously_milkable": "Show Brown Mooshroom's Eaten Flower Status",
-  "config.jade.plugin_hungrycows.suspiciously_milkable_desc": "Displaying if a Brown Mooshroom has eaten a flower and can be milked with a bowl for Suspicious Stew.",
+  "text.config.hungrycows.category.sheepSettings": [{"translate": "entity.minecraft.sheep", "bold": true}, " (Parity)"],
+  "text.config.hungrycows.category.sheepSettings.tooltip": ["These settings exist for parity as they refer to features that aren't adapted from ", {"translate": "hungrycows.Sheep"}, " themselves.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" ", {"translate": "hungrycows.Sheep"}, " use the feature with the same values set above for ", {"translate": "hungrycows.Cows"}, "."],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": ["Healing from Eating Blocks (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" ", {"translate": "hungrycows.Sheep"}, " regain the same amount of health as ", {"translate": "hungrycows.Cows"}, " by eating a block of Grass.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" ", {"translate": "hungrycows.Sheep"}, " revert to the vanilla behavior of not regaining health at all."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": ["Healing from Being Fed Food (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" ", {"translate": "hungrycows.Sheep"}, " regain the same amount of health (2) as ", {"translate": "hungrycows.Cows"}, " by being fed an item specified in the \"Feedable Items\" list for ", {"translate": "hungrycows.Sheep"}, " above.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" ", {"translate": "hungrycows.Sheep"}, " revert to the vanilla behavior of not regaining health at all."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": ["Regrowing ", {"translate": "hungrycows.Wool"}, " from Being Fed Food (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["If set to \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Enabled\" ", {"translate": "hungrycows.Sheep"}, " can also regrow their wool by being fed an item specified in the \"Feedable Items\" list for ", {"translate": "hungrycows.Sheep"}, " above.\nIf set to \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Disabled\" ", {"translate": "hungrycows.Sheep"}, " revert to the vanilla behavior of not regrowing ", {"translate": "hungrycows.Wool"}, " by being fed at all."],
+  "item.hungrycows.milk_bucket.cow": [{"translate": "entity.minecraft.cow", "bold": true}, " ", {"translate": "item.minecraft.milk_bucket"}],
+  "item.hungrycows.milk_bucket.mooshroom": [{"translate": "entity.minecraft.mooshroom", "bold": true}, " ", {"translate": "item.minecraft.milk_bucket"}],
+  "item.hungrycows.milk_bucket.goat": [{"translate": "entity.minecraft.goat", "bold": true}, " ", {"translate": "item.minecraft.milk_bucket"}],
+  "text.config.hungrycows.category.cowMilkSettings": [{"translate": "item.hungrycows.milk_bucket.cow"}],
+    "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue": [{"translate": "hungrycows.nutritionValue"}],
+    "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": [{"translate": "hungrycows.saturationModifier"}],
+    "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": [{"translate": "hungrycows.saturationModifier.tooltip"}],
+    "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": [{"translate": "hungrycows.nutritionValue.tooltip"}],
+  "text.config.hungrycows.category.mushroomCowMilkSettings": [{"translate": "item.hungrycows.milk_bucket.mooshroom"}],
+    "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": [{"translate": "hungrycows.nutritionValue"}],
+    "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": [{"translate": "hungrycows.nutritionValue.tooltip"}],
+    "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": [{"translate": "hungrycows.saturationModifier"}],
+    "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier.tooltip": [{"translate": "hungrycows.saturationModifier.tooltip"}],
+  "text.config.hungrycows.category.goatMilkSettings": [{"translate": "item.hungrycows.milk_bucket.goat"}],
+    "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue": [{"translate": "hungrycows.nutritionValue"}],
+    "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": [{"translate": "hungrycows.nutritionValue.tooltip"}],
+    "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": [{"translate": "hungrycows.saturationModifier"}],
+    "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": [{"translate": "hungrycows.saturationModifier.tooltip"}],
+  "config.jade.plugin_hungrycows.edible_block": "Block Edibility",
+  "config.jade.plugin_hungrycows.edible_block_desc": ["Displaying if a Block is edible for ", {"translate": "hungrycows.Cows"}, "/", {"translate": "hungrycows.Mooshrooms"}, "/", {"translate": "hungrycows.Goats"}, "/", {"translate": "hungrycows.Sheep"}, "."],
+  "config.jade.plugin_hungrycows.milkable": ["Entity", {"translate": "hungrycows.Milkability"}],
+  "config.jade.plugin_hungrycows.milkable_desc": ["Displaying if a ",{"translate": "hungrycows.cow_slash_mooshroom"},"/",{"translate": "entity.minecraft.goat"}," can be milked."],
+  "config.jade.plugin_hungrycows.feedable": ["Entity ", {"translate": "hungrycows.Feedability"}],
+  "config.jade.plugin_hungrycows.feedable_desc": ["Displaying if a ",{"translate": "hungrycows.cow_slash_mooshroom"},"/",{"translate": "entity.minecraft.goat"},"/",{"translate": "entity.minecraft.sheep"}," can be fed so they can be milked/sheared again."],
+  "config.jade.plugin_hungrycows.suspiciously_milkable": [{"translate": "entity.minecraft.mooshroom", "color": "#9e7557"}," (",{"translate": "color.minecraft.brown", "color": "#9e7557"},") "," Flower"],
+  "config.jade.plugin_hungrycows.suspiciously_milkable_desc": ["Displaying if a ",{"translate": "entity.minecraft.mooshroom", "color": "#9e7557"}," (",{"translate": "color.minecraft.brown", "color": "#9e7557"},") has eaten a flower and which that makes them give", {"translate": "item.minecraft.suspicious_stew"}, " when milked with a bowl."],
   "hungrycows.edible_block.prefix": "Eaten by: ",
-  "hungrycows.milkable.prefix": "Status: ",
-  "hungrycows.milkable.true": "§fMilkable§r",
+  "hungrycows.milkable.prefix": [{"translate": "mco.configure.world.status"},": "],
+  "hungrycows.milkable.true": [{"translate": "hungrycows.Milkable"}],
   "hungrycows.milkable.false": "Hungry",
   "hungrycows.feedable.false": "Can be fed again in %s.",
-  "hungrycows.feedable.true": "Can be fed to restore §fMilkability§r.",
-  "hungrycows.feedable.true.sheep": "Can be fed to regrow §fWool§r.",
+  "hungrycows.feedable.true": ["Can be fed to restore ",{"translate": "hungrycows.Milkability", "color": "white"},"."],
+  "hungrycows.feedable.true.sheep": ["Can be fed to regrow §f", {"translate": "hungrycows.Wool"}, "§r."],
   "hungrycows.feedable.true.item.1": "Can be fed with this ",
-  "hungrycows.feedable.true.item.2": " to restore §fMilkability§r.",
-  "hungrycows.feedable.true.item.2.sheep": "to regrow §fWool§r.",
+  "hungrycows.feedable.true.item.2": [" to restore ",{"translate": "hungrycows.Milkability", "color": "white"},"."],
+  "hungrycows.feedable.true.item.2.sheep": ["to regrow §f", {"translate": "hungrycows.Wool"}, "§r."],
   "hungrycows.suspiciously_milkable.flower": "Flower:",
-  "item.hungrycows.milk_bucket.cow": "§lCow§r Milk Bucket",
-  "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§r Milk Bucket",
-  "item.hungrycows.milk_bucket.goat": "§lGoat§r Milk Bucket",
 
   "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
   "resourcepack.hungrycows.hungryandfreshcows.description": "§7For compatibility: Apply above §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
 
-  "modmenu.summaryTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.",
-  "modmenu.descriptionTranslation.hungrycows": "Making §4Cows§r/§cMooshrooms§r eat §2Grass§r/§7Mycelium§r to regenerate their §fMilkability§r and making §fMilk§r function as food.\n Also adding several other related features like:\n - Feeding §4Cows§r/§cMooshrooms§r or even §fGoats§r to restore their §fMilkability§r\n - Feeding §lSheep§r to restore their §fShearability§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!",
+  "modmenu.summaryTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," now eat ",{"translate": "hungrycows.grass_slash_mycelium_bold"}," to regenerate their ", {"translate": "hungrycows.Milkability"}, " and ", {"translate": "hungrycows.Milk"}, " is a food."],
+  "modmenu.descriptionTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," now eat ",{"translate": "hungrycows.grass_slash_mycelium_bold"}," to regenerate their ", {"translate": "hungrycows.Milkability"}, " and ", {"translate": "hungrycows.Milk"}, " is a food.\n Also adding several other related features like:\n - Feeding §4", {"translate": "hungrycows.Cows"}, "§r/§c", {"translate": "hungrycows.Mooshrooms"}, "§r or even §f", {"translate": "hungrycows.Goats"}, "§r to restore their ", {"translate": "hungrycows.Milkability"}, "\n - Feeding §l", {"translate": "hungrycows.Sheep"}, "§r to restore their §f", {"translate": "hungrycows.Shearability"}, "§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!"],
 
   "subtitles.entity.cow.eat": "Cow eats",
   "subtitles.entity.sheep.eat": "Sheep eats"
