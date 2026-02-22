@@ -33,7 +33,7 @@ public class HungryCowsConfigHelper {
     public static boolean checkFeedability(ItemStack feedStack, Entity fedEntity) {
         EntityType<?> type = fedEntity.getType();
         if (fedEntity instanceof MushroomCow mooshroom && mooshroom.getVariant() == MushroomCow.MushroomType.BROWN) {
-            return feedStack.is(ItemTags.SMALL_FLOWERS);
+            if (feedStack.is(ItemTags.SMALL_FLOWERS)) return true;
         }
         return checkFeedability(feedStack, type);
     }
