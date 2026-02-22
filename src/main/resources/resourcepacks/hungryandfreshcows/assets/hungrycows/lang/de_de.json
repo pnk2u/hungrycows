@@ -1,20 +1,17 @@
 {
+  "owo:extended_lang": true,
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
-    "Dieses Feature ermöglicht es, melkbare ",
+    "Dieses Feature ermöglicht es, eine ", {"translate": "hungrycows.milkable"}, "e ",
 
-    {"text": "§lKühe", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
-    " von noch §nnicht§r melkbaren ",
+    " von einer §nnicht§r ", {"translate": "hungrycows.milkable"}, "en zu unterscheiden.\nWenn die ",
 
-    {"text": "§lKühen", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"}, " ", {"translate": "hungrycows.milkable"}, " ist:",
 
-    " zu unterscheiden.\nWenn die ",
+    "\n a) erhöht das Modell die Größe und die Detailliertheit des Euters und\n b) ändert die Textur die ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
-
-    " melkbar ist:\n a) erhöht das Modell die Größe und die Detailliertheit des Euters und\n b) ändert die Textur ",
-
-    {"text": "§odie Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "§oFarbe eines melkbaren Euters", "color": "#e58f8f"},
+    {"text": "Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "Farbe eines melkbaren Euters", "color": "#e58f8f"},
 
     ".\n",{"text": "Diese Einstellung betrifft Ziegen nicht, da sie keine sichtbaren Euter haben.\nZum An-/Ausschalten der Modellveränderungen ist ein Neuladen (§o§lF3§r+§o§lT§r) erforderlich.", "color": "#71586A"},"\n",
     {"text": "Das An-/Ausschalten der Texturveränderungen ist sofort sichtbar.\nWenn \"§oFresh Animations§r\" und \"§oHungry & Fresh Cows§r\" aktiv sind, haben \"§nNur Textur anzeigen§r\" und \"§nModell & Textur§r\" den gleichen Effekt.", "color": "#71586A"}
