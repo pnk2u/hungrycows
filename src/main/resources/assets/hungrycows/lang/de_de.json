@@ -1,20 +1,39 @@
 {
-  "text.config.hungrycows.title": [
-    {"text": "§l§nHungry Cows§r (Einstellungen)", "color": "#FF0066"}
+  "owo:extended_lang": true,
+  "hungrycows.Cows": [{"text": "Kühe", "color": "#6F373B"}],
+  "hungrycows.Sheep": "Schafe",
+  "hungrycows.Goats": "Ziegen",
+  "hungrycows.Milk": "§fMilch§r",
+  "hungrycows.Milkability": "§fMelkbarkeit§r",
+  "hungrycows.Milkable": "§fMelkbar§r",
+  "hungrycows.milkable": "§fmelkbar§r",
+  "hungrycows.Shearability": "Scherbarkeit",
+  "hungrycows.Wool": "Wolle",
+  "hungrycows.Feedability": "Fütterbarkeit",
+  "hungrycows.grass_slash_mycelium_bold": ["§2",
+    {"translate": "block.minecraft.grass", "color": "#43663A", "bold": true},
+    {"text": "§r/§7", "color": "white", "bold": false},
+    {"translate": "block.minecraft.mycelium", "color": "#706366", "bold": true},
+    {"text": "§r/§a", "color": "white", "bold": false},
+    {"text": "Pflanzen", "color": "#40D040", "bold": true},"§r"
   ],
-  "text.config.hungrycows.section.CowSettings": [
-    {"text": "Kuh", "color": "#6F373B"},
-    {"text": "/", "color": "#A12345"},
-    {"text": "Mooshroom", "color": "#A8212E"},
-    {"text": " Einstellungen", "color": "#A12345"}
-  ],
+  "hungrycows.nutritionValue": "Nahrung",
+  "hungrycows.nutritionValue.tooltip": ["Menge an Nahrungspunkten, die wiederhergestellt werden, eine volle Hungeranzeige entspricht 20 Nahrungspunkten (10 🍖).\nDie Werte von regulärem Essen gehen von 1 (wie ",{"translate": "item.minecraft.beetroot"}," oder ",{"translate": "item.minecraft.dried_kelp"},") bis 8 (wie ",{"translate": "item.minecraft.cooked_porkchop"}," oder ",{"translate": "item.minecraft.pumpkin_pie"},")."],
+  "hungrycows.saturationModifier": "Sättigung",
+  "hungrycows.saturationModifier.tooltip": ["Diese Einstellung bezieht sich auf den versteckten Wert der Sättigung, der die Zeit bis zum Verbrauchen der Nahrungspunkte verlängert.\nDie Werte von regulärem Essen gehen von 0.1 (wie ",{"translate": "tag.item.c.foods.raw_fish"},", ",{"translate": "tag.item.c.foods.cookies"}," oder ",{"translate": "tag.item.c.foods.berries"},") bis 1.2 (wie z.B. die ",{"translate": "item.minecraft.golden_carrot"},")."],
+  "hungrycows.feedable_item_ids_1": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von ",
+  "hungrycows.feedable_item_ids_2": " verwendet werden, um ihre ",
+  "hungrycows.feedable_item_ids_3": " oder ein Herz (1 §4❤§r) wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag ",
+  "hungrycows.feedable_item_ids_4": " hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag ",
+  "hungrycows.feedable_item_ids_5": " (beinhaltet:",
+  "hungrycows.milk_feature_notice": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
   "text.config.hungrycows.section.MilkSettings": [
     {"text": "Milcheinstellungen", "color": "#FFFFFF"}
   ],
   "text.config.hungrycows.category.blockEatSettings": [
     "Grasen (",
 
-    {"text": "§lGrasblock", "color": "#43663A"}, "/", {"text": "§lMyzel", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
     ")"
   ],
@@ -22,15 +41,15 @@
   "text.config.hungrycows.option.blockEatSettings.grassEatProbability.tooltip": [
     "Die Wahrscheinlichkeit, dass eine ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " einen ",
 
-    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
     ") frisst, um ihre milchgebenden Fähigkeiten zu regenerieren.\nWerte von 0 (sehr unwahrscheinlich) bis 3 (Höchstwert) sind einsetzbar.\nDer voreingestellte Wert ist 1.0, was dafür sorgt, dass eine ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
     " circa ein bis zweimal pro Tag grast."
   ],
@@ -38,65 +57,58 @@
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatGrowthAmount.tooltip": [
     "Die Anzahl der Sekunden, die ein ",
 
-    {"text": "§lKuh-", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
-    "jungtier schneller aufwächst, wenn es einen ",
+    "jungtier schneller aufwächst, wenn es ",
 
-    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
-    ") frisst.\nDer voreingestellte Wert sind 60 Sekunden oder 5% der Gesamtdauer (20 Minuten), die das Aufwachsen benötigt. Schafe im Hauptspiel benutzen den gleichen Wert (60s)."
+    " frisst.\nDer voreingestellte Wert sind 60 Sekunden oder 5% der Gesamtdauer (20 Minuten), die das Aufwachsen benötigt.\nSchafe im Hauptspiel benutzen den gleichen Wert (60s)."
   ],
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount": "Heilung durch Grasen",
   "text.config.hungrycows.option.blockEatSettings.cowBlockEatHealAmount.tooltip": [
     "Die Menge an Gesundheitspunkten, die eine ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"},
 
-    " wiederherstellt, wenn sie einen ",
+    " wiederherstellt, wenn sie ",
 
-    {"text": "§lGrasblock", "color": "#43663A"}, "(/", {"text": "§lMyzel", "color": "#706366"},
+    {"translate": "hungrycows.grass_slash_mycelium_bold"},
 
-    ") frisst.\nDer voreingestellte Wert ist 1 Gesundheitspunkt (ein halbes Herz), was 10% der gesamten Gesundheitspunkte (10) einer ",
+    " frisst.\nDer voreingestellte Wert ist 1 Gesundheitspunkt (½ §4❤§r), was 10% der gesamten Gesundheitspunkte (10) einer ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"}, " sind."
+    {"translate": "hungrycows.cow_slash_mooshroom_bold"}, " sind."
   ],
-  "text.config.hungrycows.category.milkabilitySettings": "Melkbarkeit",
   "text.config.hungrycows.category.milkabilitySettings.tooltip": [
     "Diese Einstellungen betreffen ",
 
-    {"text": "§lKühe", "color": "#6F373B"}, ", ", {"text": "§lMooshrooms", "color": "#A8212E"},
-
-    " and §lZiegen§r.\nAuch das Benutzen einer Schüssel auf einen ",{"text": "§lMooshroom", "color": "#A8212E"},", um Pilzsuppe zu erhalten, zählt als \"§oMelken§r\".\nVoreingestellt ist, dass Schafe auch diese Einstellungen nutzen, siehe §l§Schafeinstellungen§r."
+    {"translate": "hungrycows.Cows", "bold": true}, ", ", {"translate": "hungrycows.Mooshrooms", "bold": true}, " and ", {"translate": "hungrycows.Goats", "bold": true},
+    ".\nAuch das Benutzen einer Schüssel auf einen ",
+    {"translate": "entity.minecraft.mooshroom", "color": "#A8212E", "bold": true},", um ",
+    {"translate": "item.minecraft.mushroom_stew"}, " zu erhalten, zählt als \"§oMelken§r\".\nVoreingestellt ist, dass",
+    {"translate": "hungrycows.Sheep"}, "§r (", {"translate": "hungrycows.Wool"}, ") auch diese Einstellungen nutzen, siehe §l§Schafeinstellungen§r."
   ],
   "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain": "Pause nach Fütterung",
-  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": "Die Anzahl an Sekunden, die du warten musst, bis ein Tier wieder fütterbar wird.\nDas bezieht sich speziell auf das Füttern, um die §oMelkbarkeit§r/§oScherbarkeit§r wiederherzustellen.",
-  "text.config.hungrycows.category.milkabilitySettings.feedSettings": "Fütterbare Items",
-  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": "Diese Einstellungen lassen dich auswählen, welche Items je Tier zum Anlocken und Füttern verwendet werden können.\nDas bezieht sich speziell auf das Füttern, um die §oMelkbarkeit§r/§oScherbarkeit§r oder 2 Gesundheitspunkte wiederherzustellen.",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": "§lKuh§rfutter (-> Milch)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lKühen§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:cow_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:cow_food§r\" (beinhaltet: Weizen).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": "§lMooshroom§rfutter (-> Milch/Pilzsuppe)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lMooshrooms§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:mooshroom_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:cow_food§r\" (beinhaltet: Weizen).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": "§lZiege§rnfutter (-> Milch)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §Ziegen§r verwendet werden, um ihre §oMelkbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:goat_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:goat_food§r\" (beinhaltet: Weizen).",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": "§lSchaf§rfutter (-> Wolle)",
-  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems.tooltip": "Alle Items deren IDs in dieser Liste sind, können zum Anlocken und Füttern von §lSchafen§r verwendet werden, um ihre §oScherbarkeit§r oder ein Herz wiederherzustellen.\nNeben dieser Liste können Item-IDs auch dem Item-Tag \"§o#hungrycows:sheep_feedable§r\" hinzugefügt werden, von Datapacks oder anderen Mods.\nDer einzige Eintrag in diesem Item-Tag ist der dem Hauptspiel entnommene Tag \"§o#minecraft:sheep_food§r\" (beinhaltet: Weizen).",
-  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": "Melkbarkeits-Modell/Textur anzeigen",
+  "text.config.hungrycows.option.milkabilitySettings.secondsUntilFeedabilityRegain.tooltip": ["Die Anzahl an Sekunden, die du warten musst, bis ein Tier wieder fütterbar wird.\nDas bezieht sich speziell auf das Füttern, um die ", {"translate": "hungrycows.Milkability_italic"}, "/", {"translate": "hungrycows.Shearability_italic"}, "wiederherzustellen."],
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings": ["Fütterbare Items"],
+  "text.config.hungrycows.category.milkabilitySettings.feedSettings.tooltip": ["Diese Einstellungen lassen dich auswählen, welche Items je Tier zum Anlocken und Füttern verwendet werden können.\nDas bezieht sich speziell auf das Füttern, um die ", {"translate": "hungrycows.Milkability_italic"}, "/", {"translate": "hungrycows.Shearability_italic"}, " oder 2 Gesundheitspunkte (1 §4❤§r) wiederherzustellen."],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.cowFeedableItems": ["§lKuh§rfutter (-> Milch)"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.mushroomCowFeedableItems": ["§lMooshroom§rfutter (-> Milch/Pilzsuppe)"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.goatFeedableItems": ["§lZiege§rnfutter (-> Milch)"],
+  "text.config.hungrycows.option.milkabilitySettings.feedSettings.sheepFeedableItems": ["§lSchaf§rfutter (-> Wolle)"],
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType": [{"translate": "hungrycows.Milkability"},"s-Modell/Textur anzeigen"],
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
-    "Dieses Feature ermöglicht es, melkbare ",
+    "Dieses Feature ermöglicht es, eine ", {"translate": "hungrycows.milkable"}, "e ",
 
-    {"text": "§lKühe", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
-    " von noch §nnicht§r melkbaren ",
+    " von einer §nnicht§r ", {"translate": "hungrycows.milkable"}, "en zu unterscheiden.\nWenn die ",
 
-    {"text": "§lKühen", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"}, " ", {"translate": "hungrycows.milkable"}, " ist:",
 
-    " zu unterscheiden.\nWenn die ",
+    "\n a) erhöht das Modell die Größe und die Detailliertheit des Euters und\n b) ändert die Textur die ",
 
-    {"text": "§lKuh", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
-
-    " melkbar ist:\n a) erhöht das Modell die Größe und die Detailliertheit des Euters und\n b) ändert die Textur ",
-
-    {"text": "§odie Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "§oFarbe eines melkbaren Euters", "color": "#e58f8f"},
+    {"text": "Farbe des Euters", "color": "#f7afaf"}, " zu dieser ", {"text": "Farbe eines melkbaren Euters", "color": "#e58f8f"},
 
     ".\n",{"text": "Diese Einstellung betrifft Ziegen nicht, da sie keine sichtbaren Euter haben.\nZum An-/Ausschalten der Modellveränderungen ist ein Neuladen (§o§lF3§r+§o§lT§r) erforderlich.", "color": "#71586A"},"\n",
     {"text": "Das An-/Ausschalten der Texturveränderungen ist sofort sichtbar.", "color": "#71586A"}
@@ -104,84 +116,65 @@
   "text.config.hungrycows.enum.mCDO.hide_none": "Modell & Textur",
   "text.config.hungrycows.enum.mCDO.hide_model": "Nur Textur anzeigen",
   "text.config.hungrycows.enum.mCDO.hide_texture_and_model": "Nichts anzeigen",
-  "text.config.hungrycows.category.sheepSettings": "Schafeinstellungen",
-  "text.config.hungrycows.category.sheepSettings.tooltip": ["Diese Einstellungen dienen der Einheitlichkeit, da sie sich auf Features beziehen, die nicht von Schafen adaptiert wurden.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, nutzen Schafe das jeweilige Feature mit den gleichen Werten entsprechend der Einstellungen für Kühe weiter oben."],
-  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": "Heilung durch Grasen (Schaf)",
-  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep regain the same amount of health as Cows by eating a block of Grass.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. sie stellen keine Gesundheitspunkte wieder her."],
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": "Heilung durch Fütterung (Schaf)",
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep regain the same amount of health (2) as Cows by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. sie stellen keine Gesundheitspunkte wieder her."],
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": "Nachwachsen der Wolle durch Fütterung (Schaf)",
-  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" Sheep can also regrow their wool by being fed an item specified in the \"Feedable Items\" list for Sheep above.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, nehmen Schafe wieder ihr übliches Verhalten an, d.h. ihre Wolle wächst nicht vom Gefüttertwerden nach."],
-  "text.config.hungrycows.category.cowMilkSettings": "§m§lKuh§r§mmilch",
-  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue": "§mNahrung",
-  "text.config.hungrycows.option.cowMilkSettings.milkNutritionValue.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier": "§mSättigung",
-  "text.config.hungrycows.option.cowMilkSettings.milkSaturationModifier.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "text.config.hungrycows.category.mushroomCowMilkSettings": "§m§lMooshroom§r§mmilch",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue": "§mNahrung",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkNutritionValue.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier": "§mSättigung",
-  "text.config.hungrycows.option.mushroomCowMilkSettings.milkSaturationModifier.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "text.config.hungrycows.category.goatMilkSettings": "§m§lZiege§r§mnmilch",
-  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue": "§mNahrung",
-  "text.config.hungrycows.option.goatMilkSettings.milkNutritionValue.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier": "§mSättigung",
-  "text.config.hungrycows.option.goatMilkSettings.milkSaturationModifier.tooltip": "Leider ist dieses Feature in der \"1.20.1\"-Version dieser Mod nicht verfügbar.\nUm es zu nutzen, empfehle ich dir, §lSerilum§r's §oNutritious Milk§r herunterzuladen.",
-  "config.jade.plugin_hungrycows.edible_block": "Fressbare Blöcke anzeigen",
-  "config.jade.plugin_hungrycows.edible_block_desc": "Zeigt an, ob ein Block von Kühen/Mooshrooms/Ziegen/Schafen gefressen werden kann.",
-  "config.jade.plugin_hungrycows.milkable": "Melkbarkeit anzeigen",
-  "config.jade.plugin_hungrycows.milkable_desc": "Zeigt an, ob eine Kuh/Mooshroom/Ziege gemolken werden kann.",
-  "config.jade.plugin_hungrycows.feedable": "Fütterbarkeit anzeigen",
-  "config.jade.plugin_hungrycows.feedable_desc": "Zeigt an, ob eine Kuh/Mooshroom/Ziege/Schaf gefüttert werden kann, um ihre Melkbarkeit/Scherbarkeit wiederherzustellen.",
-  "config.jade.plugin_hungrycows.suspiciously_milkable": "Gefressene Blume Brauner Mooshrooms anzeigen",
-  "config.jade.plugin_hungrycows.suspiciously_milkable_desc": "Zeigt an, ob und welche Blume ein Brauner Mooshroom gefressen hat.",
+  "text.config.hungrycows.category.sheepSettings": ["Schafeinstellungen"],
+  "text.config.hungrycows.category.sheepSettings.tooltip": ["Diese Einstellungen dienen der Einheitlichkeit, da sie sich auf Features beziehen, die nicht von ", {"translate": "hungrycows.Sheep"}, " adaptiert wurden.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, nutzen ", {"translate": "hungrycows.Sheep"}, " das jeweilige Feature mit den gleichen Werten entsprechend der Einstellungen für ", {"translate": "hungrycows.Cows"}, " weiter oben."],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal": ["Heilung durch Grasen (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepBlockEatToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, nehmen", {"translate": "hungrycows.Sheep"}, " durch das Fressen von Grasblöcken die gleiche Menge an Gesundheitspunkten wieder auf wie ", {"translate": "hungrycows.Cows"}, ".\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, stellen ", {"translate": "hungrycows.Sheep"}, " durch das Grasen keine Gesundheitspunkte wieder her."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal": ["Heilung durch Fütterung (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToHeal.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, nehmen", {"translate": "hungrycows.Sheep"}, " durch das Füttern mit einem Item aus der \"Fütterbare Items\"-Liste für ", {"translate": "hungrycows.Sheep"}, " weiter oben die gleiche Menge an Gesundheitspunkten (2) wieder auf wie ", {"translate": "hungrycows.Cows"}, ".\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, stellen ", {"translate": "hungrycows.Sheep"}, " durch das Füttern mit Items keine Gesundheitspunkte wieder her."],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool": ["Nachwachsen der ", {"translate": "hungrycows.Wool"}, " durch Fütterung (", {"translate": "entity.minecraft.sheep"}, ")"],
+  "text.config.hungrycows.option.sheepSettings.isSheepFeedToRegrowWool.tooltip": ["Wenn auf \"", {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"}, " Aktiviert\" gestellt, können ", {"translate": "hungrycows.Sheep"}, " ihre ", {"translate": "hungrycows.Wool"}, " auch durch das Füttern mit einem Item aus der \"Fütterbare Items\"-Liste für ", {"translate": "hungrycows.Sheep"}, " weiter oben nachwachsen lassen.\nWenn auf \"", {"text": "[", "color": "gray"}, {"text": "❌", "color": "#EB1D36"}, {"text": "]", "color": "gray"}, " Deaktiviert\" gestellt, lassen ", {"translate": "hungrycows.Sheep"}, " ihre ", {"translate": "hungrycows.Wool"}, " nicht mehr durch das Füttern mit Items nachwachsen."],
+  "item.hungrycows.milk_bucket.cow": ["§lKuh§rmilcheimer"],
+  "item.hungrycows.milk_bucket.mooshroom": ["§lMooshroom§rmilcheimer"],
+  "item.hungrycows.milk_bucket.goat": ["§lZiege§rnmilcheimer"],
+  "config.jade.plugin_hungrycows.edible_block": "Block-Fressbarkeit",
+  "config.jade.plugin_hungrycows.edible_block_desc": ["Zeigt an, ob ein Block von ",{"translate": "hungrycows.Cows"}, "n/", {"translate": "hungrycows.Mooshrooms"}, "/", {"translate": "hungrycows.Goats"}, "/", {"translate": "hungrycows.Sheep"},"n gefressen werden kann."],
+  "config.jade.plugin_hungrycows.milkable_desc": ["Zeigt an, ob eine ",{"translate": "hungrycows.cow_slash_mooshroom"}, "/", {"translate": "entity.minecraft.goat"}," gemolken werden kann."],
+  "config.jade.plugin_hungrycows.feedable_desc": ["Zeigt an, ob eine ",{"translate": "hungrycows.cow_slash_mooshroom"}, "/", {"translate": "entity.minecraft.goat"}," oder ein ",{"translate": "entity.minecraft.sheep"}," gefüttert werden kann, um ihre ", {"translate": "hungrycows.Milkability"}, "/", {"translate": "hungrycows.Shearability"}, " wiederherzustellen."],
+  "config.jade.plugin_hungrycows.suspiciously_milkable": ["Brauner ",{"translate": "entity.minecraft.mooshroom", "color": "#9e7557"},": Blume"],
+  "config.jade.plugin_hungrycows.suspiciously_milkable_desc": ["Zeigt an, ob und welche Blume ein Brauner Mooshroom gefressen hat."],
   "hungrycows.edible_block.prefix": "Fressbar für: ",
-  "hungrycows.milkable.prefix": "Status: ",
-  "hungrycows.milkable.true": "§fMelkbar§r",
   "hungrycows.milkable.false": "Hungrig",
   "hungrycows.feedable.false": "Kann in %s wieder gefüttert werden.",
-  "hungrycows.feedable.true": "Kann gefüttert werden, um erneut §fmelken§r zu können.",
-  "hungrycows.feedable.true.sheep": "Kann gefüttert werden, um seine §fWolle§r nachwachsen zu lassen.",
+  "hungrycows.feedable.true": ["Kann gefüttert werden, um erneut §fmelken§r zu können."],
+  "hungrycows.feedable.true.sheep": ["Kann gefüttert werden, um seine §f", {"translate": "hungrycows.Wool"}, "§r nachwachsen zu lassen."],
   "hungrycows.feedable.true.item.1": "Kann mit ",
-  "hungrycows.feedable.true.item.2": " gefüttert werden, um erneut §fmelken§r zu können.",
-  "hungrycows.feedable.true.item.2.sheep": " gefüttert werden, um seine §fWolle§r nachwachsen zu lassen.",
+  "hungrycows.feedable.true.item.2": [" gefüttert werden, um erneut §fmelken§r zu können."],
+  "hungrycows.feedable.true.item.2.sheep": [" gefüttert werden, um seine §f", {"translate": "hungrycows.Wool"}, "§r nachwachsen zu lassen."],
   "hungrycows.suspiciously_milkable.flower": "Blume:",
-  "item.hungrycows.milk_bucket.cow": "§lKuh§rmilcheimer",
-  "item.hungrycows.milk_bucket.mooshroom": "§lMooshroom§rmilcheimer",
-  "item.hungrycows.milk_bucket.goat": "§lZiege§rnmilcheimer",
 
   "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
   "resourcepack.hungrycows.hungryandfreshcows.description": "§7Für Kompatibilität: Setze über §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
 
-  "modmenu.summaryTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.",
-  "modmenu.descriptionTranslation.hungrycows": "Lässt §4Kühe§r/§cMooshrooms§r §2Gras§r/§7Myzel§r fressen, um ihre §fMelkbarkeit§r zu regenerieren und lässt §fMilch§r Hunger wiederherstellen.\n Außerdem werden mehrere andere verwandte Features hinzugefügt wie:\n - Füttern von §4Kühen§r/§cMooshrooms§r oder sogar §fZiegen§r, um ihre §fMelkbarkeit§r wiederherzustellen\n - Füttern von §lSchafen§r, um ihre §fScherbarkeit§r wiederherzustellen\n - Beim Füttern oder Grasen können diese Tiere auch Gesundheitspunkte wiederherstellen und Babys können schneller erwachsen werden\n - Dispenser können melken wie sie scheren können\n - Anpassbare Einstellungen für all das und mehr!",
+  "modmenu.summaryTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," fressen jetzt ",{"translate": "hungrycows.grass_slash_mycelium_bold"},", um ihre ",{"translate": "hungrycows.Milkability"}," zu regenerieren und ",{"translate": "hungrycows.Milk"}," füllt den Magen."],
+  "modmenu.descriptionTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," fressen jetzt ",{"translate": "hungrycows.grass_slash_mycelium_bold"},", um ihre ",{"translate": "hungrycows.Milkability"}," zu regenerieren und ",{"translate": "hungrycows.Milk"}," füllt den Magen.\n Außerdem werden einige andere passende Features hinzugefügt wie:\n - Füttern von §4Kühen§r/§cMooshrooms§r oder sogar §fZiegen§r, um ihre §fMelkbarkeit§r wiederherzustellen\n - Füttern von §lSchafen§r, um ihre §fScherbarkeit§r wiederherzustellen\n - Beim Füttern oder Grasen können diese Tiere auch Gesundheitspunkte wiederherstellen und Babys können schneller erwachsen werden\n - Dispenser können melken wie sie scheren können\n - Anpassbare Einstellungen für all das und mehr!"],
 
   "subtitles.entity.cow.eat": "Kuh frisst",
   "subtitles.entity.sheep.eat": "Schaf frisst",
 
   "": ["Below is a German localization of owo-lib's Config GUI. It is meant to be removed as soon it's been added to owo-lib itself (PR #351)."],
 
-  "text.owo.itemGroup.select_hint": {"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"},
-  "text.owo.configure_hot_reload.title": "Hot-Reload konfigurieren",
-  "text.owo.configure_hot_reload.choose_file": "Datei auswählen",
-  "text.owo.configure_hot_reload.save": "Speichern",
+  "text.owo.itemGroup.select_hint": [{"text": "Umschalt + Linksklick, um mehrere auszuwählen", "color": "gray"}],
+  "text.owo.configure_hot_reload.title": ["Hot-Reload konfigurieren"],
+  "text.owo.configure_hot_reload.choose_file": ["Datei auswählen"],
+  "text.owo.configure_hot_reload.save": ["Speichern"],
   "text.owo.configure_hot_reload.model": [
     {"text": "Modell: ", "color": "yellow"},
     {"index": 0, "color": "gray"}
   ],
-  "text.owo.configure_hot_reload.reload_from.unset": "Aufheben",
+  "text.owo.configure_hot_reload.reload_from.unset": ["Aufheben"],
   "text.owo.configure_hot_reload.reload_from": [
     {"text": "Neuladen aus: ", "color": "yellow"},
     {"index": 0, "color": "gray"}
   ],
-  "text.owo.config.search": "Suche...",
-  "text.owo.config.search.matches": "%d von %d",
-  "text.owo.config.search.no_matches": "Keine Treffer",
-  "text.owo.config.must_restart": "Einige der vorgenommenen Veränderungen erfordern einen Neustart",
-  "text.owo.config.button.exit_minecraft": "Minecraft schließen",
-  "text.owo.config.button.ignore_restart": "Später neustarten",
-  "text.owo.config.button.range.edit_as_text": "Mit Textfeld einstellen",
-  "text.owo.config.button.range.edit_with_slider": "Mit Slider einstellen",
+  "text.owo.config.search": ["Suche..."],
+  "text.owo.config.search.matches": ["%d von %d"],
+  "text.owo.config.search.no_matches": ["Keine Treffer"],
+  "text.owo.config.must_restart": ["Einige der vorgenommenen Veränderungen erfordern einen Neustart"],
+  "text.owo.config.button.exit_minecraft": ["Minecraft schließen"],
+  "text.owo.config.button.ignore_restart": ["Später neustarten"],
+  "text.owo.config.button.range.edit_as_text": ["Mit Textfeld einstellen"],
+  "text.owo.config.button.range.edit_with_slider": ["Mit Slider einstellen"],
   "text.owo.config.applies_after_restart": [
     {"text": "⏻ ", "color": "#FAEA48"},
     {"text": "Diese Einstellung erfordert einen Neustart, um aktiv zu werden", "color": "gray"}
@@ -190,11 +183,11 @@
     {"text": "⚑ ", "color": "#EB1D36"},
     {"text": "Diese Einstellung wird vom Server verwaltet\n   Trenne die Verbindung, um sie einzustellen", "color": "gray"}
   ],
-  "text.owo.config.button.reload": "Neuladen",
-  "text.owo.config.button.done": "Fertig",
-  "text.owo.config.sections_tooltip": "Bereiche",
-  "text.owo.config.sections": {"text": "Bereiche", "underlined": true},
-  "text.owo.config.list.add_entry": "Eintrag hinzufügen",
+  "text.owo.config.button.reload": ["Neuladen"],
+  "text.owo.config.button.done": ["Fertig"],
+  "text.owo.config.sections_tooltip": ["Bereiche"],
+  "text.owo.config.sections": [{"text": "Bereiche", "underlined": true}],
+  "text.owo.config.list.add_entry": ["Eintrag hinzufügen"],
   "text.owo.config.boolean_toggle.enabled": [
     "",
     {"text": "[", "color": "gray"}, {"text": "✔", "color": "#28FFBF"}, {"text": "]", "color": "gray"},
