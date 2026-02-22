@@ -1,16 +1,17 @@
 {
+  "owo:extended_lang": true,
   "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
-    "This feature allows you to visually distinguish milkable ",
+    "This feature allows you to visually distinguish ", {"translate": "hungrycows.milkable"}, " ",
 
-    {"text": "§lCows", "color": "#6F373B"}, "/", {"text": "§lMooshrooms", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
     " from those that can't be milked yet.\nWhen the ",
 
-    {"text": "§lCow", "color": "#6F373B"}, "/", {"text": "§lMooshroom", "color": "#A8212E"},
+    {"translate": "hungrycows.cow_slash_mooshroom"},
 
-    " is milkable:\n a) the model increases the size and details of the udder and\n b) the texture changes the ",
+    " is ", {"translate": "hungrycows.milkable"}, ":\n a) the model increases the size and details of the udder and\n b) the texture changes the ",
 
-    {"text": "§ocolor of an udder", "color": "#f7afaf"}, " to this ", {"text": "§ocolor of a milkable udder", "color": "#e58f8f"},
+    {"text": "color of an udder", "color": "#f7afaf", "italic": true}, " to this ", {"text": "color of a ", "color": "#e58f8f", "italic": true}, {"translate": "hungrycows.milkable", "color": "white"},{"text": " udder", "color": "#e58f8f", "italic": true},
 
     ".\n",{"text": "This setting does not apply to goats as they do not have a visible udder.\nEn-/Disabling the model changes requires a reload (§o§lF3§r+§o§lT§r) to take effect.", "color": "#71586A"},"\n",
     {"text": "En-/Disabling the texture changes takes effect immediately.\nWhen using \"§oFresh Animations§r\" and \"§oHungry & Fresh Cows§r\", the options \"§nShow Only Texture§r\" and \"§nModel & Texture§r\" have the same effect.", "color": "#71586A"}
