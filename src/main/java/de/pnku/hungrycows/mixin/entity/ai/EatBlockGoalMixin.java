@@ -4,13 +4,14 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
+import net.minecraft.core.particles.ParticleOptions;
 import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.MushroomCow;
@@ -30,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.lang.reflect.Field;
 import java.util.Optional;
 import java.util.function.Predicate;
 import static de.pnku.hungrycows.block.HungryCowsBlockTags.*;
@@ -104,7 +106,6 @@ public abstract class EatBlockGoalMixin {
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/function/Predicate;test(Ljava/lang/Object;)Z"))
     private boolean wrappedTickAtPredicateTest(Predicate<Object> instance, Object blockState, Operation<Boolean> original) {
         log(this.mob.level, "EATBLOCK_TEST", blockState, this.mob.getType());
-
         if (this.mob instanceof MushroomCow mooshroom && IS_EDIBLE_FLOWER_FOR_BROWN_MOOSHROOMS.test((BlockState) blockState)) {
             log(this.mob.level, "EATBLOCK_ATE_FLOWER");
 
@@ -123,9 +124,26 @@ public abstract class EatBlockGoalMixin {
                     Optional<SuspiciousStewEffects> optional = mooshroom.getEffectsFromItemStack(flowerItem.getDefaultInstance());
                     if (optional.isPresent()) {
                         log(this.mob.level, "EATBLOCK_GOT_EFFECTS");
-
+                        Object spellParticle;
+                        // SpellParticleOption.create() does not exist before 1.21.9, but is required on 1.21.9+
+                        // To maintain compatibility with older versions, check if the class exists before trying to use it,
+                        // if it doesn't, implement old behavior by using ParticleTypes.EFFECT directly.
+                        try {
+                            log(this.mob.level, "Testing if SpellParticleOption class exists to determine which particle to use for applying the stew effects");
+                            Class<?> EffectParticleClass = Class.forName("net.minecraft.core.particles.SpellParticleOption");
+                            spellParticle = SpellParticleOption.create(ParticleTypes.EFFECT, -1, 1.0F);
+                        } catch (ClassNotFoundException classNotFoundException) {
+                            log(this.mob.level, "SpellParticleOption class not found, using ParticleTypes.EFFECT directly");
+                            try {
+                                Field effectParticleField = ParticleTypes.class.getField("EFFECT");
+                                spellParticle = effectParticleField.get(null);
+                            } catch (NoSuchFieldException | IllegalAccessException exception) {
+                                log(this.mob.level, "Failed to get EFFECT particle from ParticleTypes, defaulting to null and skipping particle spawning");
+                                spellParticle = null;
+                            }
+                        }
                         Vec3 bodyPos = relParticlePos(mooshroom.position, mooshroom.getYRot(), "cow_body");
-                        ((ServerLevel) mooshroom.level).sendParticles(ParticleTypes.EFFECT, bodyPos.x, bodyPos.y, bodyPos.z, 5, 0, 0.1F, 0, 0.45F);
+                        ((ServerLevel) mooshroom.level).sendParticles((ParticleOptions) spellParticle, bodyPos.x, bodyPos.y, bodyPos.z, 5, 0, 0.1F, 0, 0.45F);
                         mooshroom.stewEffects = optional.get();
                         ((IHungryCows) mooshroom).hungrycows$setSuspiciousFlowerStack(flowerItem.getDefaultInstance());
                     } else log(this.mob.level, "EATBLOCK_NO_EFFECTS");
