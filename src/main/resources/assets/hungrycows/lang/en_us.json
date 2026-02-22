@@ -194,10 +194,11 @@
   "hungrycows.milkable.false": "Hungry",
   "hungrycows.feedable.false": "Can be fed again in %s.",
   "hungrycows.feedable.true": ["Can be fed to restore ",{"translate": "hungrycows.Milkability", "color": "white"},"."],
-  "hungrycows.feedable.true.sheep": ["Can be fed to regrow §f", {"translate": "hungrycows.Wool"}, "§r."],
+  "hungrycows.feedable.true.sheep": ["Can be fed to regrow §f", {"translate": "hungrycows.Wool", "color": "white"}, "§r."],
   "hungrycows.feedable.true.item.1": "Can be fed with this ",
+  "hungrycows.feedable.true.item.1.sheep": [{"translate": "hungrycows.feedable.true.item.1"}],
   "hungrycows.feedable.true.item.2": [" to restore ",{"translate": "hungrycows.Milkability", "color": "white"},"."],
-  "hungrycows.feedable.true.item.2.sheep": ["to regrow §f", {"translate": "hungrycows.Wool"}, "§r."],
+  "hungrycows.feedable.true.item.2.sheep": [" to regrow §f", {"translate": "hungrycows.Wool", "color": "white"}, "§r."],
   "hungrycows.suspiciously_milkable.flower": "Flower:",
 
   "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
