@@ -4,7 +4,6 @@ import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.item.HungryCowsItemComponents;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -252,13 +251,14 @@ public abstract class MushroomCowMixin extends AbstractCow implements Shearable,
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void injectedAddAdditionalSaveData(ValueOutput nbt, CallbackInfo ci) {
         nbt.putBoolean("Milked",((IHungryCows) this).hungrycows$isMilked());
-        nbt.put("SuspiciousFlowerStack", this.hungrycows$getSuspiciousFlowerStack().save(this.registryAccess()));
+        ItemStack flowerStack = ((IHungryCows) this).hungrycows$getSuspiciousFlowerStack();
+        if (!flowerStack.isEmpty()) nbt.store("SuspiciousFlowerStack", ItemStack.SIMPLE_ITEM_CODEC, flowerStack);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void injectedReadAdditionalSaveData(ValueInput nbt, CallbackInfo ci) {
         ((IHungryCows) this).hungrycows$setMilked(nbt.getBooleanOr("Milked", false));
-        ItemStack.parse(this.registryAccess(), nbt.getCompoundOrEmpty("SuspiciousFlowerStack")).ifPresent(this::hungrycows$setSuspiciousFlowerStack);
+        nbt.read("SuspiciousFlowerStack", ItemStack.SIMPLE_ITEM_CODEC).ifPresent(this::hungrycows$setSuspiciousFlowerStack);
     }
 
     static {
