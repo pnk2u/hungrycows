@@ -3,6 +3,7 @@ accessWidener v1 named
 accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
 accessible field net/minecraft/world/entity/Entity level Lnet/minecraft/world/level/Level;
 accessible field net/minecraft/world/entity/Entity position Lnet/minecraft/world/phys/Vec3;
+accessible field net/minecraft/world/entity/Entity blockPosition Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/entity/animal/MushroomCow getEffectsFromItemStack (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Optional;
 accessible field net/minecraft/world/entity/animal/MushroomCow stewEffects Lnet/minecraft/world/item/component/SuspiciousStewEffects;
 accessible field net/minecraft/world/entity/animal/Sheep DATA_WOOL_ID Lnet/minecraft/network/syncher/EntityDataAccessor;
