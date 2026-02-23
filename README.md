@@ -88,15 +88,15 @@ Currently available in:
     - _Short Grass_
     > `1.21.5+` or when _Vanilla Backport_'s installed:
     >    - `#hungrycows:edible_for_cold_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
     >    - `#hungrycows:edible_for_temperate_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
     >    - `#hungrycows:edible_for_warm_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
   - `#hungrycows:edible_for_mooshrooms`:
     - _Short Grass_
     - _Fern_
-  - `#minecraft:small_flowers`   
+  - `#minecraft:small_flowers`
     > (For _Brown Mooshrooms_,  
     their _Stew_ becomes _Suspicious_ based on the flower eaten.)
   - `#hungrycows:edible_for_sheep`:
@@ -126,11 +126,11 @@ Currently available in:
   - _Cows_ and _Sheep_ being fed to restore _Milkability_ and health
   - _Mooshrooms_ being milked with a _Bucket_
 
-<h2><sub><sub><sup><ins>Download 2.2.0 + 1.21(.1)</ins>:</sup>&#x200A;
-<a title="Download (Modrinth):&#10;Hungry Cows 2.2.0 + 1.21(.1)" href="https://www.modrinth.com/mod/6aOUwIa8/version/bSRFsy6P">
+<h2><sub><sub><sup><ins>Download 2.2.0 + 1.21.4</ins>:</sup>&#x200A;
+<a title="Download (Modrinth):&#10;Hungry Cows 2.2.0 + 1.21.4" href="https://www.modrinth.com/mod/6aOUwIa8/version/RMpwiCYo">
 <img width=26 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a>
 <sup><img width=7 height=10 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"></sup>
-<a title="Download (Curseforge):&#10;2.2.0 + 1.21(.1) - Hungry Cows" href="https://www.curseforge.com/minecraft/mc-mods/hungrycows/files/7666920">
+<a title="Download (Curseforge):&#10;2.2.0 + 1.21.4 - Hungry Cows" href="https://www.curseforge.com/minecraft/mc-mods/hungrycows/files/7667316">
 <img width=26 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a>
 </sub></sub></h2>
 
