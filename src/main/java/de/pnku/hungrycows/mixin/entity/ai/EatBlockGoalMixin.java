@@ -128,19 +128,14 @@ public abstract class EatBlockGoalMixin {
                         // SpellParticleOption.create() does not exist before 1.21.9, but is required on 1.21.9+
                         // To maintain compatibility with older versions, check if the class exists before trying to use it,
                         // if it doesn't, implement old behavior by using ParticleTypes.EFFECT directly.
+                        // In that case, no further reflection is needed as ParticleTypes.EFFECT's obfuscated name does not change across versions.
                         try {
                             log(this.mob.level, "Testing if SpellParticleOption class exists to determine which particle to use for applying the stew effects");
-                            Class<?> EffectParticleClass = Class.forName("net.minecraft.core.particles.SpellParticleOption");
+                            Class<?> EffectParticleClass = Class.forName("net.minecraft.class_11979");
                             spellParticle = SpellParticleOption.create(ParticleTypes.EFFECT, -1, 1.0F);
                         } catch (ClassNotFoundException classNotFoundException) {
                             log(this.mob.level, "SpellParticleOption class not found, using ParticleTypes.EFFECT directly");
-                            try {
-                                Field effectParticleField = ParticleTypes.class.getField("EFFECT");
-                                spellParticle = effectParticleField.get(null);
-                            } catch (NoSuchFieldException | IllegalAccessException exception) {
-                                log(this.mob.level, "Failed to get EFFECT particle from ParticleTypes, defaulting to null and skipping particle spawning");
-                                spellParticle = null;
-                            }
+                            spellParticle = ParticleTypes.EFFECT;
                         }
                         Vec3 bodyPos = relParticlePos(mooshroom.position, mooshroom.getYRot(), "cow_body");
                         ((ServerLevel) mooshroom.level).sendParticles((ParticleOptions) spellParticle, bodyPos.x, bodyPos.y, bodyPos.z, 5, 0, 0.1F, 0, 0.45F);
