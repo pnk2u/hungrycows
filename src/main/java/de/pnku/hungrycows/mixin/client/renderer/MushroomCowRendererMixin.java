@@ -36,7 +36,7 @@ public abstract class MushroomCowRendererMixin extends AgeableMobRenderer<Mushro
         cir.setReturnValue(new HungryMushroomCowRenderState());
     }
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/animal/MushroomCow;Lnet/minecraft/client/renderer/entity/state/MushroomCowRenderState;F)V", at = @At("HEAD"))
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/animal/cow/MushroomCow;Lnet/minecraft/client/renderer/entity/state/MushroomCowRenderState;F)V", at = @At("HEAD"))
     public void injectedExtractRenderState(MushroomCow mushroomCow, MushroomCowRenderState mushroomCowRenderState, float f, CallbackInfo ci) {
         HungryMushroomCowRenderState hungryMushroomCowRenderState = (HungryMushroomCowRenderState) mushroomCowRenderState;
         super.extractRenderState(mushroomCow, hungryMushroomCowRenderState, f);

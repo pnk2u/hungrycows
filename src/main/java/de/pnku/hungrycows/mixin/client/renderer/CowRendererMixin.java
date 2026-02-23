@@ -32,7 +32,7 @@ public abstract class CowRendererMixin extends MobRenderer<Cow, HungryCowRenderS
         cir.setReturnValue(new HungryCowRenderState());
     }
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/animal/Cow;Lnet/minecraft/client/renderer/entity/state/CowRenderState;F)V", at = @At("HEAD"))
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/animal/cow/Cow;Lnet/minecraft/client/renderer/entity/state/CowRenderState;F)V", at = @At("HEAD"))
     public void injectedExtractRenderState(Cow cow, CowRenderState cowRenderState, float f, CallbackInfo ci) {
         HungryCowRenderState hungryCowRenderState = (HungryCowRenderState) cowRenderState;
         super.extractRenderState(cow, hungryCowRenderState, f);
