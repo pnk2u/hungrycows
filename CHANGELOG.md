@@ -9,15 +9,15 @@
     - _Short Grass_
     > `1.21.5+` or when _Vanilla Backport_'s installed:
     >    - `#hungrycows:edible_for_cold_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
     >    - `#hungrycows:edible_for_temperate_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
     >    - `#hungrycows:edible_for_warm_cows`:  
-<sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
+           <sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
   - `#hungrycows:edible_for_mooshrooms`:
     - _Short Grass_
     - _Fern_
-  - `#minecraft:small_flowers`   
+  - `#minecraft:small_flowers`
     > (For _Brown Mooshrooms_,  
     their _Stew_ becomes _Suspicious_ based on the flower eaten.)
   - `#hungrycows:edible_for_sheep`:
