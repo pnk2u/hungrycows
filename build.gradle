@@ -264,7 +264,7 @@ def minecraft_version_1() {
 
 processResources {
 	// Disregard Patch version from Fabric Loader for dependency
-	var fabric_loader_version_0 = "${fabric_loader_version}".replaceFirst(/\.[^.]*$/, '.0')
+	var fabric_loader_version_0 = version_reduced("${fabric_loader_version}")
 
 	var replaceProperties = [
 			loader_version: fabric_loader_version_0, mod_version: mod_version,
