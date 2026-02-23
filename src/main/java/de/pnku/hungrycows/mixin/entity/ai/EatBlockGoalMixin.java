@@ -4,11 +4,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.sound.HungryCowsSoundEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.particles.ParticleOptions;
 import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import de.pnku.hungrycows.util.IHungryCows;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -31,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.function.Predicate;
 import static de.pnku.hungrycows.block.HungryCowsBlockTags.*;
@@ -130,12 +132,17 @@ public abstract class EatBlockGoalMixin {
                         // if it doesn't, implement old behavior by using ParticleTypes.EFFECT directly.
                         // In that case, no further reflection is needed as ParticleTypes.EFFECT's obfuscated name does not change across versions.
                         try {
-                            log(this.mob.level, "Testing if SpellParticleOption class exists to determine which particle to use for applying the stew effects");
-                            Class<?> EffectParticleClass = Class.forName("net.minecraft.class_11979");
-                            spellParticle = SpellParticleOption.create(ParticleTypes.EFFECT, -1, 1.0F);
+                            log(this.mob.level, "EATBLOCK_TEST_REFLECTION");
+                            boolean isDev = FabricLoader.getInstance().isDevelopmentEnvironment();
+                            Class<?> EffectParticleClass = Class.forName(isDev ? "net.minecraft.core.particles.SpellParticleOption" : "net.minecraft.class_11979");
+                            Method spellParticleCreateMethod = EffectParticleClass.getMethod(isDev ? "create" : "method_74418", ParticleType.class, int.class, float.class);
+                            log(this.mob.level, "EATBLOCK_REFLECTION_SUCCESS");
+                            spellParticle = spellParticleCreateMethod.invoke(null, ParticleTypes.EFFECT, -1, 1.0F);
                         } catch (ClassNotFoundException classNotFoundException) {
-                            log(this.mob.level, "SpellParticleOption class not found, using ParticleTypes.EFFECT directly");
+                            log(this.mob.level, "EATBLOCK_REFLECTION_FAIL");
                             spellParticle = ParticleTypes.EFFECT;
+                        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                            throw new RuntimeException(e);
                         }
                         Vec3 bodyPos = relParticlePos(mooshroom.position, mooshroom.getYRot(), "cow_body");
                         ((ServerLevel) mooshroom.level).sendParticles((ParticleOptions) spellParticle, bodyPos.x, bodyPos.y, bodyPos.z, 5, 0, 0.1F, 0, 0.45F);

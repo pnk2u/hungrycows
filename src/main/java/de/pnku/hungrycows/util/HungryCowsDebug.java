@@ -24,6 +24,9 @@ public final class HungryCowsDebug {
             Map.entry("EATBLOCK_ALREADY_EFFECTS", "The Mooshroom already had stew effects, no new effects will be added"),
             Map.entry("EATBLOCK_TRY_EFFECTS", "The Mooshroom did not have any stew effects, trying to get new effects from the eaten flower: %s"),
             Map.entry("EATBLOCK_GOT_EFFECTS", "The eaten flower had stew effects, adding them to the mooshroom"),
+            Map.entry("EATBLOCK_TEST_REFLECTION", "Testing if SpellParticleOption class exists to determine which particle to use for applying the stew effects"),
+            Map.entry("EATBLOCK_REFLECTION_SUCCESS", "SpellParticleOption class found, using the spell particle for the stew effect application particles"),
+            Map.entry("EATBLOCK_REFLECTION_FAIL", "SpellParticleOption class not found, defaulting to using ParticleTypes.EFFECT directly for the stew effect application particles"),
             Map.entry("EATBLOCK_NO_EFFECTS", "The eaten flower did not have any stew effects, no new effects will be added"),
             Map.entry("EATBLOCK_FINISHED", "Finished processing the eaten flower for the brown mooshroom, the resulting saved flower Stack in the mooshroom is: %s")
     );
