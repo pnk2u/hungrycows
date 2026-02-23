@@ -4,13 +4,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "entity.AbstractCowMixin",
-    "entity.GoatMixin" ,
-    "entity.MushroomCowMixin" ,
-    "entity.SheepMixin" ,
+    "entity.GoatMixin",
+    "entity.MushroomCowMixin",
+    "entity.SheepMixin",
     "entity.ai.EatBlockGoalMixin",
-    "entity.ai.GoatAiMixin" ,
     "recipebook.ServerPlaceRecipeMixin"
-  ] ,
+  ],
   "injectors": {
     "defaultRequire": 1
   }

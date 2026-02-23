@@ -41,6 +41,10 @@
 		{
 			"config": "hungrycows.compat.vanillacowvariants.mixins.json",
 			"environment": "client"
+		},
+		{
+			"config": "hungrycows.goatversioncompat.mixins.json",
+			"environment": "client"
 		}
 	],
 	"depends": {

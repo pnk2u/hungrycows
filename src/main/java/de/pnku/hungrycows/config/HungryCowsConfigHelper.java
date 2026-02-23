@@ -37,6 +37,9 @@ public class HungryCowsConfigHelper {
         }
         return checkFeedability(feedStack, type);
     }
+    public static boolean checkFeedabilityLegacyGoat(ItemStack stack) {
+        return checkFeedability(stack, EntityType.GOAT);
+    }
 
     public static boolean checkFeedability(ItemStack feedStack, EntityType<?> type) {
         List<String> feedableItemList;

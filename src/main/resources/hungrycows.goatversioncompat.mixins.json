@@ -1,0 +1,15 @@
+{
+  "plugin": "de.pnku.hungrycows.mixin.entity.ai.GoatVersionCompatMixinPlugin",
+  "required": false,
+  "package": "de.pnku.hungrycows.mixin.entity.ai",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "LegacyGoatAiMixin",
+    "TemptingSensorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
