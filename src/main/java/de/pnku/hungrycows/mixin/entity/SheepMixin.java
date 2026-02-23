@@ -137,7 +137,7 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
                     Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "sheep_body");
                     ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, 6, 0.25F, 0.3F, 0.25F, 0.2F);
                 }
-                level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
+                this.level.playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
             int healthDiff = (int) thisSheep.getMaxHealth() - (int) thisSheep.getHealth();
             if (healthDiff > 0 && sheepSettings.isSheepFeedToHeal()) {
@@ -147,7 +147,7 @@ public abstract class SheepMixin extends Animal implements Shearable, IHungryCow
                     ((ServerLevel) this.level).sendParticles(ParticleTypes.HAPPY_VILLAGER, bodyPos.x, bodyPos.y, bodyPos.z, healthDiff > 1 ? 2 : 1, 0.3F, 0.3F, 0.3F, 0.2F);
                 }
                 itemStack.consume(1, player);
-                level().playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
+                this.level.playSound(player, this, HungryCowsSoundEvents.SHEEP_EAT, SoundSource.NEUTRAL, 0.95F, 0.85F);
             }
         }
     }
