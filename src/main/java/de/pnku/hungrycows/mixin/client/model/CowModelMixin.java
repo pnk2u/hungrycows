@@ -11,9 +11,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.entity.state.MushroomCowRenderState;
-import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
@@ -42,9 +40,9 @@ public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.anima
         this.head.xRot = (isMoo ? mooState.headAngle : cowState.headAngle);
         float f = livingEntityRenderState.walkAnimationPos;
         float g = livingEntityRenderState.walkAnimationSpeed;
-        this.rightHindLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
-        this.leftHindLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
-        this.rightFrontLeg.xRot = Mth.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g;
-        this.leftFrontLeg.xRot = Mth.cos(f * 0.6662F) * 1.4F * g;
+        this.rightHindLeg.xRot = (float) (Math.cos(f * 0.6662F) * 1.4F * g);
+        this.leftHindLeg.xRot = (float) (Math.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g);
+        this.rightFrontLeg.xRot = (float) (Math.cos(f * 0.6662F + (float)Math.PI) * 1.4F * g);
+        this.leftFrontLeg.xRot = (float) (Math.cos(f * 0.6662F) * 1.4F * g);
     }
 }

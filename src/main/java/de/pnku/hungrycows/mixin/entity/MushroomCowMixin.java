@@ -128,7 +128,7 @@ public abstract class MushroomCowMixin extends AbstractCow implements Shearable,
     public float hungrycows$getHeadAngle(float delta) {
         if (this.eatMyceliumTimer > 4 && this.eatMyceliumTimer <= 36) {
             float f = ((float)(this.eatMyceliumTimer - 4) - delta) / 32.0F;
-            return 0.62831855F + 0.21991149F * Mth.sin(f * 28.7F);
+            return 0.62831855F + 0.21991149F * (float) Math.sin(f * 28.7F);
         } else {
             return this.eatMyceliumTimer > 0 ? 0.62831855F : this.getXRot() * 0.017453292F;
         }

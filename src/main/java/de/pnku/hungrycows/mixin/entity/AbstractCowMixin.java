@@ -134,7 +134,7 @@ public abstract class AbstractCowMixin extends Animal implements Shearable, IHun
     public float hungrycows$getHeadAngle(float delta) {
         if (this.eatGrassTimer > 4 && this.eatGrassTimer <= 36) {
             float f = ((float)(this.eatGrassTimer - 4) - delta) / 32.0F;
-            return 0.62831855F + 0.21991149F * Mth.sin(f * 28.7F);
+            return 0.62831855F + 0.21991149F * (float) Math.sin(f * 28.7F);
         } else {
             return this.eatGrassTimer > 0 ? 0.62831855F : this.getXRot() * 0.017453292F;
         }
