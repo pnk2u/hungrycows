@@ -36,7 +36,7 @@
       <td><strong>Added support</strong></td>
       <td>
         <a href="https://modrinth.com/mod/jade"><sub><img width="16" src="https://raw.githubusercontent.com/snownee/jade/26.1-fabric/src/main/resources/icon.png"></sub><code>Jade</code></a><br>
-        <a href="https://modrinth.com/mod/fresh-animations"><sub><img width="16" height="0" src="./src/main/resources/icon.png"></sub><code>Fresh Animations 1.9.2</code></a><br>
+        <a href="https://modrinth.com/mod/fresh-animations"><sub><img width="16" height="0" src="./src/main/resources/icon.png"></sub><code>Fresh Animations 1.10.3</code></a><br>
       </td>
     </tr>
   </tbody>
@@ -48,12 +48,12 @@
 
 || **Feature**                                                                                                         |  `Cow` |  `Mooshroom` |  `Goat` |    `Sheep`   | ⚙️ _Configurable?_                      |
 |:-:|---------------------------------------------------------------------------------------------------------------------|:------:|:-----------:|:------:|:------------:|:----------------------------------------|                                                                                                            
-|<img width='32' src="https://uwu.catgirl.host/i/22e9z.png">| **Eating Grass Blocks restores _Milkability_<br/><sup>and health</sup>**                                            | ✅ | ✅<br/>(Eats Mycelium) | ❌<br/>(Can only be fed) |   ✅<br/>(Wool)   | ✅ (Probability, Baby Growth, Healing)   |
+|<img width='32' src="https://uwu.catgirl.host/i/22e9z.png">| **Eating Grass and some Plant Blocks restores _Milkability_<br/><sup>and health</sup>**                                            | ✅ | ✅<br/>(Eats Mycelium) | ❌<br/>(Can only be fed) |   ✅<br/>(for Wool)   | ✅ (Probability, Baby Growth, Healing, Plant Blocks via tags)   |
 |<img width='32' src="https://uwu.catgirl.host/i/si2ie.png">| **Milk restores Hunger & Saturation,<br/><sup> + stacks up to 16</sup>**                                            | ✅ | ✅ | ✅ |              | ✅ (Nutritional values per milk type)    |
-|<img width='32' src="https://uwu.catgirl.host/i/cdjvb.png">| **Can be fed to regain _Milkability_<br/><sup> + to restore 1 ❤<br/>(Note: Feeding has a 5 min cooldown.)</sup>** | ✅ | ✅ | ✅ | ✅ (Wool) | ✅ (Feedable items per animal, cooldown) |
-|<img width='32' src="https://uwu.catgirl.host/i/b7fbw.png">| **Dispensers can milk**                                                                                             | ✅ | ✅ (Also with Bowls) | ✅ |              | ❌                                       |
+|<img width='32' src="https://uwu.catgirl.host/i/cdjvb.png">| **Can be fed to regain _Milkability_<br/><sup> + to restore 1 ❤<br/>(Note: Feeding has a 5 min cooldown by default.)</sup>** | ✅ | ✅ | ✅ | ✅<br/>(for Wool) | ✅ (Feedable items per animal, cooldown) |
+|<img width='32' src="https://uwu.catgirl.host/i/b7fbw.png">| **Dispensers can milk**                                                                                             | ✅ | ✅<br/>(+ with Bowls) | ✅ |              | ❌                                       |
 |<img width='32' src="https://uwu.catgirl.host/i/ct6s4.png">| **Show _Milkability_ through Model & Texture**                             | ✅ | ✅ | ❌ |             | ✅                                       |
-|<img width='48' src="https://uwu.catgirl.host/i/gshzk.png">| **Jade shows _Milkability_ and _Feedability_ status**                                                               | ✅ | ✅ | ✅ |      ✅ (Feedability)       | ✅ (Jade not required, toggleable each)  |
+|<img width='48' src="https://uwu.catgirl.host/i/gshzk.png">| **Jade shows _Milkability_ and _Feedability_ status**                                                               | ✅ | ✅ <br/>(+ Flower for Suspicious Stew) | ✅ |      ✅<br/>(Feedability)       | ✅ (Jade not required, toggleable each)  |
 
 <br>  
 

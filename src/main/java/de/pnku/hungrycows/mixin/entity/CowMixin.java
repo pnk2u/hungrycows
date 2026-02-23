@@ -223,7 +223,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
             if ((isMilked && s <= 1)) {
                 hungrycows$setMilked(false);
                 hungrycows$setCowHasBeenFedManuallyTimer(feedabilityRegainTime);
-                level().playSound(player, this, isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*0.8F);
+                this.level.playSound(player, this, isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*0.8F);
                 itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 if (!this.level.isClientSide()) {
                     Vec3 udderPos = relParticlePos(this.position, this.getYRot(), "cow_udder");
@@ -235,7 +235,7 @@ public abstract class CowMixin extends Animal implements Shearable, IHungryCows 
 
             if (this.getHealth() < this.getMaxHealth()) {
                 this.heal(2.0F);
-                level().playSound(player, this.getOnPos(), isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*1.1F);
+                this.level.playSound(player, this.getOnPos(), isMooshroom ? SoundEvents.MOOSHROOM_EAT : HungryCowsSoundEvents.COW_EAT, SoundSource.NEUTRAL,0.95F, eatSoundPitch*1.1F);
                 itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 if (!this.level.isClientSide()) {
                     Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "cow_body");

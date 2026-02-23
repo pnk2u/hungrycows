@@ -1,6 +1,6 @@
 <!--publish=false-->
 ## 2.2.0:
-- `1.21.5`, `1.21.6(-8)`, `1.21.9(-11)`: Update to <ins>1.21.5</ins>~<ins>1.21.11</ins>
+- `1.21.5`, `1.21.6(-11)`: Update to <ins>1.21.5</ins>~<ins>1.21.11</ins>
 #### <ins>Added</ins>:
 - Implement _Mooshrooms_ and _Cows_ eating plant blocks (e.g. _Short Grass_) like _Sheep_.  
   This is controlled by _Block Tags_, that by default contain the following items:
@@ -27,9 +27,9 @@
       <sup>_Short Grass_, _Short Dry Grass_, _Tall Dry Grass_, _Fern_</sup>
 - Add eating logic for _Mooshrooms_ to not eat _Mycelium_ blocks that have a _Mushroom_ on top of them
   > This is to prevent _Mooshrooms_ from removing all _Mushrooms_ in their habitat as eating _Mycelium_ blocks breaks any _Mushrooms_ on top.
-- Add new <ins>Jade</ins> (&#x200A;<sub><a title="Jade&#10;on Modrinth" href="https://modrinth.com/mod/jade/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Jade&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/jade/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) tooltips: 
-  - _Brown Mooshrooms_: Showing the flower they have consumed (relevant for _Suspicious Stew_ effects)
+- Add new <ins>Jade</ins> (&#x200A;<sub><a title="Jade&#10;on Modrinth" href="https://modrinth.com/mod/jade/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Jade&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/jade/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) tooltips:
   - _Blocks_: Showing if they are edible for _Cows_, _Mooshrooms_ and/or _Sheep_
+  - _Brown Mooshrooms_: Showing the flower they have consumed (relevant for _Suspicious Stew_ effects)
 
 - Implement eating sound and subtitles for _Cows_ and _Sheep_ eating _Grass Blocks_
 - Add compatibility with <ins>Vanilla Backport</ins> (&#x200A;<sub><a title="Vanilla Backport&#10;on Modrinth" href="https://modrinth.com/mod/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Vanilla Backport&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;)'s _Cow_ variants

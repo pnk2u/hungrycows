@@ -63,7 +63,7 @@ public abstract class EatBlockGoalMixin {
     private Predicate<BlockState> IS_EDIBLE_BLOCK = blockState -> {
         if (this.mob.getType().is(HUNGRY_GRAZERS)) { return blockState.is(Blocks.GRASS_BLOCK); }
         else if (this.mob.getType().is(HUNGRY_MYCOPHAGES)) {
-            BlockState onTopBlockState = this.mob.level.getBlockState(this.mob.blockPosition());
+            BlockState onTopBlockState = this.mob.level.getBlockState(this.mob.blockPosition);
             return blockState.is(Blocks.MYCELIUM) && !(onTopBlockState.is(Blocks.RED_MUSHROOM) || onTopBlockState.is(Blocks.BROWN_MUSHROOM)); }
         return false;
     };

@@ -132,7 +132,7 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
             if ((isMilked && s <= 1)) {
                 hungrycows$setMilked(false);
                 hungrycows$setGoatHasBeenFedManuallyTimer(feedabilityRegainTime);
-                level().playSound(player, this, goatEatSound, SoundSource.NEUTRAL,0.95F, 1.35F);
+                this.level.playSound(player, this, goatEatSound, SoundSource.NEUTRAL,0.95F, 1.35F);
                 itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 if (!this.level.isClientSide()) {
                     Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "goat_udder");
@@ -144,7 +144,7 @@ public abstract class GoatMixin extends Animal implements Shearable, IHungryCows
             int healthDiff = (int) thisGoat.getMaxHealth() - (int) thisGoat.getHealth();
             if (healthDiff > 0) {
                 this.heal(2.0F);
-                level().playSound(player, this.getOnPos(), goatEatSound, SoundSource.NEUTRAL,0.95F, 1.44F);
+                this.level.playSound(player, this.getOnPos(), goatEatSound, SoundSource.NEUTRAL,0.95F, 1.44F);
                 itemStack.shrink(player.getAbilities().instabuild ? 0 : 1);
                 if (!this.level.isClientSide()) {
                     Vec3 bodyPos = relParticlePos(this.position, this.getYRot(), "goat_body");
