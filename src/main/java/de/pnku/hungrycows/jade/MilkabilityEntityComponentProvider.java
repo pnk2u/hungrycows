@@ -34,13 +34,12 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
         if (MILKABLE_ENTITIES.contains(type)) {
             if (!((Animal) entity).isBaby()) {
                 boolean isMilkable = ((IHungryCows) entity).hungrycows$isMilkable();
-                Element emptyBucketIcon = JadeUI.item(new ItemStack(Items.BUCKET), 0.5f).size(8, 8).offset(-6, -2);
+                Element emptyBucketIcon = JadeUI.item(new ItemStack(Items.BUCKET), 0.5f).size(8, 8).offset(-6, -1);
                 Element filledBucketIcon = JadeUI.item(new ItemStack(Items.MILK_BUCKET), 0.5f).size(9, 8).offset(-1, -2);
                 Element heartBucketIcon = JadeUI.sprite(HungryCows.withModId("heart_milk"), 8, 8).offset(-1, -1);
                 Element mushroomStewIcon = JadeUI.item(new ItemStack(Items.MUSHROOM_STEW), 0.5f).size(9, 8).offset(-1, -2);
                 Element suspiciousStewIcon = JadeUI.item(new ItemStack(Items.SUSPICIOUS_STEW), 0.5f).size(9, 8).offset(-1, -2);
                 Element grassIcon = JadeUI.item(new ItemStack(Items.SHORT_GRASS), 0.5f).size(4, 8).offset(1, -2);
-                tooltip.add(isMilkable ? heartBucketIcon : grassIcon);
                 tooltip.add(Component.translatable("hungrycows.milkable.prefix"));
                 tooltip.append(isMilkable ? heartBucketIcon : grassIcon);
                 if (!isMilkable) {tooltip.append(emptyBucketIcon);}

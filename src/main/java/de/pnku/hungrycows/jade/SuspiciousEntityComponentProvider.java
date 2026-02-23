@@ -29,7 +29,7 @@ public enum SuspiciousEntityComponentProvider implements IEntityComponentProvide
             if (!(mooshroom.isBaby())) {
                 ItemStack suspiciousFlowerStack = ((IHungryCows) mooshroom).hungrycows$getSuspiciousFlowerStack();
                 if (suspiciousFlowerStack != null && !suspiciousFlowerStack.isEmpty()) {
-                    Element flowerIcon = JadeUI.item(suspiciousFlowerStack, 0.5f).size(11, 8).offset(1, -2);
+                    Element flowerIcon = JadeUI.item(suspiciousFlowerStack, 0.5f).size(11, 8).offset(1, -3);
                     tooltip.add(Component.translatable("hungrycows.suspiciously_milkable.flower"));
                     tooltip.append(flowerIcon);
                     tooltip.append(Component.translatable(suspiciousFlowerStack.getItem().getDescriptionId()));
