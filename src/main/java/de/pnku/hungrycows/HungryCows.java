@@ -7,7 +7,7 @@ import de.pnku.hungrycows.util.HungryCowsCompatibilityHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -35,8 +35,8 @@ public class HungryCows implements ModInitializer {
 		HungryCowsSoundEvents.registerSoundEvents();
 	}
 
-	public static ResourceLocation withModId(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static Identifier withModId(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	public static Logger getLogger() {

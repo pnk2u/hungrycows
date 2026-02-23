@@ -2,7 +2,7 @@ package de.pnku.hungrycows.renderer;
 
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.client.renderer.entity.state.MushroomCowRenderState;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Unique;
 

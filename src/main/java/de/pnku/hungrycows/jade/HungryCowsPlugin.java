@@ -1,7 +1,7 @@
 package de.pnku.hungrycows.jade;
 
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.level.block.Block;
 import snownee.jade.api.*;
 

@@ -4,7 +4,7 @@ import de.pnku.hungrycows.renderer.HungryCowRenderState;
 import de.pnku.hungrycows.renderer.HungryMushroomCowRenderState;
 import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.PartPose;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import static de.pnku.hungrycows.config.HungryCowsConfigHelper.getMilkableCowBodyWithUdderCubeListBuilder;
 
 @Mixin(CowModel.class)
-public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.animal.Cow> extends QuadrupedModel<LivingEntityRenderState> {
+public abstract class CowModelMixin<Cow extends net.minecraft.world.entity.animal.cow.Cow> extends QuadrupedModel<LivingEntityRenderState> {
     public CowModelMixin(ModelPart root) {
         super(root);
     }

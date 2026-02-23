@@ -12,7 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.cow.Cow;
 import net.minecraft.world.level.block.Block;
 
 import java.io.BufferedReader;

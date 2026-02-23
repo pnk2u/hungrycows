@@ -1,7 +1,7 @@
 package de.pnku.hungrycows.config;
 
 import io.wispforest.owo.config.annotation.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class HungryCowsConfigModel {
                 for (String itemId : feedableItems) {
                     String itemNamespace = itemId.split(":")[0];
                     String itemPath = itemId.split(":")[1];
-                    if (!ResourceLocation.isValidNamespace(itemNamespace) || !ResourceLocation.isValidPath(itemPath)) {return false;}
+                    if (!Identifier.isValidNamespace(itemNamespace) || !Identifier.isValidPath(itemPath)) {return false;}
                 }
                 return true;
             }

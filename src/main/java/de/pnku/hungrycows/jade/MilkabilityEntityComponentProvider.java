@@ -4,7 +4,7 @@ import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
@@ -65,8 +65,8 @@ public enum MilkabilityEntityComponentProvider implements IEntityComponentProvid
     }
 
     @Override
-    public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","milkable");
+    public Identifier getUid(){
+        return Identifier.fromNamespaceAndPath("hungrycows","milkable");
     }
 
 }

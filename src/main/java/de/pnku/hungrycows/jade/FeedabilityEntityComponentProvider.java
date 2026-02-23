@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -70,7 +70,7 @@ public enum FeedabilityEntityComponentProvider implements IEntityComponentProvid
     }
 
     @Override
-    public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","feedable");
+    public Identifier getUid(){
+        return Identifier.fromNamespaceAndPath("hungrycows","feedable");
     }
 }

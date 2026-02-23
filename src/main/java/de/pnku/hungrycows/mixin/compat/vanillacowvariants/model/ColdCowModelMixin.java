@@ -1,6 +1,6 @@
 package de.pnku.hungrycows.mixin.compat.vanillacowvariants.model;
 
-import net.minecraft.client.model.ColdCowModel;
+import net.minecraft.client.model.animal.cow.ColdCowModel;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import org.spongepowered.asm.mixin.Mixin;

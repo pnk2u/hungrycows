@@ -2,14 +2,14 @@ package de.pnku.hungrycows.mixin.client.renderer;
 
 import de.pnku.hungrycows.util.IHungryCows;
 import de.pnku.hungrycows.renderer.HungryMushroomCowRenderState;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MushroomCowRenderer;
 import net.minecraft.client.renderer.entity.state.MushroomCowRenderState;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,7 +25,7 @@ public abstract class MushroomCowRendererMixin extends AgeableMobRenderer<Mushro
 
     @Shadow
     @Final
-    private static Map<MushroomCow.Variant, ResourceLocation> TEXTURES;
+    private static Map<MushroomCow.Variant, Identifier> TEXTURES;
 
     public MushroomCowRendererMixin(EntityRendererProvider.Context context, CowModel adultModel, CowModel babyModel, float scale) {
         super(context, new CowModel(context.bakeLayer(ModelLayers.MOOSHROOM)), new CowModel(context.bakeLayer(ModelLayers.MOOSHROOM_BABY)), 0.7F);

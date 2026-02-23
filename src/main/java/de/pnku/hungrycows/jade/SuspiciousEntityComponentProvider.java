@@ -3,9 +3,9 @@ package de.pnku.hungrycows.jade;
 import de.pnku.hungrycows.util.IHungryCows;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.EntityAccessor;
@@ -42,8 +42,8 @@ public enum SuspiciousEntityComponentProvider implements IEntityComponentProvide
     }
 
     @Override
-    public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","suspiciously_milkable");
+    public Identifier getUid(){
+        return Identifier.fromNamespaceAndPath("hungrycows","suspiciously_milkable");
     }
 
 }

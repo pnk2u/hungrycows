@@ -21,7 +21,7 @@ import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.AbstractCow;
+import net.minecraft.world.entity.animal.cow.AbstractCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

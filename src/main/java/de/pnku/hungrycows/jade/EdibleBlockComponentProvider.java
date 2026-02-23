@@ -4,7 +4,7 @@ import de.pnku.hungrycows.HungryCows;
 import de.pnku.hungrycows.block.HungryCowsBlockTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,8 +59,8 @@ public enum EdibleBlockComponentProvider implements IBlockComponentProvider, ISe
     }
 
     @Override
-    public ResourceLocation getUid(){
-        return ResourceLocation.fromNamespaceAndPath("hungrycows","edible_block");
+    public Identifier getUid(){
+        return Identifier.fromNamespaceAndPath("hungrycows","edible_block");
     }
 
 
