@@ -13,7 +13,7 @@
 		"sources": "https://github.com/pnk2u/hungrycows",
 		"issues": "https://github.com/pnk2u/hungrycows/issues"
 	},
-	"license": "MIT",
+	"license": "CC-BY-NC-SA-4.0",
 	"icon": "icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -61,7 +61,11 @@
 			"modrinth": "6aOUwIa8",
 			"curseforge": "1058451",
 			"dependencies": [
-				"fabric-api(required)#(ignore)"
+				"fabric-api(required)#(ignore)",
+				"owo(required){modrinth:ccKDOlHs}{curseforge:532610}",
+				"jade(optional){modrinth:nvQzSEkH}{curseforge:324717}",
+				"modmenu(optional){modrinth:mOgUt4GM}{curseforge:308702}",
+				"appleskin(optional){modrinth:EsAfCjCV}{curseforge:248787}"
 			]
 		}
 	}
