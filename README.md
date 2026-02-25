@@ -53,7 +53,7 @@
 |<img width='32' src="https://uwu.catgirl.host/i/cdjvb.png">| **Can be fed to regain _Milkability_<br/><sup> + to restore 1 ❤<br/>(Note: Feeding has a 5 min cooldown by default.)</sup>** | ✅ | ✅ | ✅ | ✅<br/>(for Wool) | ✅ (Feedable items per animal, cooldown) |
 |<img width='32' src="https://uwu.catgirl.host/i/b7fbw.png">| **Dispensers can milk**                                                                                             | ✅ | ✅<br/>(+ with Bowls) | ✅ |              | ❌                                       |
 |<img width='32' src="https://uwu.catgirl.host/i/ct6s4.png">| **Show _Milkability_ through Model & Texture**                             | ✅ | ✅ | ❌ |             | ✅                                       |
-|<img width='48' src="https://uwu.catgirl.host/i/gshzk.png">| **Jade shows _Milkability_ and _Feedability_ status**                                                               | ✅ | ✅ <br/>(+ Flower for Suspicious Stew) | ✅ |      ✅<br/>(Feedability)       | ✅ (Jade not required, toggleable each)  |
+|<img width='48' src="https://raw.githubusercontent.com/Snownee/Jade/refs/heads/26.1-fabric/src/main/resources/icon.png">| **Jade shows _Milkability_ and _Feedability_ status**                                                               | ✅ | ✅ <br/>(+ Flower for Suspicious Stew) | ✅ |      ✅<br/>(Feedability)       | ✅ (Jade not required, toggleable each)  |
 
 <br>  
 
