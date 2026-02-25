@@ -7,13 +7,6 @@
 	"authors": [
 		"pnku"
 	],
-	"custom": {
-		"modmenu": {
-			"links": {
-				"hungrycows.modmenu.nutritiousmilk": "https://modrinth.com/mod/nutritious-milk"
-			}
-		}
-	},
 	"contact": {
 		"email": "contact@pnku.de",
 		"homepage": "https://www.pnku.de",
@@ -63,7 +56,7 @@
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.discord": "https://discord.lieonlion.dev"
+				"modmenu.discord": "https://discord.lieonlion.dev",
                 "hungrycows.modmenu.nutritiousmilk": "https://modrinth.com/mod/nutritious-milk"
             }
 		},
@@ -75,7 +68,7 @@
 				"owo(required){modrinth:ccKDOlHs}{curseforge:532610}",
 				"jade(optional){modrinth:nvQzSEkH}{curseforge:324717}",
 				"modmenu(optional){modrinth:mOgUt4GM}{curseforge:308702}",
-				"appleskin(optional){modrinth:EsAfCjCV}{curseforge:248787}"
+				"nutritiousmilk(required){modrinth:V4iy0Bhx}{curseforge:345184}"
 			]
 		}
     }
