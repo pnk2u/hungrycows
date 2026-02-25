@@ -207,8 +207,8 @@
   "hungrycows.suspiciously_milkable.flower": "Flower:",
   "hungrycows.modmenu.nutritiousmilk": "§f§l§nNutritious Milk§r (Recommended)",
 
-  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
-  "resourcepack.hungrycows.hungryandfreshcows.description": "§7For compatibility: Apply above §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.4§7)",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7For compatibility: Apply above §f§oFreshAnimations_v1.10.4§7(§f§o.zip§7)!",
 
   "modmenu.summaryTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," now eat ",{"translate": "hungrycows.grass_slash_mycelium_bold"}," to regenerate their ", {"translate": "hungrycows.Milkability"}, " and ", {"translate": "hungrycows.Milk"}, " is a food."],
   "modmenu.descriptionTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," now eat ",{"translate": "hungrycows.grass_slash_mycelium_bold"}," to regenerate their ", {"translate": "hungrycows.Milkability"}, " and ", {"translate": "hungrycows.Milk"}, " is a food.\n Also adding several other related features like:\n - Feeding §4", {"translate": "hungrycows.Cows"}, "§r/§c", {"translate": "hungrycows.Mooshrooms"}, "§r or even §f", {"translate": "hungrycows.Goats"}, "§r to restore their ", {"translate": "hungrycows.Milkability"}, "\n - Feeding §l", {"translate": "hungrycows.Sheep"}, "§r to restore their §f", {"translate": "hungrycows.Shearability"}, "§r\n - When being fed or eating blocks, these animals can also regain health and babies can grow up faster\n - Dispensers being able to milk like they can shear\n - Customizable settings for all of the above and more!"],

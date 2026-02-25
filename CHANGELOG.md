@@ -9,3 +9,6 @@
     This feature is restricted to Items in the `#hungrycows:goat_feedable` tag due to limitations specific to the Goat behavior logic in <ins>1.20.1</ins>.  
   This tag used to be empty by default to let the config take precedence, but due to the issues described above, it now includes the default feedable items: _Wheat_ and _Short Grass_.  
     You can still feed _Goats_ to restore _Milkability_ even with items set by the config, they simply won't follow you when holding them unless they are in the tag.
+
+<br></br>
+<sub>License update to [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (previously [MIT](https://opensource.org/licenses/MIT))</sub>
