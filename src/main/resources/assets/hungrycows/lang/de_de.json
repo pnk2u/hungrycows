@@ -142,8 +142,8 @@
   "hungrycows.feedable.true.item.2.sheep": [" gefüttert werden, um seine §f", {"translate": "hungrycows.Wool"}, "§r nachwachsen zu lassen."],
   "hungrycows.suspiciously_milkable.flower": "Blume:",
 
-  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.3§7)",
-  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Für Kompatibilität: Setze über §f§oFreshAnimations_v1.10.3§7(§f§o.zip§7)!",
+  "resourcepack.hungrycows.hungryandfreshcows.title": "§4Hungry§r & §lFresh§r Cows (§n§a1.10.4§7)",
+  "resourcepack.hungrycows.hungryandfreshcows.description": "§7Für Kompatibilität: Setze über §f§oFreshAnimations_v1.10.4§7(§f§o.zip§7)!",
 
   "modmenu.summaryTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," fressen jetzt ",{"translate": "hungrycows.grass_slash_mycelium_bold"},", um ihre ",{"translate": "hungrycows.Milkability"}," zu regenerieren und ",{"translate": "hungrycows.Milk"}," füllt den Magen."],
   "modmenu.descriptionTranslation.hungrycows": [{"translate": "hungrycows.cows_slash_mooshrooms_bold"}," fressen jetzt ",{"translate": "hungrycows.grass_slash_mycelium_bold"},", um ihre ",{"translate": "hungrycows.Milkability"}," zu regenerieren und ",{"translate": "hungrycows.Milk"}," füllt den Magen.\n Außerdem werden einige andere passende Features hinzugefügt wie:\n - Füttern von §4Kühen§r/§cMooshrooms§r oder sogar §fZiegen§r, um ihre §fMelkbarkeit§r wiederherzustellen\n - Füttern von §lSchafen§r, um ihre §fScherbarkeit§r wiederherzustellen\n - Beim Füttern oder Grasen können diese Tiere auch Gesundheitspunkte wiederherstellen und Babys können schneller erwachsen werden\n - Dispenser können melken wie sie scheren können\n - Anpassbare Einstellungen für all das und mehr!"],
