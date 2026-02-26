@@ -1,5 +1,7 @@
 {
   "values": [
+    "minecraft:wheat",
+    "minecraft:grass",
     {
       "id": "#minecraft:goat_food",
       "required": false
