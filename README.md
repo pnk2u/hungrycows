@@ -77,60 +77,28 @@ Currently available in:
 ### Versions
 <a name="most-recent-version"></a>
 <!--CHANGELOG:START-->
-<a name="2.2.0"></a>
-### 2.2.0[*](#footnote-*):
-- `1.21.5`, `1.21.6(-11)`: Update to <ins>1.21.5</ins>~<ins>1.21.11</ins>
-#### <ins>Added</ins>:
-- Implement _Mooshrooms_ and _Cows_ eating plant blocks (e.g. _Short Grass_) like _Sheep_.  
-  This is controlled by _Block Tags_, that by default contain the following items:
-  - `#hungrycows:edible_for_cows`:
-    - _Wheat_
-    - _Short Grass_
-    > `1.21.5+` or when _Vanilla Backport_'s installed:
-    >    - `#hungrycows:edible_for_cold_cows`:  
-           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
-    >    - `#hungrycows:edible_for_temperate_cows`:  
-           <sup>`#hungrycows:edible_for_cows`, _Fern_</sup>
-    >    - `#hungrycows:edible_for_warm_cows`:  
-           <sup>`#hungrycows:edible_for_cows`, _Short Dry Grass_, _Tall Dry Grass_</sup>
-  - `#hungrycows:edible_for_mooshrooms`:
-    - _Short Grass_
-    - _Fern_
-  - `#minecraft:small_flowers`
-    > (For _Brown Mooshrooms_,  
-    their _Stew_ becomes _Suspicious_ based on the flower eaten.)
-  - `#hungrycows:edible_for_sheep`:
-    - _Short Grass_
-    - _Fern_
-    - `#minecraft:edible_for_sheep` (`1.21.5+`):  
-      <sup>_Short Grass_, _Short Dry Grass_, _Tall Dry Grass_, _Fern_</sup>
-- Add eating logic for _Mooshrooms_ to not eat _Mycelium_ blocks that have a _Mushroom_ on top of them
-  > This is to prevent _Mooshrooms_ from removing all _Mushrooms_ in their habitat as eating _Mycelium_ blocks breaks any _Mushrooms_ on top.
-- Add new <ins>Jade</ins> (&#x200A;<sub><a title="Jade&#10;on Modrinth" href="https://modrinth.com/mod/jade/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Jade&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/jade/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) tooltips:
-  - _Blocks_: Showing if they are edible for _Cows_, _Mooshrooms_ and/or _Sheep_
-  - _Brown Mooshrooms_: Showing the flower they have consumed (relevant for _Suspicious Stew_ effects)
+<a name="2.2.1"></a>
+#### 2.2.1[*](#footnote-*):
+- Update <ins>Fresh Animations</ins> (&#x200A;<sub><a title="Fresh Animations&#10;on Modrinth" href="https://modrinth.com/resourcepack/fresh-animations/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Fresh Animations&#10;on Curseforge" href="https://www.curseforge.com/minecraft/texture-packs/fresh-animations/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) compatibility pack to `1.10.4`
+- `1.20.1`:
+  - Fixes crash due to incompatibility with Java 17
+  - Fixes _Fresh Animations_ compatibility pack appearing incompatible 
+    > ("Made for a newer version of Minecraft")
+  - Fixes one of Goats' default feedable items (_Short Grass_) not being feedable
+  - Fixes Goats not following the player when holding an item that can be used to feed a goat
+    > **_Note_**:  
+    This feature is restricted to Items in the `#hungrycows:goat_feedable` tag due to limitations specific to the Goat behavior logic in <ins>1.20.1</ins>.  
+  This tag used to be empty by default to let the config take precedence, but due to the issues described above, it now includes the default feedable items: _Wheat_ and _Short Grass_.  
+    You can still feed _Goats_ to restore _Milkability_ even with items set by the config, they simply won't follow you when holding them unless they are in the tag.
 
-- Implement eating sound and subtitles for _Cows_ and _Sheep_ eating _Grass Blocks_
-- Add compatibility with <ins>Vanilla Backport</ins> (&#x200A;<sub><a title="Vanilla Backport&#10;on Modrinth" href="https://modrinth.com/mod/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Vanilla Backport&#10;on Curseforge" href="https://www.curseforge.com/minecraft/mc-mods/vanilla-backport/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;)'s _Cow_ variants
-#### <ins>Fixed</ins>:
-- Update <ins>Fresh Animations</ins> (&#x200A;<sub><a title="Fresh Animations&#10;on Modrinth" href="https://modrinth.com/resourcepack/fresh-animations/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Fresh Animations&#10;on Curseforge" href="https://www.curseforge.com/minecraft/texture-packs/fresh-animations/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) compatibility resourcepack "_Hungry & Fresh Cows_" to latest version `1.10.3` (previously `1.9.2`) fixing many visual bugs found using the incompatible versions
-  - _Cows_/_Mooshrooms_ eating Blocks now use <ins>FA</ins>'s own eating animation instead of the modified Vanilla eating animation (originally from _Sheep_)
-  > **_Note_**:   
-  > From now on, the compatibility resourcepack will have the version of the Fresh Animations version it has been made compatible with in its name and description, like so:
-  > ![screenshot of the resourcepack's name and description in the resourcepack selection screen](https://uwu.catgirl.host/i/5ugmm.png)  
-  > That does not necessarily mean that the resourcepack will not work with newer or older versions but if you're encountering any issues, use the Fresh Animations version specified until I update the compatibility resourcepack.  
-  > I would also appreciate it a lot if you could report any issues you encounter with newer versions of <ins>Fresh Animations</ins> so I can update the compatibility resourcepack as soon as possible.  
-  > You can report issues either on [GitHub](https://www.github.com/pnk2u/hungrycows/issues), in the [Discord](https://discord.lieonlion.dev) or via [E-Mail](mailto:contact@pnku.de).
-- Fix "`Show Neither`" option (to disable _Milkability_ texture) forcing the Vanilla _Cow_/_Mooshroom_ texture instead of letting resourcepacks/mods overwrite Vanilla textures as intended
-- Fix incorrect subtitles:
-  - _Cows_ and _Sheep_ being fed to restore _Milkability_ and health
-  - _Mooshrooms_ being milked with a _Bucket_
+<br></br>
+<sub>License update to [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (previously [MIT](https://opensource.org/licenses/MIT))</sub>
 
-<h2><sub><sub><sup><ins>Download 2.2.0 + 1.21.5</ins>:</sup>&#x200A;
-<a title="Download (Modrinth):&#10;Hungry Cows 2.2.0 + 1.21.5" href="https://www.modrinth.com/mod/6aOUwIa8/version/4A6apJ93">
+<h2><sub><sub><sup><ins>Download 2.2.1 + 1.21.5</ins>:</sup>&#x200A;
+<a title="Download (Modrinth):&#10;Hungry Cows 2.2.1 + 1.21.5" href="https://www.modrinth.com/mod/6aOUwIa8/version/buVz1ZxQ">
 <img width=26 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a>
 <sup><img width=7 height=10 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"></sup>
-<a title="Download (Curseforge):&#10;2.2.0 + 1.21.5 - Hungry Cows" href="https://www.curseforge.com/minecraft/mc-mods/hungrycows/files/7667329">
+<a title="Download (Curseforge):&#10;2.2.1 + 1.21.5 - Hungry Cows" href="https://www.curseforge.com/minecraft/mc-mods/hungrycows/files/7679712">
 <img width=26 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a>
 </sub></sub></h2>
 
