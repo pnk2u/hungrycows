@@ -234,10 +234,10 @@ dependencies {
 		//modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		//modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		// Friends & Foes
-		//modRuntimeOnly "maven.modrinth:friends-and-foes:${project.fnf_version}"
-		//modRuntimeOnly "maven.modrinth:yacl:${project.yacl_version}"
-		//modRuntimeOnly "maven.modrinth:resourceful-lib:${project.rlib_version}"
-		//implementation("org.quiltmc.parsers:gson:0.3.1")
+		modRuntimeOnly "maven.modrinth:friends-and-foes:${project.fnf_version}"
+		modRuntimeOnly "maven.modrinth:yacl:${project.yacl_version}"
+		modRuntimeOnly "maven.modrinth:resourceful-lib:${project.rlib_version}"
+		implementation("org.quiltmc.parsers:gson:0.3.1")
 
 }
 
