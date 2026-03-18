@@ -36,7 +36,7 @@
       <td><strong>Added support</strong></td>
       <td>
         <a href="https://modrinth.com/mod/jade"><sub><img width="16" src="https://raw.githubusercontent.com/snownee/jade/26.1-fabric/src/main/resources/icon.png"></sub><code>Jade</code></a><br>
-        <a href="https://modrinth.com/mod/fresh-animations"><sub><img width="16" height="0" src="./src/main/resources/icon.png"></sub><code>Fresh Animations 1.10.3</code></a><br>
+        <a href="https://modrinth.com/mod/fresh-animations"><sub><img width="16" height="0" src="./src/main/resources/icon.png"></sub><code>Fresh Animations 1.10.4</code></a><br>
       </td>
     </tr>
   </tbody>
@@ -63,7 +63,7 @@
 Currently available in:
 - English
 - German
-- Brazilian Portuguese (@[demorogabrtz](/../../../../demorogabrtz) with [PR #11](../../pull/1), added in [`2.1.0`](./CHANGELOG_history.md#2.1.0))
+- Brazilian Portuguese (@[gabrtzweb](/../../../../gabrtzweb) with [PR #11](../../pull/1), added in [`2.1.0`](./CHANGELOG_history.md#2.1.0), updated with [PR #25](../../pull/25)/[26](../../pull/26), added in [`2.2.2`](./CHANGELOG_history.md#2.2.2))
 
 > [!NOTE]
 > > Want to help translate? If you can, please open a PR to the **default branch** [`1.21(.1)`](../../tree/1.21(.1)).  
