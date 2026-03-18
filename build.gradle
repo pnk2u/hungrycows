@@ -235,10 +235,10 @@ dependencies {
 		//modCompileOnly "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		//modLocalRuntime "maven.modrinth:bovines-and-buttercups:${project.bnb_version}"
 		// Friends & Foes
-		//modRuntimeOnly "maven.modrinth:friends-and-foes:${project.fnf_version}"
-		//modRuntimeOnly "maven.modrinth:yacl:${project.yacl_version}"
-		//modRuntimeOnly "maven.modrinth:resourceful-lib:${project.rlib_version}"
-		//implementation("org.quiltmc.parsers:gson:0.3.1")
+		modRuntimeOnly "maven.modrinth:friends-and-foes:${project.fnf_version}"
+		modRuntimeOnly "maven.modrinth:yacl:${project.yacl_version}"
+		modRuntimeOnly "maven.modrinth:resourceful-lib:${project.rlib_version}"
+		implementation("org.quiltmc.parsers:gson:0.3.1")
 
 }
 
@@ -263,16 +263,25 @@ def minecraft_version_1() {
 	else {return "99.0.0"} // Effectively no upper bound
 }
 
+def getJavaVersionNum() { if (project.minecraft_version.startsWith("1.20")) {return 17} else return 21 }
+var java_version = getJavaVersionNum()
+def getJavaVersionEnum() { if (project.minecraft_version.startsWith("1.20")) {return JavaVersion.VERSION_17} else return JavaVersion.VERSION_21 }
+var java_version_enum = getJavaVersionEnum()
+
 processResources {
 	var fabric_loader_version_0 = version_reduced("${fabric_loader_version}")
 
 	var replaceProperties = [
 			loader_version: fabric_loader_version_0, mod_version: mod_version,
-			minecraft_version: minecraft_version, minecraft_version_0: minecraft_version_0(), minecraft_version_1: minecraft_version_1()
+			minecraft_version: minecraft_version, minecraft_version_0: minecraft_version_0(), minecraft_version_1: minecraft_version_1(),
+			java_version: java_version
 	]
 	inputs.properties replaceProperties
 
 	filesMatching("fabric.mod.json") {
+		expand replaceProperties
+	}
+	filesMatching("*.mixins.json") {
 		expand replaceProperties
 	}
 }
@@ -290,12 +299,12 @@ tasks.named("processResources").configure {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = java_version
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = java_version_enum
+	targetCompatibility = java_version_enum
 }
 
 jar {
