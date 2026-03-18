@@ -9,6 +9,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.level.block.Block;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class HungryCowsCompatibilityHelper {
                         return false;
                     }
                 );
-                if (isResourcePackEnabled("FreshAnimations")) {
+                if (checkResourcePack("FreshAnimations", true)) {
                     HungryCows.getLogger().info("Detected \"FreshAnimations\" as a selected resource pack. Built-in compatibility resource pack has been auto-applied.");
                     activationType = ResourcePackActivationType.DEFAULT_ENABLED;
                 } else {
@@ -123,20 +123,9 @@ public class HungryCowsCompatibilityHelper {
         return HungryCowsBlockTags.EDIBLE_PLANTS_FOR_TEMPERATE_COWS;
     }
 
-    public static boolean isResourcePackEnabled(String packName) {
-        File optionsFile = new File(Minecraft.getInstance().gameDirectory, "options.txt");
-        if (optionsFile.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(optionsFile))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("resourcePacks:")) {
-                        return line.contains(packName);
-                    }
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return false;
+    public static boolean checkResourcePack(String packName, boolean checkSelected) {
+        PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
+        if (!checkSelected) packRepository.getAvailablePacks().stream().anyMatch(pack -> pack.getId().equals(packName));
+        return packRepository.getSelectedPacks().stream().anyMatch(pack -> pack.getId().equals(packName));
     }
 }
