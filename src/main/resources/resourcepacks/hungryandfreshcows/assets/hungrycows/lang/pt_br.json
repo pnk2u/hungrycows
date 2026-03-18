@@ -1,0 +1,22 @@
+{
+  "owo:extended_lang": true,
+  "text.config.hungrycows.option.milkabilitySettings.milkableCowDisplayType.tooltip": [
+    "Este recurso permite distinguir visualmente uma ",
+    {"translate": "hungrycows.cow_slash_mooshroom"},
+    " ",
+    {"translate": "hungrycows.milkable"},
+    " daquelas que ainda não podem ser ordenhadas.\nQuando a ",
+    {"translate": "hungrycows.cow_slash_mooshroom"},
+    " é ",
+    {"translate": "hungrycows.milkable"},
+    ":\n a) o modelo aumenta o tamanho e os detalhes do úbere e\n b) a textura muda a ",
+    {"text": "cor de um úbere", "color": "#f7afaf", "italic": true},
+    " para esta ",
+    {"text": "cor de um úbere ", "color": "#e58f8f", "italic": true},
+    {"translate": "hungrycows.milkable", "color": "white"},
+    ".\n",
+    {"text": "Essa configuração não se aplica às cabras, pois elas não possuem um úbere visível.\nAtivar/Desativar as mudanças de modelo requer um recarregamento (§o§lF3§r+§o§lT§r) para ter efeito.", "color": "#71586A"},
+    "\n",
+    {"text": "Ativar/Desativar as mudanças de textura tem efeito imediatamente.\nAo usar \"§oFresh Animations§r\" e \"§oHungry & Fresh Cows§r\", as opções \"§nMostrar Apenas Textura§r\" e \"§nMostrar Modelo e Textura§r\" têm o mesmo efeito.", "color": "#71586A"}
+  ]
+}
