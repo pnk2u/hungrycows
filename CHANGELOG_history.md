@@ -1,3 +1,16 @@
+<a name="2.2.2"></a>
+### 2.2.2:
+- Update Portuguese (Brazil) translation to `2.2.0`'s changes (Thanks to [@gabrtzweb](https://www.github.com/gabrtzweb))
+- Improve Resource Pack detection, no longer relying on reading `options.txt` 
+
+  <h2><sub><sub><sup><ins>Download 2.2.2 + 1.21.5</ins>:</sup>&#x200A;
+  <a title="Download (Modrinth):&#10;Hungry Cows 2.2.2 + 1.21.5" href="https://www.modrinth.com/mod/6aOUwIa8/version/LYw2ABWt">
+  <img width=26 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a>
+  <sup><img width=7 height=10 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"></sup>
+  <a title="Download (Curseforge):&#10;2.2.2 + 1.21.5 - Hungry Cows" href="https://www.curseforge.com/minecraft/mc-mods/hungrycows/files/7777703">
+  <img width=26 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a>
+  </sub></sub></h2>
+
 <a name="2.2.1"></a>
 ### 2.2.1:
 - Update <ins>Fresh Animations</ins> (&#x200A;<sub><a title="Fresh Animations&#10;on Modrinth" href="https://modrinth.com/resourcepack/fresh-animations/"><img width=20 src="https://img.shields.io/badge/-%20-%23032a?style=flat&logo=modrinth"></a></sub><!--SEPARATOR_V--><img width=5 height=8 src="https://raw.githubusercontent.com/pnk2u/resources/main/ModProjects/shared/pres/icon/separator_v.svg"><sub><a title="Fresh Animations&#10;on Curseforge" href="https://www.curseforge.com/minecraft/texture-packs/fresh-animations/"><img width=20 src="https://img.shields.io/badge/--%23302a?style=flat&logo=curseforge"></a></sub>&#x200A;) compatibility pack to `1.10.4`
